@@ -1,26 +1,32 @@
 package com.intentq.battlefield.main;
 
+import java.util.List;
+
 
 public class Ship {
 	
 	private Position currentPosition;
-	private Action nextMove;
+	private List<Move> nextMoves;
 	
 	
-	public Ship(Position currentPositionObject, Action nextMoveObject) {
+	public Ship(Position currentPositionObject, List<Move> moves) {
 		this.currentPosition = currentPositionObject;
-		this.nextMove = nextMoveObject;
+		this.setNextMoves(moves);
 	}
 
 	public void move() {
 		
-		IOrientationOfShipState orientationOfShipState = new OrientationOfShipStateContext(OrientationOfShipStateFactory.getState(this));
-		if(nextMove.equals(Action.L)) {
-			orientationOfShipState.moveLeft(getNextMoveObject());
-		} else if (nextMove.equals(Action.R)) {
-			orientationOfShipState.moveRight(getNextMoveObject());
-		} else {
-			orientationOfShipState.moveAhead();
+		IOrientationOfShipState orientationOfShipState;
+		
+		for(Move nextMove : nextMoves) {
+			orientationOfShipState = new OrientationOfShipStateContext(OrientationOfShipStateFactory.getState(this));
+			if(nextMove.equals(Move.L)) {
+				orientationOfShipState.moveLeft(nextMove);
+			} else if (nextMove.equals(Move.R)) {
+				orientationOfShipState.moveRight(nextMove);
+			} else {
+				orientationOfShipState.moveAhead();
+			}
 		}
 	}
 	
@@ -34,16 +40,12 @@ public class Ship {
 		this.currentPosition = currentPositionObject;
 	}
 
-
-	public Action getNextMoveObject() {
-		return nextMove;
+	public List<Move> getNextMoves() {
+		return nextMoves;
 	}
 
-
-	public void setNextMoveObject(Action nextMoveObject) {
-		this.nextMove = nextMoveObject;
+	public void setNextMoves(List<Move> nextMoves) {
+		this.nextMoves = nextMoves;
 	}
-
-
 
 }

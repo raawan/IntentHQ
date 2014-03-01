@@ -1,5 +1,5 @@
 package com.intentq.battlefield.main;
 
-public enum Action {
+public enum Move {
 L,R,M
 }

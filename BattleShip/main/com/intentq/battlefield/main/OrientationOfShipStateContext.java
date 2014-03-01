@@ -14,13 +14,13 @@ public class OrientationOfShipStateContext implements IOrientationOfShipState {
 	}
 
 	@Override
-	public void moveLeft(Action action) {
-		orientationOfShipState.moveLeft(action);
+	public void moveLeft(Move move) {
+		orientationOfShipState.moveLeft(move);
 	}
 
 	@Override
-	public void moveRight(Action action) {
-		orientationOfShipState.moveRight(action);
+	public void moveRight(Move move) {
+		orientationOfShipState.moveRight(move);
 	}
 
 	@Override

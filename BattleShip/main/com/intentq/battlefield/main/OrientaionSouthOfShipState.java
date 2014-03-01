@@ -17,13 +17,13 @@ public class OrientaionSouthOfShipState implements IOrientationOfShipState {
 	}
 
 	@Override
-	public void moveLeft(Action action) {
+	public void moveLeft(Move move) {
 		ship.getCurrentPositionObject().setOrientation(Orientation.E);
 		
 	}
 
 	@Override
-	public void moveRight(Action action) {
+	public void moveRight(Move move) {
 		ship.getCurrentPositionObject().setOrientation(Orientation.W);
 	}
 	
