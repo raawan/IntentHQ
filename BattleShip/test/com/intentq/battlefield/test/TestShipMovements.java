@@ -71,9 +71,9 @@ public class TestShipMovements {
 	}
 	
 	@Test
-	public void GIVEN_ShipOrientationNorth_and_MoveAhead_THEN_xCoordinateIncrementByOne() {
+	public void GIVEN_ShipOrientationNorth_and_MoveAhead_THEN_yCoordinateIncrementByOne() {
 		Ship ship = new Ship(new Position(1,2,Orientation.N),Action.M);
 		ship.move();
-		assertEquals(2,ship.getCurrentPositionObject().getX());
+		assertEquals(3,ship.getCurrentPositionObject().getX());
 	}
-}
+}	

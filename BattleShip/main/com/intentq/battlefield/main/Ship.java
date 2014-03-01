@@ -17,8 +17,10 @@ public class Ship {
 		IOrientationOfShipState orientationOfShipState = new OrientationOfShipStateContext(OrientationOfShipStateFactory.getState(this));
 		if(nextMove.equals(Action.L)) {
 			orientationOfShipState.moveLeft(getNextMoveObject());
-		} else {
+		} else if (nextMove.equals(Action.R)) {
 			orientationOfShipState.moveRight(getNextMoveObject());
+		} else {
+			orientationOfShipState.moveAhead();
 		}
 	}
 	

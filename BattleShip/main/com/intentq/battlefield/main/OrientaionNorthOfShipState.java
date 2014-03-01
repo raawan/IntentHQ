@@ -26,4 +26,9 @@ public class OrientaionNorthOfShipState implements IOrientationOfShipState {
 	public void moveRight(Action action) {
 		ship.getCurrentPositionObject().setOrientation(Orientation.E);
 	}
+	
+	@Override
+	public void moveAhead() {
+		ship.getCurrentPositionObject().setX(ship.getCurrentPositionObject().getY()+1);
+	}
 }
