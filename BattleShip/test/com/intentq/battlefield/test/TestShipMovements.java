@@ -110,9 +110,17 @@ public class TestShipMovements {
 		assertEquals(1,ship.getCurrentPositionObject().getX());
 	}
 	
+	public void GIVEN_ShipOrientation_33E_Movement_MMRMMRMRRM_THEN_ResultingShipOrientation_51E() {
+		
+		Ship ship = new Ship(new Position(3,3,Orientation.E),nextMoveSequence(M,M,R,M,M,R,M,R,R,M));
+		ship.move();
+		assertEquals(Orientation.E,ship.getCurrentPositionObject().getOrientation());
+		assertEquals(1,ship.getCurrentPositionObject().getY());
+		assertEquals(5,ship.getCurrentPositionObject().getX());
+	}
+
 	private List<Move> nextMoveSequence(Move...actions) {
 		return Arrays.asList(actions);
-		
 	}
 	
 }	
