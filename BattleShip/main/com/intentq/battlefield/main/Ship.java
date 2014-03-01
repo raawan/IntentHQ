@@ -1,61 +1,70 @@
 package com.intentq.battlefield.main;
 
+
 public class Ship {
 	
-	private String currentPosition;
-	private String nextMove;
+	private Position currentPosition;
+	private Action nextMove;
 	
-	public Ship(String currentPosition, String nextMoves) {
-		this.currentPosition=currentPosition;
-		this.nextMove=nextMoves;
+	
+	public Ship(Position currentPositionObject, Action nextMoveObject) {
+		this.currentPosition = currentPositionObject;
+		this.nextMove = nextMoveObject;
 	}
 
 	public void move() {
-		StringBuilder currPos =  new StringBuilder(currentPosition);
-		switch(new StringBuilder(currentPosition).charAt(currentPosition.length()-1)) {
-			case 'N' : if(nextMove.equalsIgnoreCase("L")) {
-				currPos.setCharAt(currentPosition.length()-1, 'W');
+		switch(currentPosition.getOrientation()) {
+		case E:
+			if(nextMove.equals(Action.L)) {
+				currentPosition.setOrientation(Orientation.N);
 			} else {
-				currPos.setCharAt(currentPosition.length()-1, 'E');
-			} 
-			
+				currentPosition.setOrientation(Orientation.S);
+			}
 			break;
-			case 'S' : if(nextMove.equalsIgnoreCase("L")) {
-				currPos.setCharAt(currentPosition.length()-1, 'E');
+		case N:
+			if(nextMove.equals(Action.L)) {
+				currentPosition.setOrientation(Orientation.W);
 			} else {
-				currPos.setCharAt(currentPosition.length()-1, 'W');
-			} 
+				currentPosition.setOrientation(Orientation.E);
+			}
 			break;
-			case 'E' : if(nextMove.equalsIgnoreCase("L")) {
-				currPos.setCharAt(currentPosition.length()-1, 'N');
+		case S:
+			if(nextMove.equals(Action.L)) {
+				currentPosition.setOrientation(Orientation.E);
 			} else {
-				currPos.setCharAt(currentPosition.length()-1, 'S');
-			} 
+				currentPosition.setOrientation(Orientation.W);
+			}
 			break;
-			case 'W' : if(nextMove.equalsIgnoreCase("L")) {
-				currPos.setCharAt(currentPosition.length()-1, 'S');
+		case W:
+			if(nextMove.equals(Action.L)) {
+				currentPosition.setOrientation(Orientation.S);
 			} else {
-				currPos.setCharAt(currentPosition.length()-1, 'N');
-			} 
+				currentPosition.setOrientation(Orientation.N);
+			}
 			break;
 		}
-		this.setCurrentPosition(currPos.toString());
 	}
+	
 
-	public String getNextMove() {
-		return nextMove;
-	}
-
-	public void setNextMove(String nextMove) {
-		this.nextMove = nextMove;
-	}
-
-	public String getCurrentPosition() {
+	public Position getCurrentPositionObject() {
 		return currentPosition;
 	}
 
-	public void setCurrentPosition(String currentPosition) {
-		this.currentPosition = currentPosition;
+
+	public void setCurrentPositionObject(Position currentPositionObject) {
+		this.currentPosition = currentPositionObject;
 	}
+
+
+	public Action getNextMoveObject() {
+		return nextMove;
+	}
+
+
+	public void setNextMoveObject(Action nextMoveObject) {
+		this.nextMove = nextMoveObject;
+	}
+
+
 
 }
