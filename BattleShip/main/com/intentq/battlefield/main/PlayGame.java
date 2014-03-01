@@ -19,26 +19,67 @@ public class PlayGame {
 
 
 	public void play() {
-		for(Ship thisShip : grid.getShipsOnGrid()) 
-		{
-			if(thisShip.getNextMoves()!=null) {
+		for(Ship thisShip : grid.getShipsOnGrid()) {
+			if(checkIfShipWantsToMove(thisShip)) {
 				//ToDo: validate any move not falling off the grid
 				//May be this is not the right place to validate, ship could be?
 				thisShip.move();
 			}
-			if(thisShip.getShot()!=null) {
-				for(Ship occupiedShipOnGrid : grid.getShipsOnGrid())
-				{
-					if(occupiedShipOnGrid.getId()!=thisShip.getId() &&
-							occupiedShipOnGrid.getLifeStatus().equals(LifeStatus.ALIVE) &&
-							occupiedShipOnGrid.getCurrentPositionObject().getX() == thisShip.getShot().getX() &&
-							occupiedShipOnGrid.getCurrentPositionObject().getY() == thisShip.getShot().getY()) {
-						occupiedShipOnGrid.setLifeStatus(LifeStatus.SUNK);
-					}
-				}
+			if(checkIfShipWantsToShot(thisShip)) {
+				updateShotShipStatus(thisShip);
 			}
 		}
-		
+	}
+	
+	private boolean checkIfShipWantsToShot(Ship thisShip) {
+		return (thisShip.getShot()!=null);
+	}
+
+	private boolean checkIfShipWantsToMove(Ship thisShip) {
+		return (thisShip.getNextMoves()!=null);
+	}
+
+	private void updateShotShipStatus(Ship thisShip) {
+		for(Ship occupiedShipOnGrid : grid.getShipsOnGrid()) {
+			if(checkIfShipsStatusToBeUpdatedToSunk(occupiedShipOnGrid,thisShip)) {
+				updateShipsStatusWhichSankAndGridStatusWithTheSankedShip(occupiedShipOnGrid);
+				
+			}
+		}		
+	}
+	
+	private void updateShipsStatusWhichSankAndGridStatusWithTheSankedShip(
+			Ship occupiedShipOnGrid) {
+		updateLifeStatus(occupiedShipOnGrid);
+	}
+
+	private boolean checkIfShipsStatusToBeUpdatedToSunk(
+			Ship occupiedShipOnGrid, Ship thisShip) {
+		if(!checkIfThisOccupiedShipIsTheOneWhoAlsoShot(occupiedShipOnGrid,thisShip) &&
+				checkIfThisOccupiedShipIsAlive(occupiedShipOnGrid) &&
+				checkIfShotCoordinatesMatchesWithThisOccupiedShipCoordinates(occupiedShipOnGrid,thisShip)) {
+			return true;
+		}
+		return false;
+	}
+
+	private void updateLifeStatus(Ship ship) {
+		ship.setLifeStatus(LifeStatus.SUNK);
+	}
+
+	private boolean checkIfShotCoordinatesMatchesWithThisOccupiedShipCoordinates(
+			Ship occupiedShipOnGrid, Ship thisShip) {
+		return (occupiedShipOnGrid.getCurrentPositionObject().getX() == thisShip.getShot().getX() &&
+				occupiedShipOnGrid.getCurrentPositionObject().getY() == thisShip.getShot().getY());
+	}
+
+	private boolean checkIfThisOccupiedShipIsAlive(Ship occupiedShipOnGrid) {
+		return (occupiedShipOnGrid.getLifeStatus().equals(LifeStatus.ALIVE));
+	}
+
+	private boolean checkIfThisOccupiedShipIsTheOneWhoAlsoShot(
+			Ship occupiedShipOnGrid, Ship thisShip) {
+		return (occupiedShipOnGrid.getId()==thisShip.getId());
 	}
 	
 }
