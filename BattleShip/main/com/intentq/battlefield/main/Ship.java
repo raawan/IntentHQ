@@ -21,9 +21,9 @@ public class Ship {
 		for(Move nextMove : nextMoves) {
 			orientationOfShipState = new OrientationOfShipStateContext(OrientationOfShipStateFactory.getState(this));
 			if(nextMove.equals(Move.L)) {
-				orientationOfShipState.moveLeft(nextMove);
+				orientationOfShipState.moveLeft();
 			} else if (nextMove.equals(Move.R)) {
-				orientationOfShipState.moveRight(nextMove);
+				orientationOfShipState.moveRight();
 			} else {
 				orientationOfShipState.moveAhead();
 			}

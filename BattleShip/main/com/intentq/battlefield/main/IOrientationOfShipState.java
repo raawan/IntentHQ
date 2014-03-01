@@ -1,7 +1,7 @@
 package com.intentq.battlefield.main;
 
 public interface IOrientationOfShipState {
-	public void moveLeft(Move move);
-	public void moveRight(Move move);
+	public void moveLeft();
+	public void moveRight();
 	public void moveAhead();
 }
