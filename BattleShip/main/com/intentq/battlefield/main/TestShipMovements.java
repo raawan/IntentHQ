@@ -12,5 +12,12 @@ public class TestShipMovements {
 		ship.move();
 		assertEquals("12W",ship.getCurrentPosition());
 	}
-
+	
+	@Test
+	public void GIVEN_validShipCoordinates_and_RightMove_THEN_shipRotatesRight() {
+		Ship ship = new Ship("12N","R");
+		ship.move();
+		assertEquals("12E",ship.getCurrentPosition());
+	}
+	
 }
