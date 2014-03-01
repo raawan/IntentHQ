@@ -13,35 +13,12 @@ public class Ship {
 	}
 
 	public void move() {
-		switch(currentPosition.getOrientation()) {
-		case E:
-			if(nextMove.equals(Action.L)) {
-				currentPosition.setOrientation(Orientation.N);
-			} else {
-				currentPosition.setOrientation(Orientation.S);
-			}
-			break;
-		case N:
-			if(nextMove.equals(Action.L)) {
-				currentPosition.setOrientation(Orientation.W);
-			} else {
-				currentPosition.setOrientation(Orientation.E);
-			}
-			break;
-		case S:
-			if(nextMove.equals(Action.L)) {
-				currentPosition.setOrientation(Orientation.E);
-			} else {
-				currentPosition.setOrientation(Orientation.W);
-			}
-			break;
-		case W:
-			if(nextMove.equals(Action.L)) {
-				currentPosition.setOrientation(Orientation.S);
-			} else {
-				currentPosition.setOrientation(Orientation.N);
-			}
-			break;
+		
+		IOrientationOfShipState orientationOfShipState = new OrientationOfShipStateContext(OrientationOfShipStateFactory.getState(this));
+		if(nextMove.equals(Action.L)) {
+			orientationOfShipState.moveLeft(getNextMoveObject());
+		} else {
+			orientationOfShipState.moveRight(getNextMoveObject());
 		}
 	}
 	
