@@ -2,6 +2,8 @@ package com.intentq.battlefield.test;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.Test;
 
 import com.intentq.battlefield.main.Action;
@@ -95,5 +97,24 @@ public class TestShipMovements {
 		assertEquals(2,ship.getCurrentPositionObject().getX());
 		assertEquals(2,ship.getCurrentPositionObject().getY());
 		assertEquals(Orientation.E,ship.getCurrentPositionObject().getOrientation());
+	}
+	
+	public void GIVEN_ShipOrientation_12N_Movement_LMLMLMLMM_THEN_ResultingShipOrientation_13N() {
+		List<Action> actions = new List<Action>();
+		actions.add(Action.L);
+		actions.add(Action.M);
+		actions.add(Action.L);
+		actions.add(Action.M);
+		actions.add(Action.L);
+		actions.add(Action.M);
+		actions.add(Action.L);
+		actions.add(Action.M);
+		actions.add(Action.M);
+		
+		Ship ship = new Ship(new Position(1,2,Orientation.N),actions);
+		ship.move();
+		assertEquals(Orientation.N,ship.getCurrentPositionObject().getOrientation());
+		assertEquals(2,ship.getCurrentPositionObject().getY());
+		assertEquals(1,ship.getCurrentPositionObject().getX());
 	}
 }	
