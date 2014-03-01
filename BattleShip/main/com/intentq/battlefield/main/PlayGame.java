@@ -5,23 +5,39 @@ import java.util.List;
 public class PlayGame {
 	
 	private final Grid grid;
-	private final List<Ship> ships;
 	
 	public PlayGame(Grid grid, List<Ship> ships) {
 		this.grid=grid;
-		this.ships=ships;
+		if(grid!=null) {
+			grid.setShipsOnGrid(ships);
+		}
 	}
 
 	public Grid getGrid() {
 		return grid;
 	}
 
-	public List<Ship> getShips() {
-		return ships;
-	}
 
 	public void play() {
-		// TODO Auto-generated method stub
+		for(Ship thisShip : grid.getShipsOnGrid()) 
+		{
+			if(thisShip.getNextMoves()!=null) {
+				//ToDo: validate any move not falling off the grid
+				//May be this is not the right place to validate, ship could be?
+				thisShip.move();
+			}
+			if(thisShip.getShot()!=null) {
+				for(Ship occupiedShipOnGrid : grid.getShipsOnGrid())
+				{
+					if(occupiedShipOnGrid.getId()!=thisShip.getId() &&
+							occupiedShipOnGrid.getLifeStatus().equals(LifeStatus.ALIVE) &&
+							occupiedShipOnGrid.getCurrentPositionObject().getX() == thisShip.getShot().getX() &&
+							occupiedShipOnGrid.getCurrentPositionObject().getY() == thisShip.getShot().getY()) {
+						occupiedShipOnGrid.setLifeStatus(LifeStatus.SUNK);
+					}
+				}
+			}
+		}
 		
 	}
 	

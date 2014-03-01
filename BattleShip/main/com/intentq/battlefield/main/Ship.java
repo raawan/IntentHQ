@@ -2,6 +2,7 @@ package com.intentq.battlefield.main;
 
 import java.util.List;
 
+//ToDo: Check if Builder is useful?
 
 public class Ship {
 	
@@ -45,11 +46,9 @@ public class Ship {
 		}
 	}
 	
-
 	public Position getCurrentPositionObject() {
 		return currentPosition;
 	}
-
 
 	public void setCurrentPositionObject(Position currentPositionObject) {
 		this.currentPosition = currentPositionObject;
@@ -61,10 +60,6 @@ public class Ship {
 
 	public void setNextMoves(List<Move> nextMoves) {
 		this.nextMoves = nextMoves;
-	}
-
-	public LifeStatus getStatus() {
-		return null;
 	}
 
 	public int getId() {
@@ -90,5 +85,29 @@ public class Ship {
 	public void setShot(ShotCoordinate shot) {
 		this.shot = shot;
 	}
-
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj == null) 
+			return false;
+		if(obj == this) 
+			return true;
+		if(!(obj instanceof Position))
+			return false;
+		
+		Ship ship = (Ship) obj;
+		
+		if(this.getId()==ship.getId()) {
+				return true;
+			}
+		return false;	
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + this.getId();
+		return result;
+	}
 }
