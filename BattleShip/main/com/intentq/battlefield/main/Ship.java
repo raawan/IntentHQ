@@ -48,4 +48,8 @@ public class Ship {
 		this.nextMoves = nextMoves;
 	}
 
+	public LifeStatus getStatus() {
+		return null;
+	}
+
 }

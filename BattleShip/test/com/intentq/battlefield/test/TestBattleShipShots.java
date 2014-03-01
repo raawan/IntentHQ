@@ -9,8 +9,11 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.intentq.battlefield.main.Grid;
+import com.intentq.battlefield.main.LifeStatus;
 import com.intentq.battlefield.main.Move;
 import com.intentq.battlefield.main.Orientation;
+import com.intentq.battlefield.main.PlayGame;
 import com.intentq.battlefield.main.Position;
 import com.intentq.battlefield.main.Ship;
 
@@ -27,8 +30,9 @@ public class TestBattleShipShots {
 		ships.add(new Ship(new Position(1,2,Orientation.N),nextMoveSequence(L,M,L,M,L,M,L,M,M)));
 		ships.add(new Ship(new Position(3,3,Orientation.E),nextMoveSequence(M,M,R,M,M,R,M,R,R,M)));
 		PlayGame game = new PlayGame(new Grid(5,5),ships);
-		assertTrue(LifeStatus.SUNK,ships.get(0).getStatus());
-		assertTrue(LifeStatus.ALIVE,ships.get(1).getStatus());
+		game.play();
+		assertEquals(LifeStatus.SUNK,ships.get(0).getStatus());
+		assertEquals(LifeStatus.ALIVE,ships.get(1).getStatus());
 		
 	}
 
