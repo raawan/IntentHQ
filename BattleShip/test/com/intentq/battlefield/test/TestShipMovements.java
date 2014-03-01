@@ -69,4 +69,11 @@ public class TestShipMovements {
 		ship.move();
 		assertEquals(Orientation.N,ship.getCurrentPositionObject().getOrientation());
 	}
+	
+	@Test
+	public void GIVEN_ShipOrientationNorth_and_MoveAhead_THEN_xCoordinateIncrementByOne() {
+		Ship ship = new Ship(new Position(1,2,Orientation.N),Action.M);
+		ship.move();
+		assertEquals(2,ship.getCurrentPositionObject().getX());
+	}
 }
