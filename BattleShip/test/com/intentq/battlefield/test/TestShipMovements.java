@@ -78,8 +78,8 @@ public class TestShipMovements {
 	public void GIVEN_ShipOrientationNorth_and_MoveAhead_THEN_yCoordinateIncrementByOne() {
 		Ship ship = new Ship(new Position(1,2,Orientation.N),nextMoveSequence(M));
 		ship.move();
-		assertEquals(3,ship.getCurrentPositionObject().getY());
-		assertEquals(1,ship.getCurrentPositionObject().getX());
+		assertEquals(3,ship.getCurrentPositionObject().getCurrentCoordinates().getY());
+		assertEquals(1,ship.getCurrentPositionObject().getCurrentCoordinates().getX());
 		assertEquals(Orientation.N,ship.getCurrentPositionObject().getOrientation());
 	}
 	
@@ -87,8 +87,8 @@ public class TestShipMovements {
 	public void GIVEN_ShipOrientationSouth_and_MoveAhead_THEN_yCoordinateDecrementByOne() {
 		Ship ship = new Ship(new Position(1,2,Orientation.S),nextMoveSequence(M));
 		ship.move();
-		assertEquals(1,ship.getCurrentPositionObject().getY());
-		assertEquals(1,ship.getCurrentPositionObject().getX());
+		assertEquals(1,ship.getCurrentPositionObject().getCurrentCoordinates().getY());
+		assertEquals(1,ship.getCurrentPositionObject().getCurrentCoordinates().getX());
 		assertEquals(Orientation.S,ship.getCurrentPositionObject().getOrientation());
 	}
 	
@@ -96,8 +96,8 @@ public class TestShipMovements {
 	public void GIVEN_ShipOrientationEast_and_MoveAhead_THEN_xCoordinateInrementByOne() {
 		Ship ship = new Ship(new Position(1,2,Orientation.E),nextMoveSequence(M));
 		ship.move();
-		assertEquals(2,ship.getCurrentPositionObject().getX());
-		assertEquals(2,ship.getCurrentPositionObject().getY());
+		assertEquals(2,ship.getCurrentPositionObject().getCurrentCoordinates().getX());
+		assertEquals(2,ship.getCurrentPositionObject().getCurrentCoordinates().getY());
 		assertEquals(Orientation.E,ship.getCurrentPositionObject().getOrientation());
 	}
 	
@@ -106,8 +106,8 @@ public class TestShipMovements {
 		Ship ship = new Ship(new Position(1,2,Orientation.N),nextMoveSequence(L,M,L,M,L,M,L,M,M));
 		ship.move();
 		assertEquals(Orientation.N,ship.getCurrentPositionObject().getOrientation());
-		assertEquals(2,ship.getCurrentPositionObject().getY());
-		assertEquals(1,ship.getCurrentPositionObject().getX());
+		assertEquals(2,ship.getCurrentPositionObject().getCurrentCoordinates().getY());
+		assertEquals(1,ship.getCurrentPositionObject().getCurrentCoordinates().getX());
 	}
 	
 	public void GIVEN_ShipOrientation_33E_Movement_MMRMMRMRRM_THEN_ResultingShipOrientation_51E() {
@@ -115,8 +115,8 @@ public class TestShipMovements {
 		Ship ship = new Ship(new Position(3,3,Orientation.E),nextMoveSequence(M,M,R,M,M,R,M,R,R,M));
 		ship.move();
 		assertEquals(Orientation.E,ship.getCurrentPositionObject().getOrientation());
-		assertEquals(1,ship.getCurrentPositionObject().getY());
-		assertEquals(5,ship.getCurrentPositionObject().getX());
+		assertEquals(1,ship.getCurrentPositionObject().getCurrentCoordinates().getY());
+		assertEquals(5,ship.getCurrentPositionObject().getCurrentCoordinates().getX());
 	}
 
 	private List<Move> nextMoveSequence(Move...actions) {

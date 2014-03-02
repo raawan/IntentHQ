@@ -29,6 +29,6 @@ public class OrientaionWestOfShipState implements IOrientationOfShipState {
 	
 	@Override
 	public void moveAhead() {
-		ship.getCurrentPositionObject().setX(ship.getCurrentPositionObject().getX()-1);
+		ship.getCurrentPositionObject().getCurrentCoordinates().setX(ship.getCurrentPositionObject().getCurrentCoordinates().getX()-1);
 	}
 }

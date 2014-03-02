@@ -69,8 +69,8 @@ public class PlayGame {
 
 	private boolean checkIfShotCoordinatesMatchesWithThisOccupiedShipCoordinates(
 			Ship occupiedShipOnGrid, Ship thisShip) {
-		return (occupiedShipOnGrid.getCurrentPositionObject().getX() == thisShip.getShot().getX() &&
-				occupiedShipOnGrid.getCurrentPositionObject().getY() == thisShip.getShot().getY());
+		return (occupiedShipOnGrid.getCurrentPositionObject().getCurrentCoordinates().getX() == thisShip.getShot().getX() &&
+				occupiedShipOnGrid.getCurrentPositionObject().getCurrentCoordinates().getY() == thisShip.getShot().getY());
 	}
 
 	private boolean checkIfThisOccupiedShipIsAlive(Ship occupiedShipOnGrid) {
