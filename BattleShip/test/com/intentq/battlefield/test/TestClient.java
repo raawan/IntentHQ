@@ -4,7 +4,9 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import com.intentq.battlefield.constants.Orientation;
 import com.intentq.battlefield.dto.Grid;
+import com.intentq.battlefield.dto.Position;
 import com.intentq.battlefield.main.Converter;
 
 public class TestClient {
@@ -42,4 +44,14 @@ public class TestClient {
 		assertEquals(531, grid.getMaxCoOrdinates().getX());
 		assertEquals(7289, grid.getMaxCoOrdinates().getY()); 
 	}
+	
+	@Test
+	public void GIVEN_ShipStartingPositionInStringFormat_THEN_convertIntoPositionObject() {
+		String shipCoordinatesAndOrientation = "(1,2,N)";
+		Position pos = new Converter().convertShipPositionStringInputToPositionObject(shipCoordinatesAndOrientation);
+		assertEquals(1, pos.getCurrentCoordinates().getX());
+		assertEquals(2, pos.getCurrentCoordinates().getY());
+		assertEquals(Orientation.N,pos.getOrientation());
+	}
+	
 }
