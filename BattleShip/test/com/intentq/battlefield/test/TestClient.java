@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import com.intentq.battlefield.constants.Orientation;
+import com.intentq.battlefield.dto.Coordinate;
 import com.intentq.battlefield.dto.Grid;
 import com.intentq.battlefield.dto.Position;
 import com.intentq.battlefield.main.Converter;
@@ -61,5 +62,13 @@ public class TestClient {
 		assertEquals(12, pos.getCurrentCoordinates().getX());
 		assertEquals(2342, pos.getCurrentCoordinates().getY());
 		assertEquals(Orientation.E,pos.getOrientation());
+	}
+	
+	@Test
+	public void GIVEN_shipShotInStringFormat_THEN_convertIntoShotObject() {
+		String shotCoordinateInString = "(510,79)";
+		Coordinate shot = new Converter().convertShotInStringToShotObject(shotCoordinateInString);
+		assertEquals(510, shot.getX());
+		assertEquals(79, shot.getY());
 	}
 }
