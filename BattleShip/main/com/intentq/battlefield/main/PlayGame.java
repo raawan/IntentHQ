@@ -31,17 +31,7 @@ public class PlayGame {
 			if(checkIfShipWantsToMove(thisShip)) {
 				//ToDo: validate any move not falling off the grid
 				//May be this is not the right place to validate, ship could be?
-				Coordinate start = new Coordinate(thisShip.getCurrentPositionObject().getCurrentCoordinates().getX(), 
-													thisShip.getCurrentPositionObject().getCurrentCoordinates().getY());
-				Orientation startOrientation = thisShip.getCurrentPositionObject().getOrientation();
-				thisShip.move();
-				Coordinate end = thisShip.getCurrentPositionObject().getCurrentCoordinates();
-				for(Ship ship : grid.getShipsOnGrid()) {
-					if(ship.getId()!= thisShip.getId() && ship.getCurrentPositionObject().getCurrentCoordinates().equals(end) && ship.getLifeStatus().equals(LifeStatus.ALIVE)) {
-						thisShip.setCurrentPositionObject(new Position(start.getX(), start.getY(), startOrientation));
-						throw new InvalidMoveSequenceException("x:"+end.getX()+"-y:"+end.getY()+"position already occupied");
-					} 
-				}
+				validateMove(thisShip);
 			}
 			if(checkIfShipWantsToShot(thisShip)) {
 				updateShotShipStatus(thisShip);
@@ -49,6 +39,23 @@ public class PlayGame {
 		}
 	}
 	
+	/*
+	 * Throws InvalidMoveSequenceException - if ship moved to already occupied position
+	 */
+	private void validateMove(Ship thisShip) {
+		Coordinate start = new Coordinate(thisShip.getCurrentCoordinate().getX(), 
+				thisShip.getCurrentCoordinate().getY());
+		Orientation startOrientation = thisShip.getCurrentOrientation();
+		thisShip.move();
+		Coordinate end = thisShip.getCurrentCoordinate();
+		for(Ship ship : grid.getShipsOnGrid()) {
+			if(ship.getId()!= thisShip.getId() && ship.getCurrentCoordinate().equals(end) && ship.getLifeStatus().equals(LifeStatus.ALIVE)) {
+				thisShip.setCurrentPosition(new Position(start.getX(), start.getY(), startOrientation));
+				throw new InvalidMoveSequenceException("x:"+end.getX()+"-y:"+end.getY()+"position already occupied");
+			} 
+		}		
+	}
+
 	private boolean checkIfShipWantsToShot(Ship thisShip) {
 		return (thisShip.getAction().getShot()!=null);
 	}
@@ -90,8 +97,8 @@ public class PlayGame {
 
 	private boolean checkIfShotCoordinatesMatchesWithThisOccupiedShipCoordinates(
 			Ship occupiedShipOnGrid, Ship thisShip) {
-		return (occupiedShipOnGrid.getCurrentPositionObject().getCurrentCoordinates().getX() == thisShip.getAction().getShot().getX() &&
-				occupiedShipOnGrid.getCurrentPositionObject().getCurrentCoordinates().getY() == thisShip.getAction().getShot().getY());
+		return (occupiedShipOnGrid.getCurrentPosition().getCurrentCoordinates().getX() == thisShip.getAction().getShot().getX() &&
+				occupiedShipOnGrid.getCurrentPosition().getCurrentCoordinates().getY() == thisShip.getAction().getShot().getY());
 	}
 
 	private boolean checkIfThisOccupiedShipIsAlive(Ship occupiedShipOnGrid) {

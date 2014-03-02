@@ -9,7 +9,7 @@ public class OrientationOfShipStateFactory {
 	 */
 	public static IOrientationOfShipState getState(Ship ship)
 	{
-		switch(ship.getCurrentPositionObject().getOrientation()) {
+		switch(ship.getCurrentPosition().getOrientation()) {
 			case N : return new OrientaionNorthOfShipState(ship);
 			case S : return new OrientaionSouthOfShipState(ship);
 			case E : return new OrientaionEastOfShipState(ship);

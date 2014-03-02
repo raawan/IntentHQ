@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.intentq.battlefield.constants.LifeStatus;
 import com.intentq.battlefield.constants.Move;
+import com.intentq.battlefield.constants.Orientation;
 import com.intentq.battlefield.main.IOrientationOfShipState;
 import com.intentq.battlefield.main.OrientationOfShipStateContext;
 import com.intentq.battlefield.main.OrientationOfShipStateFactory;
@@ -38,11 +39,11 @@ public class Ship {
 		}
 	}
 	
-	public Position getCurrentPositionObject() {
+	public Position getCurrentPosition() {
 		return currentPosition;
 	}
 
-	public void setCurrentPositionObject(Position currentPositionObject) {
+	public void setCurrentPosition(Position currentPositionObject) {
 		this.currentPosition = currentPositionObject;
 	}
 
@@ -61,7 +62,15 @@ public class Ship {
 	public void setLifeStatus(LifeStatus lifeStatus) {
 		this.lifeStatus = lifeStatus;
 	}
-
+	
+	public Orientation getCurrentOrientation() {
+		return this.getCurrentPosition().getOrientation();
+	}
+	
+	public Coordinate getCurrentCoordinate() {
+		return this.getCurrentPosition().getCurrentCoordinates();
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if(obj == null) 

@@ -21,17 +21,17 @@ public class OrientaionNorthOfShipState implements IOrientationOfShipState {
 
 	@Override
 	public void moveLeft() {
-		ship.getCurrentPositionObject().setOrientation(Orientation.W);
+		ship.getCurrentPosition().setOrientation(Orientation.W);
 		
 	}
 
 	@Override
 	public void moveRight() {
-		ship.getCurrentPositionObject().setOrientation(Orientation.E);
+		ship.getCurrentPosition().setOrientation(Orientation.E);
 	}
 	
 	@Override
 	public void moveAhead() {
-		ship.getCurrentPositionObject().getCurrentCoordinates().setY(ship.getCurrentPositionObject().getCurrentCoordinates().getY()+1);
+		ship.getCurrentPosition().getCurrentCoordinates().setY(ship.getCurrentPosition().getCurrentCoordinates().getY()+1);
 	}
 }
