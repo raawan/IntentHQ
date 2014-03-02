@@ -70,10 +70,10 @@ public class TestBattleShipShots {
 		assertEquals(LifeStatus.ALIVE,ships.get(0).getLifeStatus());
 		assertEquals(LifeStatus.ALIVE,ships.get(1).getLifeStatus());
 		
-		ships.get(0).setNextMoves(nextMoveSequence(L,M));
-		ships.get(0).setShot(new Coordinate(3,3));
-		ships.get(1).setNextMoves(nextMoveSequence(R,M));
-		ships.get(1).setShot(new Coordinate(0,3));
+		ships.get(0).getAction().setNextMoves(nextMoveSequence(L,M));
+		ships.get(0).getAction().setShot(new Coordinate(3,3));
+		ships.get(1).getAction().setNextMoves(nextMoveSequence(R,M));
+		ships.get(1).getAction().setShot(new Coordinate(0,3));
 		game.play();
 		assertEquals(new Position(0, 3, Orientation.W),ships.get(0).getCurrentPositionObject());
 		assertEquals(LifeStatus.SUNK,ships.get(0).getLifeStatus());

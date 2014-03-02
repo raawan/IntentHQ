@@ -9,38 +9,24 @@ import com.intentq.battlefield.main.OrientationOfShipStateContext;
 import com.intentq.battlefield.main.OrientationOfShipStateFactory;
 
 //ToDo: Check if Builder is useful?
-
 public class Ship {
 	
 	private int id;
 	private Position currentPosition;
-	private List<Move> nextMoves;
 	private LifeStatus lifeStatus = LifeStatus.ALIVE;
-	private Coordinate shot;
-	
-	public Ship(Position currentPositionObject, List<Move> nextMoves, int id) {
-		this.currentPosition = currentPositionObject;
-		this.setNextMoves(nextMoves);
-		this.setId(id);
-	}
+	private Action action;
 
 	public Ship(Position currentPosition, List<Move> nextMoveSequence, Coordinate shot, int id) {
 		this.currentPosition = currentPosition;
-		this.setNextMoves(nextMoveSequence);
-		this.setShot(shot);
+		action = new Action(nextMoveSequence,shot);
 		this.setId(id);
 	}
 
-	public Ship(Position currentPositionObject, List<Move> moves) {
-		this.currentPosition = currentPositionObject;
-		this.setNextMoves(moves);
-	}
 
 	public void move() {
 		
 		IOrientationOfShipState orientationOfShipState;
-		
-		for(Move nextMove : nextMoves) {
+		for(Move nextMove : getAction().getNextMoves()) {
 			orientationOfShipState = new OrientationOfShipStateContext(OrientationOfShipStateFactory.getState(this));
 			if(nextMove.equals(Move.L)) {
 				orientationOfShipState.moveLeft();
@@ -60,14 +46,6 @@ public class Ship {
 		this.currentPosition = currentPositionObject;
 	}
 
-	public List<Move> getNextMoves() {
-		return nextMoves;
-	}
-
-	public void setNextMoves(List<Move> nextMoves) {
-		this.nextMoves = nextMoves;
-	}
-
 	public int getId() {
 		return id;
 	}
@@ -84,14 +62,6 @@ public class Ship {
 		this.lifeStatus = lifeStatus;
 	}
 
-	public Coordinate getShot() {
-		return shot;
-	}
-
-	public void setShot(Coordinate shot) {
-		this.shot = shot;
-	}
-	
 	@Override
 	public boolean equals(Object obj) {
 		if(obj == null) 
@@ -115,5 +85,13 @@ public class Ship {
 		int result = 1;
 		result = prime * result + this.getId();
 		return result;
+	}
+
+	public Action getAction() {
+		return action;
+	}
+
+	public void setAction(Action action) {
+		this.action = action;
 	}
 }
