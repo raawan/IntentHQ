@@ -25,20 +25,30 @@ public class PlayGame {
 		return grid;
 	}
 
-
+	/*
+	 * Assumption: Every ship will move and shot in that order during that ship's iteration
+	 */
 	public void play() {
 		for(Ship thisShip : grid.getShipsOnGrid()) {
-			if(checkIfShipWantsToMove(thisShip)) {
-				//ToDo: validate any move not falling off the grid
-				//May be this is not the right place to validate, ship could be?
-				validateAndMove(thisShip);
-			}
-			if(checkIfShipWantsToShot(thisShip)) {
-				updateShotShipStatus(thisShip);
-			}
+			moveShip(thisShip);
+			takeSHot(thisShip);
 		}
 	}
 	
+	private void takeSHot(Ship thisShip) {
+		if(checkIfShipWantsToShot(thisShip)) {
+			updateShotShipStatus(thisShip);
+		}		
+	}
+
+	private void moveShip(Ship thisShip) {
+		if(checkIfShipWantsToMove(thisShip)) {
+			//ToDo: validate any move not falling off the grid
+			//May be this is not the right place to validate, ship could be?
+			validateAndMove(thisShip);
+		}		
+	}
+
 	/*
 	 * Throws InvalidMoveSequenceException - if ship moved to already occupied position
 	 */
