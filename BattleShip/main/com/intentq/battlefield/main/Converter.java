@@ -5,7 +5,11 @@ import com.intentq.battlefield.dto.Grid;
 public class Converter {
 
 	public Grid convertGridStringInputToGridObject(String gridCoordinateInString) {
-		return new Grid(5,7);
+		StringBuilder strBuilder = new StringBuilder(gridCoordinateInString);
+		int x = Integer.parseInt(strBuilder.charAt(1)+"");
+		int y = Integer.parseInt(strBuilder.charAt(3)+"");
+		
+		return new Grid(x,y);
 	}
 
 }
