@@ -1,6 +1,7 @@
 package com.intentq.battlefield.main;
 
 import com.intentq.battlefield.constants.Orientation;
+import com.intentq.battlefield.dto.Coordinate;
 import com.intentq.battlefield.dto.Grid;
 import com.intentq.battlefield.dto.Position;
 
@@ -25,6 +26,10 @@ public class Converter {
 		String yCo = strBuilder.substring(firstIndexOfComma+1, secondIndexOfComma);
 		String orientationStr = strBuilder.substring(secondIndexOfComma+1, length-1);
 		return new Position(Integer.parseInt(xCo),Integer.parseInt(yCo),Orientation.valueOf(orientationStr));
+	}
+
+	public Coordinate convertShotInStringToShotObject(String shotCoordinateInString) {
+		return null;
 	}
 
 }
