@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import com.intentq.battlefield.dto.Grid;
+import com.intentq.battlefield.main.Converter;
 
 public class TestClient {
 
