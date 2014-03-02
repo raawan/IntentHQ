@@ -62,7 +62,10 @@ public class PlayGame {
 		}
 		return false;
 	}
-
+	
+	/*
+	 * The ship is shot
+	 */
 	private void updateLifeStatus(Ship ship) {
 		ship.setLifeStatus(LifeStatus.SUNK);
 	}
@@ -76,7 +79,10 @@ public class PlayGame {
 	private boolean checkIfThisOccupiedShipIsAlive(Ship occupiedShipOnGrid) {
 		return (occupiedShipOnGrid.getLifeStatus().equals(LifeStatus.ALIVE));
 	}
-
+	
+	/*
+	 * A ship dont want to shot itself
+	 */
 	private boolean checkIfThisOccupiedShipIsTheOneWhoAlsoShot(
 			Ship occupiedShipOnGrid, Ship thisShip) {
 		return (occupiedShipOnGrid.getId()==thisShip.getId());

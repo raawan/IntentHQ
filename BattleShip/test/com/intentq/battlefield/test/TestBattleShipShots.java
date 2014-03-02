@@ -119,4 +119,13 @@ public class TestBattleShipShots {
 		ships.add(new Ship(new Position(2,0,Orientation.S),nextMoveSequence(L,M,M),new Coordinate(4,3),3));
 		assertEquals(new Position(3, 3, Orientation.E),ships.get(1).getCurrentPositionObject());
 	}
+	
+	@Test(expected=InvalidMoveSequenceException.class)
+	public void GIVEN_GridPositionOccupiedByShip_And_AnotherShipWantsToMoveToSameLoction_THEN_InvalidMoveException() {
+		List<Ship> ships = new ArrayList<Ship>();
+        ships.add(new Ship(new Position(1,2,Orientation.N),nextMoveSequence(L,M,R,M,M,R,M,M),new Coordinate(1,4),1));
+        ships.add(new Ship(new Position(2,3,Orientation.N),nextMoveSequence(M),new Coordinate(2,5),2));
+        PlayGame game = new PlayGame(new Grid(10,10),ships);
+        game.play();
+	}
 }
