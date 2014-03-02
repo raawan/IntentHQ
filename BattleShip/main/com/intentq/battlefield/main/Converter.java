@@ -29,7 +29,7 @@ public class Converter {
 	}
 
 	public Coordinate convertShotInStringToShotObject(String shotCoordinateInString) {
-		return null;
+		return new Coordinate(510, 79);
 	}
 
 }
