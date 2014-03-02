@@ -1,12 +1,12 @@
 package com.intentq.battlefield.main;
 
-public class ShotCoordinate {
+public class Coordinate {
 	
 	private int x;
 	private int y;
 	
 	
-	public ShotCoordinate(int x, int y) {
+	public Coordinate(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}
@@ -32,10 +32,10 @@ public class ShotCoordinate {
 			return false;
 		if(obj == this) 
 			return true;
-		if(!(obj instanceof ShotCoordinate))
+		if(!(obj instanceof Coordinate))
 			return false;
 		
-		ShotCoordinate shot = (ShotCoordinate) obj;
+		Coordinate shot = (Coordinate) obj;
 		
 		if(this.getX()==shot.getX() &&
 			this.getY()==shot.getY()) {

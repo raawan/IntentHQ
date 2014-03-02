@@ -10,7 +10,7 @@ public class Ship {
 	private Position currentPosition;
 	private List<Move> nextMoves;
 	private LifeStatus lifeStatus = LifeStatus.ALIVE;
-	private ShotCoordinate shot;
+	private Coordinate shot;
 	
 	public Ship(Position currentPositionObject, List<Move> nextMoves, int id) {
 		this.currentPosition = currentPositionObject;
@@ -18,7 +18,7 @@ public class Ship {
 		this.setId(id);
 	}
 
-	public Ship(Position currentPosition, List<Move> nextMoveSequence, ShotCoordinate shot, int id) {
+	public Ship(Position currentPosition, List<Move> nextMoveSequence, Coordinate shot, int id) {
 		this.currentPosition = currentPosition;
 		this.setNextMoves(nextMoveSequence);
 		this.setShot(shot);
@@ -78,11 +78,11 @@ public class Ship {
 		this.lifeStatus = lifeStatus;
 	}
 
-	public ShotCoordinate getShot() {
+	public Coordinate getShot() {
 		return shot;
 	}
 
-	public void setShot(ShotCoordinate shot) {
+	public void setShot(Coordinate shot) {
 		this.shot = shot;
 	}
 	

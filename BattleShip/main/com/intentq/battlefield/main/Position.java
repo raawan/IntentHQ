@@ -2,12 +2,12 @@ package com.intentq.battlefield.main;
 
 public class Position {
 	
-	private ShotCoordinate currentCoordinates;
+	private Coordinate currentCoordinates;
 	private Orientation orientation;
 	
 	public Position(int i, int j, Orientation n) {
 		this.orientation = n;
-		this.setCurrentCoordinates(new ShotCoordinate(i, j));
+		this.setCurrentCoordinates(new Coordinate(i, j));
 	}
 	
 
@@ -20,12 +20,12 @@ public class Position {
 	}
 
 
-	public ShotCoordinate getCurrentCoordinates() {
+	public Coordinate getCurrentCoordinates() {
 		return currentCoordinates;
 	}
 
 
-	public void setCurrentCoordinates(ShotCoordinate currentCoordinates) {
+	public void setCurrentCoordinates(Coordinate currentCoordinates) {
 		this.currentCoordinates = currentCoordinates;
 	}
 
