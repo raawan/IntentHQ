@@ -48,12 +48,32 @@ public class PlayGame {
 		Orientation startOrientation = thisShip.getCurrentOrientation();
 		thisShip.move();
 		Coordinate end = thisShip.getCurrentCoordinate();
+		if(checkIfThisShipCouldCollideToAnyExistingShipOnGrid(thisShip,start,startOrientation,end)) {
+			resetShipPosition(thisShip,start,startOrientation);
+			throwInvalidMoveException(end);
+		}
+	}
+
+	private boolean checkIfThisShipCouldCollideToAnyExistingShipOnGrid(Ship thisShip, Coordinate start, Orientation startOrientation, Coordinate end) {
 		for(Ship ship : grid.getShipsOnGrid()) {
-			if(ship.getId()!= thisShip.getId() && ship.getCurrentCoordinate().equals(end) && ship.isAlive()) {
-				thisShip.setCurrentPosition(new Position(start.getX(), start.getY(), startOrientation));
-				throw new InvalidMoveSequenceException("x:"+end.getX()+"-y:"+end.getY()+"position already occupied");
+			if(isShipCanMoveToExistingLocation(thisShip,ship)) {
+				return true;
 			} 
-		}		
+		}
+		return false;
+	}
+
+	private void resetShipPosition(Ship thisShip, Coordinate start,
+			Orientation startOrientation) {
+		thisShip.setCurrentPosition(new Position(start.getX(), start.getY(), startOrientation));		
+	}
+
+	private void throwInvalidMoveException(Coordinate end) {
+		throw new InvalidMoveSequenceException("x:"+end.getX()+"-y:"+end.getY()+"position already occupied");		
+	}
+
+	private boolean isShipCanMoveToExistingLocation(Ship thisShip, Ship ship) {
+		return ship.getId()!= thisShip.getId() && ship.getCurrentCoordinate().equals(thisShip.getCurrentCoordinate()) && ship.isAlive();
 	}
 
 	private boolean checkIfShipWantsToShot(Ship thisShip) {
