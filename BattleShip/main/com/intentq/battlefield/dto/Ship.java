@@ -1,6 +1,12 @@
-package com.intentq.battlefield.main;
+package com.intentq.battlefield.dto;
 
 import java.util.List;
+
+import com.intentq.battlefield.constants.LifeStatus;
+import com.intentq.battlefield.constants.Move;
+import com.intentq.battlefield.main.IOrientationOfShipState;
+import com.intentq.battlefield.main.OrientationOfShipStateContext;
+import com.intentq.battlefield.main.OrientationOfShipStateFactory;
 
 //ToDo: Check if Builder is useful?
 

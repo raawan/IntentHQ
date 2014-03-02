@@ -1,5 +1,7 @@
 package com.intentq.battlefield.main;
 
+import com.intentq.battlefield.dto.Ship;
+
 public class OrientationOfShipStateFactory {
 	
 	/*

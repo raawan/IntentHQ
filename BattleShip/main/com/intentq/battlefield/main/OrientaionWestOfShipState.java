@@ -1,5 +1,8 @@
 package com.intentq.battlefield.main;
 
+import com.intentq.battlefield.constants.Orientation;
+import com.intentq.battlefield.dto.Ship;
+
 public class OrientaionWestOfShipState implements IOrientationOfShipState {
 
 	public OrientaionWestOfShipState(Ship ship) {

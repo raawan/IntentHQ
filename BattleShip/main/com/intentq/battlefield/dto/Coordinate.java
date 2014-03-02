@@ -1,4 +1,4 @@
-package com.intentq.battlefield.main;
+package com.intentq.battlefield.dto;
 
 public class Coordinate {
 	

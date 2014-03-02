@@ -1,4 +1,6 @@
-package com.intentq.battlefield.main;
+package com.intentq.battlefield.dto;
+
+import com.intentq.battlefield.constants.Orientation;
 
 public class Position {
 	

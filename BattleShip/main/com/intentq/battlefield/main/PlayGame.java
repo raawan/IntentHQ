@@ -2,6 +2,14 @@ package com.intentq.battlefield.main;
 
 import java.util.List;
 
+import com.intentq.battlefield.constants.LifeStatus;
+import com.intentq.battlefield.constants.Orientation;
+import com.intentq.battlefield.dto.Coordinate;
+import com.intentq.battlefield.dto.Grid;
+import com.intentq.battlefield.dto.Position;
+import com.intentq.battlefield.dto.Ship;
+import com.intentq.battlefield.exception.InvalidMoveSequenceException;
+
 public class PlayGame {
 	
 	private final Grid grid;

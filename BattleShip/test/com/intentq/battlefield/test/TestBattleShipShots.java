@@ -1,7 +1,7 @@
 package com.intentq.battlefield.test;
 
 import static org.junit.Assert.*;
-import static  com.intentq.battlefield.main.Move.*;
+import static com.intentq.battlefield.constants.Move.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,15 +9,15 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.intentq.battlefield.main.Grid;
-import com.intentq.battlefield.main.InvalidMoveSequenceException;
-import com.intentq.battlefield.main.LifeStatus;
-import com.intentq.battlefield.main.Move;
-import com.intentq.battlefield.main.Orientation;
+import com.intentq.battlefield.constants.LifeStatus;
+import com.intentq.battlefield.constants.Move;
+import com.intentq.battlefield.constants.Orientation;
+import com.intentq.battlefield.dto.Coordinate;
+import com.intentq.battlefield.dto.Grid;
+import com.intentq.battlefield.dto.Position;
+import com.intentq.battlefield.dto.Ship;
+import com.intentq.battlefield.exception.InvalidMoveSequenceException;
 import com.intentq.battlefield.main.PlayGame;
-import com.intentq.battlefield.main.Position;
-import com.intentq.battlefield.main.Ship;
-import com.intentq.battlefield.main.Coordinate;
 
 public class TestBattleShipShots {
 
