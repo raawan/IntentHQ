@@ -23,7 +23,17 @@ public class PlayGame {
 			if(checkIfShipWantsToMove(thisShip)) {
 				//ToDo: validate any move not falling off the grid
 				//May be this is not the right place to validate, ship could be?
+				Coordinate start = new Coordinate(thisShip.getCurrentPositionObject().getCurrentCoordinates().getX(), 
+													thisShip.getCurrentPositionObject().getCurrentCoordinates().getY());
+				Orientation startOrientation = thisShip.getCurrentPositionObject().getOrientation();
 				thisShip.move();
+				Coordinate end = thisShip.getCurrentPositionObject().getCurrentCoordinates();
+				for(Ship ship : grid.getShipsOnGrid()) {
+					if(ship.getId()!= thisShip.getId() && ship.getCurrentPositionObject().getCurrentCoordinates().equals(end) && ship.getLifeStatus().equals(LifeStatus.ALIVE)) {
+						thisShip.setCurrentPositionObject(new Position(start.getX(), start.getY(), startOrientation));
+						throw new InvalidMoveSequenceException("x:"+end.getX()+"-y:"+end.getY()+"position already occupied");
+					} 
+				}
 			}
 			if(checkIfShipWantsToShot(thisShip)) {
 				updateShotShipStatus(thisShip);
