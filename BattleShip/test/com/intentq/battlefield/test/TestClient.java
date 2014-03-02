@@ -79,4 +79,12 @@ public class TestClient {
 		assertEquals(50, shot.getX());
 		assertEquals(9, shot.getY());
 	}
+	
+	@Test
+	public void GIVEN_shipShotInStringFormat_THEN_convertIntoShotObject_3() {
+		String shotCoordinateInString = "(5,0)";
+		Coordinate shot = new Converter().convertShotInStringToShotObject(shotCoordinateInString);
+		assertEquals(5, shot.getX());
+		assertEquals(0, shot.getY());
+	}
 }
