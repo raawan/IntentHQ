@@ -38,12 +38,8 @@ public class TestBattleShipShots {
 		Ship ship1 = newShips.get(1);
 		assertEquals(LifeStatus.SUNK,ship0.getLifeStatus());
 		assertEquals(LifeStatus.ALIVE,ship1.getLifeStatus());
-		assertEquals(Orientation.N,ship0.getCurrentPositionObject().getOrientation());
-		assertEquals(1,ship0.getCurrentPositionObject().getCurrentCoordinates().getX());
-		assertEquals(3,ship0.getCurrentPositionObject().getCurrentCoordinates().getY());
-		assertEquals(Orientation.E,ship1.getCurrentPositionObject().getOrientation());
-		assertEquals(5,ship1.getCurrentPositionObject().getCurrentCoordinates().getX());
-		assertEquals(1,ship1.getCurrentPositionObject().getCurrentCoordinates().getY());
+		assertEquals(new Position(1, 3, Orientation.N),ship0.getCurrentPositionObject());
+		assertEquals(new Position(5, 1, Orientation.E),ship1.getCurrentPositionObject());
 	}
 	
 	@Test
@@ -56,11 +52,9 @@ public class TestBattleShipShots {
 		PlayGame game = new PlayGame(new Grid(5,5),ships);
 		game.play();
 		assertEquals(LifeStatus.ALIVE,ships.get(0).getLifeStatus());
-		assertEquals(1,ships.get(0).getCurrentPositionObject().getCurrentCoordinates().getX());
-		assertEquals(3,ships.get(0).getCurrentPositionObject().getCurrentCoordinates().getY());
 		assertEquals(LifeStatus.ALIVE,ships.get(1).getLifeStatus());
-		assertEquals(5,ships.get(1).getCurrentPositionObject().getCurrentCoordinates().getX());
-		assertEquals(1,ships.get(1).getCurrentPositionObject().getCurrentCoordinates().getY());
+		assertEquals(new Position(1, 3, Orientation.N),ships.get(0).getCurrentPositionObject());
+		assertEquals(new Position(5, 1, Orientation.E),ships.get(1).getCurrentPositionObject());
 	}
 	
 	@Test
@@ -77,11 +71,10 @@ public class TestBattleShipShots {
 		
 		ships.get(0).setNextMoves(nextMoveSequence(L,M));
 		ships.get(0).setShot(new Coordinate(3,3));
-		ships.get(0).setNextMoves(nextMoveSequence(R,M));
-		ships.get(1).setShot(new Coordinate(2,3));
+		ships.get(1).setNextMoves(nextMoveSequence(R,M));
+		ships.get(1).setShot(new Coordinate(0,3));
 		game.play();
-		assertEquals(2,ships.get(0).getCurrentPositionObject().getCurrentCoordinates().getX());
-		assertEquals(3,ships.get(0).getCurrentPositionObject().getCurrentCoordinates().getY());
+		assertEquals(new Position(0, 3, Orientation.W),ships.get(0).getCurrentPositionObject());
 		assertEquals(LifeStatus.SUNK,ships.get(0).getLifeStatus());
 		assertEquals(LifeStatus.ALIVE,ships.get(1).getLifeStatus());
 		
@@ -99,38 +92,31 @@ public class TestBattleShipShots {
         assertEquals(LifeStatus.ALIVE,ships.get(0).getLifeStatus());
         assertEquals(LifeStatus.SUNK,ships.get(1).getLifeStatus());
         assertEquals(LifeStatus.ALIVE,ships.get(2).getLifeStatus());
-    	assertEquals(2,ships.get(0).getCurrentPositionObject().getCurrentCoordinates().getX());
-		assertEquals(4,ships.get(0).getCurrentPositionObject().getCurrentCoordinates().getY());
-		assertEquals(3,ships.get(1).getCurrentPositionObject().getCurrentCoordinates().getX());
-		assertEquals(3,ships.get(1).getCurrentPositionObject().getCurrentCoordinates().getY());
-		assertEquals(2,ships.get(2).getCurrentPositionObject().getCurrentCoordinates().getX());
-		assertEquals(5,ships.get(2).getCurrentPositionObject().getCurrentCoordinates().getY());
+        assertEquals(new Position(2, 4, Orientation.E),ships.get(0).getCurrentPositionObject());
+        assertEquals(new Position(3, 3, Orientation.E),ships.get(1).getCurrentPositionObject());
+        assertEquals(new Position(2, 5, Orientation.N),ships.get(2).getCurrentPositionObject());
 	}
 	
 	@Test
 	public void GIVEN_AsunkShip_THEN_NotAllowedToMoveAndThePositionIsUnchanged() {
-		
+
 		List<Ship> ships = new ArrayList<Ship>();
-        ships.add(new Ship(new Position(1,2,Orientation.N),nextMoveSequence(L,M,R,M,M,R,M,M),new Coordinate(3,3),1));
-        ships.add(new Ship(new Position(3,3,Orientation.E),nextMoveSequence(M,M,R,R,M,M,R,R),new Coordinate(2,5),2));
-        ships.add(new Ship(new Position(2,3,Orientation.S),nextMoveSequence(M,M,M),new Coordinate(4,3),3));
-        PlayGame game = new PlayGame(new Grid(10,10),ships);
-        game.play();
-        assertEquals(LifeStatus.ALIVE,ships.get(0).getLifeStatus());
-        assertEquals(LifeStatus.SUNK,ships.get(1).getLifeStatus());
-        assertEquals(LifeStatus.ALIVE,ships.get(2).getLifeStatus());
-    	assertEquals(2,ships.get(0).getCurrentPositionObject().getCurrentCoordinates().getX());
-		assertEquals(4,ships.get(0).getCurrentPositionObject().getCurrentCoordinates().getY());
-		assertEquals(3,ships.get(1).getCurrentPositionObject().getCurrentCoordinates().getX());
-		assertEquals(3,ships.get(1).getCurrentPositionObject().getCurrentCoordinates().getY());
-		assertEquals(2,ships.get(2).getCurrentPositionObject().getCurrentCoordinates().getX());
-		assertEquals(0,ships.get(2).getCurrentPositionObject().getCurrentCoordinates().getY());
-		
+		ships.add(new Ship(new Position(1,2,Orientation.N),nextMoveSequence(L,M,R,M,M,R,M,M),new Coordinate(3,3),1));
+		ships.add(new Ship(new Position(3,3,Orientation.E),nextMoveSequence(M,M,R,R,M,M,R,R),new Coordinate(2,5),2));
+		ships.add(new Ship(new Position(2,3,Orientation.S),nextMoveSequence(M,M,M),new Coordinate(4,3),3));
+		PlayGame game = new PlayGame(new Grid(10,10),ships);
+		game.play();
+		assertEquals(LifeStatus.ALIVE,ships.get(0).getLifeStatus());
+		assertEquals(LifeStatus.SUNK,ships.get(1).getLifeStatus());
+		assertEquals(LifeStatus.ALIVE,ships.get(2).getLifeStatus());
+		assertEquals(new Position(2, 4, Orientation.E),ships.get(0).getCurrentPositionObject());
+		assertEquals(new Position(3, 3, Orientation.E),ships.get(1).getCurrentPositionObject());
+		assertEquals(new Position(2, 0, Orientation.S),ships.get(2).getCurrentPositionObject());
+
 		ships = new ArrayList<Ship>();
-		 ships.add(new Ship(new Position(2,4,Orientation.E),nextMoveSequence(M,M),new Coordinate(3,3),1));
-	        ships.add(new Ship(new Position(3,3,Orientation.E),nextMoveSequence(L,M,R,M),new Coordinate(2,5),2));
-	        ships.add(new Ship(new Position(2,0,Orientation.S),nextMoveSequence(L,M,M),new Coordinate(4,3),3));
-	        assertEquals(3,ships.get(1).getCurrentPositionObject().getCurrentCoordinates().getX());
-			assertEquals(3,ships.get(1).getCurrentPositionObject().getCurrentCoordinates().getY());
+		ships.add(new Ship(new Position(2,4,Orientation.E),nextMoveSequence(M,M),new Coordinate(3,3),1));
+		ships.add(new Ship(new Position(3,3,Orientation.E),nextMoveSequence(L,M,R,M),new Coordinate(2,5),2));
+		ships.add(new Ship(new Position(2,0,Orientation.S),nextMoveSequence(L,M,M),new Coordinate(4,3),3));
+		assertEquals(new Position(3, 3, Orientation.E),ships.get(1).getCurrentPositionObject());
 	}
 }

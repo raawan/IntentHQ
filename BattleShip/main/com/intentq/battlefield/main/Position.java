@@ -28,5 +28,31 @@ public class Position {
 	public void setCurrentCoordinates(Coordinate currentCoordinates) {
 		this.currentCoordinates = currentCoordinates;
 	}
-
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj == null) 
+			return false;
+		if(obj == this) 
+			return true;
+		if(!(obj instanceof Position))
+			return false;
+		
+		Position pos = (Position) obj;
+		
+		if(this.getCurrentCoordinates().equals(pos.getCurrentCoordinates()) &&
+			this.getOrientation().equals(pos.getOrientation())) {
+				return true;
+			}
+		return false;	
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + this.getCurrentCoordinates().hashCode();
+		result = prime * result + this.getOrientation().ordinal();
+		return result;
+	}
 }
