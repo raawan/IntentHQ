@@ -10,6 +10,7 @@ import java.util.List;
 import org.junit.Test;
 
 import com.intentq.battlefield.main.Grid;
+import com.intentq.battlefield.main.InvalidMoveSequenceException;
 import com.intentq.battlefield.main.LifeStatus;
 import com.intentq.battlefield.main.Move;
 import com.intentq.battlefield.main.Orientation;
