@@ -54,4 +54,12 @@ public class TestClient {
 		assertEquals(Orientation.N,pos.getOrientation());
 	}
 	
+	@Test
+	public void GIVEN_ShipStartingPositionInStringFormat_THEN_convertIntoPositionObject_2() {
+		String shipCoordinatesAndOrientation = "(12,2342,E)";
+		Position pos = new Converter().convertShipPositionStringInputToPositionObject(shipCoordinatesAndOrientation);
+		assertEquals(12, pos.getCurrentCoordinates().getX());
+		assertEquals(2342, pos.getCurrentCoordinates().getY());
+		assertEquals(Orientation.E,pos.getOrientation());
+	}
 }
