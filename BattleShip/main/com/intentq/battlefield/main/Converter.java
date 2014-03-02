@@ -1,6 +1,7 @@
 package com.intentq.battlefield.main;
 
 import com.intentq.battlefield.dto.Grid;
+import com.intentq.battlefield.dto.Position;
 
 public class Converter {
 
@@ -12,6 +13,10 @@ public class Converter {
 		int x= Integer.parseInt(strBuilder.substring(1, indexOfComma));
 		int y= Integer.parseInt(strBuilder.substring(indexOfComma+1,length-1));
 		return new Grid(x,y);
+	}
+
+	public Position convertShipPositionStringInputToPositionObject(String shipCoordinatesAndOrientation) {
+		return null;
 	}
 
 }
