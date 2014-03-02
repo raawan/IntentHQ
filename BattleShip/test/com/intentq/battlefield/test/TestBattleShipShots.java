@@ -129,4 +129,14 @@ public class TestBattleShipShots {
         PlayGame game = new PlayGame(new Grid(10,10),ships);
         game.play();
 	}
+	
+	@Test
+	public void GIVEN_GridPositionOccupiedBySunkedShip_And_AnotherShipWantsToMoveToSameLoction_THEN_NoInvalidMoveException() {
+		List<Ship> ships = new ArrayList<Ship>();
+        ships.add(new Ship(new Position(1,2,Orientation.N),nextMoveSequence(L,M,R,M,M,R,M,M),new Coordinate(1,4),1));
+        ships.add(new Ship(new Position(2,3,Orientation.N),nextMoveSequence(M),new Coordinate(2,5),2));
+        ships.get(0).setLifeStatus(LifeStatus.SUNK);
+        PlayGame game = new PlayGame(new Grid(10,10),ships);
+        game.play();
+	}
 }
