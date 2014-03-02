@@ -4,21 +4,11 @@ import java.util.List;
 
 public class Grid {
 	
-	private final int maxX;
-	private final int maxY;
+	private final Coordinate maxCoOrdinates;
 	private List<Ship> shipsOnGrid;
 	
 	public Grid(int i, int j) {
-		this.maxX=i;
-		this.maxY=j;
-	}
-
-	public int getMaxX() {
-		return maxX;
-	}
-
-	public int getMaxY() {
-		return maxY;
+		maxCoOrdinates = new Coordinate(i, j);
 	}
 
 	public List<Ship> getShipsOnGrid() {
@@ -27,6 +17,10 @@ public class Grid {
 
 	public void setShipsOnGrid(List<Ship> shipsOnGrid) {
 		this.shipsOnGrid = shipsOnGrid;
+	}
+
+	public Coordinate getMaxCoOrdinates() {
+		return maxCoOrdinates;
 	}
 
 }
