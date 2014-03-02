@@ -29,7 +29,12 @@ public class Converter {
 	}
 
 	public Coordinate convertShotInStringToShotObject(String shotCoordinateInString) {
-		return new Coordinate(510, 79);
+		StringBuilder strBuilder = new StringBuilder(shotCoordinateInString.trim());
+		int indexOfComma = strBuilder.indexOf(",");
+		int length = strBuilder.length();
+		int x= Integer.parseInt(strBuilder.substring(1, indexOfComma));
+		int y= Integer.parseInt(strBuilder.substring(indexOfComma+1,length-1));
+		return new Coordinate(x, y);
 	}
 
 }
