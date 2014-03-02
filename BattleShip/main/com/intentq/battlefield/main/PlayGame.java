@@ -49,7 +49,7 @@ public class PlayGame {
 		thisShip.move();
 		Coordinate end = thisShip.getCurrentCoordinate();
 		for(Ship ship : grid.getShipsOnGrid()) {
-			if(ship.getId()!= thisShip.getId() && ship.getCurrentCoordinate().equals(end) && ship.getLifeStatus().equals(LifeStatus.ALIVE)) {
+			if(ship.getId()!= thisShip.getId() && ship.getCurrentCoordinate().equals(end) && ship.isAlive()) {
 				thisShip.setCurrentPosition(new Position(start.getX(), start.getY(), startOrientation));
 				throw new InvalidMoveSequenceException("x:"+end.getX()+"-y:"+end.getY()+"position already occupied");
 			} 

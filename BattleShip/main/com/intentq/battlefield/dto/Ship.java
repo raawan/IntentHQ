@@ -71,6 +71,10 @@ public class Ship {
 		return this.getCurrentPosition().getCurrentCoordinates();
 	}
 	
+	public boolean isAlive() {
+		return this.getLifeStatus().equals(LifeStatus.ALIVE);
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if(obj == null) 
