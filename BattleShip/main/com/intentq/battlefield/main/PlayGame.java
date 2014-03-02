@@ -31,7 +31,7 @@ public class PlayGame {
 			if(checkIfShipWantsToMove(thisShip)) {
 				//ToDo: validate any move not falling off the grid
 				//May be this is not the right place to validate, ship could be?
-				validateMove(thisShip);
+				validateAndMove(thisShip);
 			}
 			if(checkIfShipWantsToShot(thisShip)) {
 				updateShotShipStatus(thisShip);
@@ -42,7 +42,7 @@ public class PlayGame {
 	/*
 	 * Throws InvalidMoveSequenceException - if ship moved to already occupied position
 	 */
-	private void validateMove(Ship thisShip) {
+	private void validateAndMove(Ship thisShip) {
 		Coordinate start = new Coordinate(thisShip.getCurrentCoordinate().getX(), 
 				thisShip.getCurrentCoordinate().getY());
 		Orientation startOrientation = thisShip.getCurrentOrientation();
