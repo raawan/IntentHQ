@@ -390,6 +390,14 @@ public class TestInputConversionAndValidation {
 		ship.move(g.getMaxCoOrdinates());
 	}
 	
+	@Test(expected=InvalidInputException.class)
+	public void GIVEN_BothZeroCoordinatesOfGrid_THEN_InvalidInputException() {
+		String gridCoordinateInString = "(5,7)";
+		Grid grid = converter.convertGridStringInputToGridObject(gridCoordinateInString);
+		assertEquals(5, grid.getMaxCoOrdinates().getX());
+		assertEquals(7, grid.getMaxCoOrdinates().getY()); 
+	}
+	
 	private static List<Move> nextMoveSequence(Move...actions) {
 		return Arrays.asList(actions);
 	}
