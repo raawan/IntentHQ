@@ -11,6 +11,7 @@ import static com.intentq.battlefield.util.ExceptionMessage.throwInvalidShotCoor
 import java.util.ArrayList;
 import java.util.List;
 
+import com.intentq.battlefield.constants.LifeStatus;
 import com.intentq.battlefield.dto.Coordinate;
 import com.intentq.battlefield.dto.Grid;
 import com.intentq.battlefield.dto.Ship;
@@ -207,5 +208,13 @@ public class Validator implements IValidator {
 		obj.setX(x);
 		obj.setY(y);
 		return obj;
+	}
+	
+	@Override
+	public boolean validateShipAlive(Ship s) {
+		if(s.getLifeStatus().equals(LifeStatus.SUNK))
+			return false;
+		else
+			return true;
 	}
 }

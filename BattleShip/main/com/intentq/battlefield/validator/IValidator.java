@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.intentq.battlefield.dto.Coordinate;
 import com.intentq.battlefield.dto.Grid;
+import com.intentq.battlefield.dto.Ship;
 import com.intentq.battlefield.validator.Validator.ThreeValuedObject;
 
 public interface IValidator {
@@ -17,5 +18,7 @@ public interface IValidator {
 
 	ThreeValuedObject validateShipMovement(String shipMovementInString,
 			Grid grid);
+
+	boolean validateShipAlive(Ship s);
 
 }

@@ -16,7 +16,6 @@ import com.intentq.battlefield.dto.Coordinate;
 import com.intentq.battlefield.dto.Grid;
 import com.intentq.battlefield.dto.Position;
 import com.intentq.battlefield.dto.Ship;
-import com.intentq.battlefield.exception.InvalidMoveSequenceException;
 import com.intentq.battlefield.main.PlayGame;
 
 public class TestPlayGame {
@@ -121,13 +120,14 @@ public class TestPlayGame {
 		assertEquals(new Position(3, 3, Orientation.E),ships.get(1).getCurrentPosition());
 	}
 	
-	@Test(expected=InvalidMoveSequenceException.class)
-	public void GIVEN_GridPositionOccupiedByShip_And_AnotherShipWantsToMoveToSameLoction_THEN_InvalidMoveException() {
+	@Test
+	public void GIVEN_GridPositionOccupiedByShip_And_AnotherShipWantsToMoveToSameLoction_THEN_ThePositionOfThatShipIsReset() {
 		List<Ship> ships = new ArrayList<Ship>();
         ships.add(new Ship(new Position(1,2,Orientation.N),nextMoveSequence(L,M,R,M,M,R,M,M),new Coordinate(1,4),1));
         ships.add(new Ship(new Position(2,3,Orientation.N),nextMoveSequence(M),new Coordinate(2,5),2));
         PlayGame game = new PlayGame(new Grid(10,10),ships);
         game.play();
+        assertEquals(new Position(2, 3, Orientation.N),ships.get(1).getCurrentPosition());
 	}
 	
 	@Test

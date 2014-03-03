@@ -9,6 +9,7 @@ import com.intentq.battlefield.dto.Grid;
 import com.intentq.battlefield.dto.Position;
 import com.intentq.battlefield.dto.Ship;
 import com.intentq.battlefield.exception.InvalidMoveSequenceException;
+import com.intentq.battlefield.validator.Validator;
 
 public class PlayGame implements IPlayGame {
 	
@@ -36,12 +37,17 @@ public class PlayGame implements IPlayGame {
 	}
 
 	/*
-	 * Assumption: Every ship will move and shot in that order during that ship's iteration
+	 * Assumption: Every ship will move and shot in that ORDER during that ship's iteration
+	 * 
 	 */
 	@Override
 	public void play() {
 		for(Ship thisShip : grid.getShipsOnGrid()) {
-			moveShip(thisShip);
+			try {
+				moveShip(thisShip);
+			} catch (InvalidMoveSequenceException ime) {
+				continue;
+			}
 			takeSHot(thisShip);
 		}
 	}
@@ -54,8 +60,6 @@ public class PlayGame implements IPlayGame {
 
 	private void moveShip(Ship thisShip) {
 		if(checkIfShipWantsToMove(thisShip)) {
-			//ToDo: validate any move not falling off the grid
-			//May be this is not the right place to validate, ship could be?
 			validateAndMove(thisShip);
 		}		
 	}
@@ -143,7 +147,7 @@ public class PlayGame implements IPlayGame {
 	}
 
 	private boolean checkIfThisOccupiedShipIsAlive(Ship occupiedShipOnGrid) {
-		return (occupiedShipOnGrid.getLifeStatus().equals(LifeStatus.ALIVE));
+		return new Validator().validateShipAlive(occupiedShipOnGrid);
 	}
 	
 	/*
