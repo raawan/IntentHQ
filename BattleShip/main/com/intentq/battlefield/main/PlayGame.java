@@ -12,7 +12,7 @@ import com.intentq.battlefield.exception.InvalidMoveSequenceException;
 
 public class PlayGame implements IPlayGame {
 	
-	private final Grid grid;
+	private Grid grid;
 	
 	public PlayGame(Grid grid, List<Ship> ships) {
 		this.grid=grid;
@@ -20,7 +20,17 @@ public class PlayGame implements IPlayGame {
 			grid.setShipsOnGrid(ships);
 		}
 	}
+	
+	@Override
+	public void setGrid(Grid grid) {
+		this.grid = grid;
+	}
 
+	@Override
+	public List<Ship> getShips() {
+		return grid.getShipsOnGrid();
+	}
+	
 	public Grid getGrid() {
 		return grid;
 	}
@@ -143,5 +153,5 @@ public class PlayGame implements IPlayGame {
 			Ship occupiedShipOnGrid, Ship thisShip) {
 		return (occupiedShipOnGrid.getId()==thisShip.getId());
 	}
-	
+
 }

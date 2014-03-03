@@ -14,11 +14,13 @@ public class CommandLineClient {
 	
 	private BufferedReader cmdLineReader;
 	private IConverter inputConverter;
+	private IPlayGame playGame;
 	
 	public CommandLineClient(BufferedReader cmdLineReader,
-			IConverter inputConverter) {
-		this.cmdLineReader = cmdLineReader;
-		this.inputConverter = inputConverter;
+			IConverter inputConverter,IPlayGame playGame) {
+		this.setCmdLineReader(cmdLineReader);
+		this.setInputConverter(inputConverter);
+		this.setPlayGame(playGame);
 	}
 
 	public  Grid createGridObject() throws IOException {
@@ -71,6 +73,26 @@ public class CommandLineClient {
 		}		
 	}
 
+	public  void updateShipWithItsShot(Ship s, Grid g) throws IOException {
+		boolean input =false;
+		String shot;
+		while(!input) {
+			try {
+				shot = getNextInputFromCmdLine();
+				s.getAction().setShot(inputConverter.convertShotInStringToShotObject(shot,g));
+				input = true;
+			} catch(InvalidInputException iie) {
+				System.out.println(iie.getMessage());
+				System.out.println("Please enter Ships shot input again");
+			}
+		}		
+	}
+	
+	public  List<Ship> playAnIteration(IPlayGame playGame, Grid grid) {
+		playGame.setGrid(grid);
+		playGame.play();
+		return playGame.getShips();
+	}
 	
 	public BufferedReader getCmdLineReader() {
 		return cmdLineReader;
@@ -91,5 +113,13 @@ public class CommandLineClient {
 	private String getNextInputFromCmdLine() throws IOException {
 		//cmdLineReader= new BufferedReader(new InputStreamReader(System.in));
 		return cmdLineReader.readLine();
+	}
+
+	public IPlayGame getPlayGame() {
+		return playGame;
+	}
+
+	public void setPlayGame(IPlayGame playGame) {
+		this.playGame = playGame;
 	}
 }
