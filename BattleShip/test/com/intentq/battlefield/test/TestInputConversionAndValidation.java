@@ -396,10 +396,15 @@ public class TestInputConversionAndValidation {
 		converter.convertGridStringInputToGridObject(gridCoordinateInString);
 	}
 	
+	@Test(expected=InvalidInputException.class)
+	public void GIVEN_TotalShipPositionIsGreaterThanGridSquares_THEN_InvalidInputException() {
+		String shipCoordinatesAndOrientation = "(0,0,N) (0,1,W) (1,0,E) (1,1,S) (1,2,N)";
+		converter.convertShipPositionStringInputToPositionObject(shipCoordinatesAndOrientation,new Grid(1,1));
+	}
+		
 	private static List<Move> nextMoveSequence(Move...actions) {
 		return Arrays.asList(actions);
 	}
-	
 	
 	private Grid createGridWithShipCoordinatesAndOrientation(String shipCoordinatesAndOrientation) {
 		Grid g = new Grid(125,128);
