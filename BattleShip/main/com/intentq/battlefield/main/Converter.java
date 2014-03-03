@@ -87,8 +87,15 @@ public class Converter {
 		StringBuilder strBuilder = new StringBuilder(gridCoordinateInString.trim());
 		int indexOfComma = strBuilder.indexOf(COMMA);
 		int length = strBuilder.length();
-		int x= Integer.parseInt(strBuilder.substring(1, indexOfComma));
-		int y= Integer.parseInt(strBuilder.substring(indexOfComma+1,length-1));
+		int x= 0;
+		int y= 0;
+		try {
+			x= Integer.parseInt(strBuilder.substring(1, indexOfComma));
+			y= Integer.parseInt(strBuilder.substring(indexOfComma+1,length-1));
+		}
+		catch(NumberFormatException nfe) {
+			throw new InvalidInputException("Coordinates input is out of integer range");
+		}
 		TwoValuedObject obj = new TwoValuedObject();
 		obj.setX(x);
 		obj.setY(y);

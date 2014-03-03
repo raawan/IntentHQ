@@ -28,4 +28,11 @@ public class Validator {
 		} 
 		return false;
 	}
+	
+	public static boolean isIntOverflow(int number) {
+		if(number >= Integer.MAX_VALUE) {
+			return true;
+		}
+		return false;
+	}
 }
