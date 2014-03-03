@@ -153,4 +153,10 @@ public class TestClient {
 		String shipCoordinatesAndOrientation = "(1,2,X)";
 		new Converter().convertShipPositionStringInputToPositionObject(shipCoordinatesAndOrientation);
 	}
+	
+	@Test
+	public void GIVEN_MultipleShipPositionInputInStringFormat_THEN_NoInvalidInputException() {
+		String shipCoordinatesAndOrientation = "(1,2,N) (12,34,W) (234,567,E)";
+		new Converter().convertShipPositionStringInputToPositionObject(shipCoordinatesAndOrientation);
+	}
 }
