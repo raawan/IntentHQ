@@ -52,6 +52,9 @@ public class Converter {
 	 */
 	public List<Move> convertShipMovementInStringToShipsListOfMove(String shipMovementInString) {
 		
+		if(!Validator.validateInputForShipMovements(shipMovementInString)) {
+			throwInvalidInputException();
+		}
 		ThreeValuedObject obj = convertThreeValuedInputStringToThreeValuedObject(shipMovementInString);
 		StringBuilder moves = new StringBuilder(obj.getValue());
 		int index=0;
