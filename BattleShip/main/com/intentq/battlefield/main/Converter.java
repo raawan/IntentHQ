@@ -43,6 +43,9 @@ public class Converter {
 	 */
 	public Coordinate convertShotInStringToShotObject(String shotCoordinateInString) {
 		
+		if(!validateShotCoordinateInStringForFormat(shotCoordinateInString)) {
+			throwInvalidInputException();
+		} 
 		TwoValuedObject obj = convertTwoValuedInputStringToTwoValuedObject(shotCoordinateInString);
 		return new Coordinate(obj.getX(), obj.getY());
 	}
@@ -142,6 +145,11 @@ public class Converter {
 	}
 
 	private boolean validateGridCoordinateInStringForFormat(
+			String gridCoordinateInString) {
+		return Validator.validateInputForCoordinates(gridCoordinateInString);
+	}
+	
+	private boolean validateShotCoordinateInStringForFormat(
 			String gridCoordinateInString) {
 		return Validator.validateInputForCoordinates(gridCoordinateInString);
 	}

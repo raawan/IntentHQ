@@ -201,7 +201,7 @@ public class TestClient {
 	
 	@Test(expected=InvalidInputException.class)
 	public void GIVEN_ShipsShotCoordinateInInvalidStringFormat_THEN_InvalidInputException() {
-		String shotCoordinateInString = "(510,79)";
+		String shotCoordinateInString = "(510,79";
 		converter.convertShotInStringToShotObject(shotCoordinateInString);
 	}
 }
