@@ -1,5 +1,6 @@
 package com.intentq.battlefield.api.util;
 
+import com.intentq.battlefield.api.dto.Coordinate;
 import com.intentq.battlefield.api.exception.InvalidInputException;
 import com.intentq.battlefield.api.exception.InvalidMoveSequenceException;
 
@@ -41,5 +42,9 @@ public class ExceptionMessage {
 	
 	public static void throwMoveGoingOutOfGridException() {
 		throw new InvalidMoveSequenceException("A move from a moveSequence is going out of grid");
+	}
+	
+	public static void throwPositionALreadyOccupiedException(Coordinate end) {
+		throw new InvalidMoveSequenceException("x:"+end.getX()+"-y:"+end.getY()+"position already occupied");
 	}
 }

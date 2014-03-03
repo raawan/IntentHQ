@@ -9,6 +9,7 @@ import com.intentq.battlefield.api.dto.Grid;
 import com.intentq.battlefield.api.dto.Position;
 import com.intentq.battlefield.api.dto.Ship;
 import com.intentq.battlefield.api.exception.InvalidMoveSequenceException;
+import com.intentq.battlefield.api.util.ExceptionMessage;
 import com.intentq.battlefield.api.validator.Validator;
 
 public class PlayGameApi implements IPlayGameApi {
@@ -48,11 +49,11 @@ public class PlayGameApi implements IPlayGameApi {
 			} catch (InvalidMoveSequenceException ime) {
 				continue;
 			}
-			takeSHot(thisShip);
+			takeShot(thisShip);
 		}
 	}
 	
-	private void takeSHot(Ship thisShip) {
+	private void takeShot(Ship thisShip) {
 		if(checkIfShipWantsToShot(thisShip)) {
 			updateShotShipStatus(thisShip);
 		}		
@@ -75,7 +76,7 @@ public class PlayGameApi implements IPlayGameApi {
 		Coordinate end = thisShip.getCurrentCoordinate();
 		if(checkIfThisShipCouldCollideToAnyExistingShipOnGrid(thisShip,start,startOrientation,end)) {
 			resetShipPosition(thisShip,start,startOrientation);
-			throwInvalidMoveException(end);
+			ExceptionMessage.throwPositionALreadyOccupiedException(end);
 		}
 	}
 
@@ -93,10 +94,6 @@ public class PlayGameApi implements IPlayGameApi {
 		thisShip.setCurrentPosition(new Position(start.getX(), start.getY(), startOrientation));		
 	}
 
-	private void throwInvalidMoveException(Coordinate end) {
-		throw new InvalidMoveSequenceException("x:"+end.getX()+"-y:"+end.getY()+"position already occupied");		
-	}
-
 	private boolean isShipCanMoveToExistingLocation(Ship thisShip, Ship ship) {
 		return ship.getId()!= thisShip.getId() && ship.getCurrentCoordinate().equals(thisShip.getCurrentCoordinate()) && ship.isAlive();
 	}
@@ -112,17 +109,11 @@ public class PlayGameApi implements IPlayGameApi {
 	private void updateShotShipStatus(Ship thisShip) {
 		for(Ship occupiedShipOnGrid : grid.getShipsOnGrid()) {
 			if(checkIfShipsStatusToBeUpdatedToSunk(occupiedShipOnGrid,thisShip)) {
-				updateShipsStatusWhichSankAndGridStatusWithTheSankedShip(occupiedShipOnGrid);
-				
+				updateLifeStatus(occupiedShipOnGrid);
 			}
 		}		
 	}
 	
-	private void updateShipsStatusWhichSankAndGridStatusWithTheSankedShip(
-			Ship occupiedShipOnGrid) {
-		updateLifeStatus(occupiedShipOnGrid);
-	}
-
 	private boolean checkIfShipsStatusToBeUpdatedToSunk(
 			Ship occupiedShipOnGrid, Ship thisShip) {
 		if(!checkIfThisOccupiedShipIsTheOneWhoAlsoShot(occupiedShipOnGrid,thisShip) &&
@@ -140,10 +131,8 @@ public class PlayGameApi implements IPlayGameApi {
 		ship.setLifeStatus(LifeStatus.SUNK);
 	}
 
-	private boolean checkIfShotCoordinatesMatchesWithThisOccupiedShipCoordinates(
-			Ship occupiedShipOnGrid, Ship thisShip) {
-		return (occupiedShipOnGrid.getCurrentPosition().getCurrentCoordinates().getX() == thisShip.getAction().getShot().getX() &&
-				occupiedShipOnGrid.getCurrentPosition().getCurrentCoordinates().getY() == thisShip.getAction().getShot().getY());
+	private boolean checkIfShotCoordinatesMatchesWithThisOccupiedShipCoordinates(Ship occupiedShipOnGrid, Ship thisShip) {
+		return (occupiedShipOnGrid.getCurrentCoordinate().equals(thisShip.getAction().getShot()));
 	}
 
 	private boolean checkIfThisOccupiedShipIsAlive(Ship occupiedShipOnGrid) {
