@@ -135,4 +135,10 @@ public class TestClient {
 		String gridCoordinateInString = "5,7)";
 		new Converter().convertGridStringInputToGridObject(gridCoordinateInString);
 	}
+	
+	@Test(expected=InvalidInputException.class)
+	public void GIVEN_GridInputInIncorrectStringFormat_THEN_InvalidInputException_3() {
+		String gridCoordinateInString = "(5x7)";
+		new Converter().convertGridStringInputToGridObject(gridCoordinateInString);
+	}
 }
