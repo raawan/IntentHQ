@@ -3,6 +3,7 @@ package com.intentq.battlefield.main;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.intentq.battlefield.constants.LifeStatus;
 import com.intentq.battlefield.constants.Move;
 import com.intentq.battlefield.constants.Orientation;
 import com.intentq.battlefield.dto.Coordinate;
@@ -61,9 +62,9 @@ public class Converter implements IConverter {
 	 * Ship movements input format (x,y,LMMRRMMLL)
 	 */
 	@Override
-	public List<Move> convertShipMovementInStringToShipsListOfMove(String shipMovementInString, Grid grid) {
+	public List<Move> convertShipMovementInStringToShipsListOfMove(String shipMovementInString, Grid grid,LifeStatus lifeStatus) {
 		
-		ThreeValuedObject obj= validator.validateShipMovement(shipMovementInString,grid);
+		ThreeValuedObject obj= validator.validateShipMovement(shipMovementInString,grid,lifeStatus);
 		return convertToMoveListObject(obj);
 	}
 	

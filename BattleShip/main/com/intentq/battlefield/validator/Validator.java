@@ -82,8 +82,11 @@ public class Validator implements IValidator {
 	}
 	
 	@Override
-	public ThreeValuedObject validateShipMovement(String shipMovementInString, Grid grid) {
+	public ThreeValuedObject validateShipMovement(String shipMovementInString, Grid grid, LifeStatus lifeStatus) {
 		ThreeValuedObject obj = null;
+		if(lifeStatus.equals(LifeStatus.SUNK)) {
+			return null;//The ship should not move
+		}
 		if(!validateInputForShipMovements(shipMovementInString)) {
 			throwInvalidShipMovementFormatInputException();
 		} else {

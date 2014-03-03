@@ -9,6 +9,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.intentq.battlefield.constants.LifeStatus;
 import com.intentq.battlefield.constants.Move;
 import com.intentq.battlefield.constants.Orientation;
 import com.intentq.battlefield.dto.Coordinate;
@@ -111,7 +112,7 @@ public class TestInputConversionAndValidation {
 	public void GIVEN_ShipMovementInStringFormat_THEN_ConvertItIntoShipsMovementObject() {
 		String shipMovementInString = "(1,2,LMMRRLM)";
 		Grid g = createGridWithShipCoordinatesAndOrientation("(1,2,E) (1,45,W) (23,67,S)"); 
-		List<Move> nextMoves = converter.convertShipMovementInStringToShipsListOfMove(shipMovementInString,g);
+		List<Move> nextMoves = converter.convertShipMovementInStringToShipsListOfMove(shipMovementInString,g,getStubbedLifeStatus());
 		assertEquals(Move.L, nextMoves.get(0));
 		assertEquals(Move.M, nextMoves.get(1));
 		assertEquals(Move.M, nextMoves.get(2));
@@ -121,11 +122,16 @@ public class TestInputConversionAndValidation {
 		assertEquals(Move.M, nextMoves.get(6));
 	}
 	
+
+	private LifeStatus getStubbedLifeStatus() {
+		return LifeStatus.ALIVE;
+	}
+
 	@Test
 	public void GIVEN_ShipMovementInStringFormat_THEN_ConvertItIntoShipsMovementObject_2() {
 		String shipMovementInString = "(1,2,LMR)";
 		Grid g = createGridWithShipCoordinatesAndOrientation("(1,2,E) (1,45,W) (23,67,S)"); 
-		List<Move> nextMoves = converter.convertShipMovementInStringToShipsListOfMove(shipMovementInString,g);
+		List<Move> nextMoves = converter.convertShipMovementInStringToShipsListOfMove(shipMovementInString,g,getStubbedLifeStatus());
 		assertEquals(Move.L, nextMoves.get(0));
 		assertEquals(Move.M, nextMoves.get(1));
 		assertEquals(Move.R, nextMoves.get(2));
@@ -135,7 +141,7 @@ public class TestInputConversionAndValidation {
 	public void GIVEN_ShipMovementInStringFormat_THEN_ConvertItIntoShipsMovementObject_3() {
 		String shipMovementInString = "(1,2,MRLM)";
 		Grid g = createGridWithShipCoordinatesAndOrientation("(78,2,E) (1,2,W) (23,67,S)"); 
-		List<Move> nextMoves = converter.convertShipMovementInStringToShipsListOfMove(shipMovementInString,g);
+		List<Move> nextMoves = converter.convertShipMovementInStringToShipsListOfMove(shipMovementInString,g,getStubbedLifeStatus());
 		assertEquals(Move.M, nextMoves.get(0));
 		assertEquals(Move.R, nextMoves.get(1));
 		assertEquals(Move.L, nextMoves.get(2));
@@ -194,19 +200,19 @@ public class TestInputConversionAndValidation {
 	@Test(expected=InvalidInputException.class)
 	public void GIVEN_ShipMovementsInputInIncorrectStringFormat_THEN_InvalidInputException() {
 		String shipMovementInString = "(1,2)";
-		converter.convertShipMovementInStringToShipsListOfMove(shipMovementInString,getStubbedGridObject());
+		converter.convertShipMovementInStringToShipsListOfMove(shipMovementInString,getStubbedGridObject(),getStubbedLifeStatus());
 	}
 	
 	@Test(expected=InvalidInputException.class)
 	public void GIVEN_ShipMovementsInputInIncorrectStringFormat_THEN_InvalidInputException_2() {
 		String shipMovementInString = "(1,2,LLMM";
-		converter.convertShipMovementInStringToShipsListOfMove(shipMovementInString,getStubbedGridObject());
+		converter.convertShipMovementInStringToShipsListOfMove(shipMovementInString,getStubbedGridObject(),getStubbedLifeStatus());
 	}
 	
 	@Test(expected=InvalidInputException.class)
 	public void GIVEN_ShipMovementsInputInIncorrectStringFormat_THEN_InvalidInputException_3() {
 		String shipMovementInString = "1,2,LLMM";
-		converter.convertShipMovementInStringToShipsListOfMove(shipMovementInString,getStubbedGridObject());
+		converter.convertShipMovementInStringToShipsListOfMove(shipMovementInString,getStubbedGridObject(),getStubbedLifeStatus());
 	}
 	
 	@Test(expected=InvalidInputException.class)
@@ -307,7 +313,7 @@ public class TestInputConversionAndValidation {
 	@Test(expected=InvalidInputException.class)
 	public void GIVEN_ShipMovementInputYcoordinateOutOfMaxIntRange_THEN_InvalidInputException() {
 		String shipMovementInString = "(1,2,52134567898765435678987654356789,LLMM)";
-		converter.convertShipMovementInStringToShipsListOfMove(shipMovementInString,getStubbedGridObject());
+		converter.convertShipMovementInStringToShipsListOfMove(shipMovementInString,getStubbedGridObject(),getStubbedLifeStatus());
 	}
 	
 	@Test(expected=InvalidInputException.class)
@@ -346,14 +352,14 @@ public class TestInputConversionAndValidation {
 	public void GIVEN_validShipPositionsOnGridAndInvalidShipMovementCoordinates_THEN_InavlidInputException() {
 		Grid g = createGridWithShipCoordinatesAndOrientation("(78,2,E) (1,45,W) (23,67,S)"); 
 		String shipMovementInString = "(1,2,LMMRRLM)";
-		converter.convertShipMovementInStringToShipsListOfMove(shipMovementInString,g);
+		converter.convertShipMovementInStringToShipsListOfMove(shipMovementInString,g,getStubbedLifeStatus());
 	}
 	
 	@Test(expected=InvalidInputException.class)
 	public void GIVEN_validShipPositionsOnGridAndInvalidShipMovementCoordinates_THEN_InavlidInputException_2() {
 		Grid g = createGridWithShipCoordinatesAndOrientation("(78,2,E) (1,45,W) (23,67,S)"); 
 		String shipMovementInString = "(14,23,LMMRRLM)";
-		converter.convertShipMovementInStringToShipsListOfMove(shipMovementInString,g);
+		converter.convertShipMovementInStringToShipsListOfMove(shipMovementInString,g,getStubbedLifeStatus());
 	}
 	
 	@Test(expected=InvalidMoveSequenceException.class)

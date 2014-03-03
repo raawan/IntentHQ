@@ -2,6 +2,7 @@ package com.intentq.battlefield.main;
 
 import java.util.List;
 
+import com.intentq.battlefield.constants.LifeStatus;
 import com.intentq.battlefield.constants.Move;
 import com.intentq.battlefield.dto.Coordinate;
 import com.intentq.battlefield.dto.Grid;
@@ -18,6 +19,6 @@ public interface IConverter {
 			Grid grid);
 
 	List<Move> convertShipMovementInStringToShipsListOfMove(
-			String shipMovementInString, Grid grid);
+			String shipMovementInString, Grid grid,LifeStatus lifeStatus);
 
 }

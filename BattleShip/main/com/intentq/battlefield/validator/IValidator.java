@@ -2,6 +2,7 @@ package com.intentq.battlefield.validator;
 
 import java.util.List;
 
+import com.intentq.battlefield.constants.LifeStatus;
 import com.intentq.battlefield.dto.Coordinate;
 import com.intentq.battlefield.dto.Grid;
 import com.intentq.battlefield.dto.Ship;
@@ -16,8 +17,7 @@ public interface IValidator {
 
 	Coordinate validateShotCoordinates(String shotCoordinateInString, Grid grid);
 
-	ThreeValuedObject validateShipMovement(String shipMovementInString,
-			Grid grid);
+	ThreeValuedObject validateShipMovement(String shipMovementInString,	Grid grid, LifeStatus lifeStatus);
 
 	boolean validateShipAlive(Ship s);
 

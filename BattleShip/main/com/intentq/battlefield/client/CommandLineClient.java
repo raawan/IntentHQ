@@ -67,7 +67,7 @@ public class CommandLineClient {
 		while(!input) {
 			try {
 				shipMovements = getNextInputFromCmdLine();
-				s.getAction().setNextMoves(inputConverter.convertShipMovementInStringToShipsListOfMove(shipMovements,g));
+				s.getAction().setNextMoves(inputConverter.convertShipMovementInStringToShipsListOfMove(shipMovements,g,s.getLifeStatus()));
 				input = true;
 			} catch(InvalidInputException iie) {
 				System.out.println(iie.getMessage());
