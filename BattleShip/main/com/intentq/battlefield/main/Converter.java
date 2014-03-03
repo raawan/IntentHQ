@@ -37,6 +37,19 @@ public class Converter {
 		return new Coordinate(obj.getX(), obj.getY());
 	}
 	
+	public List<Move> convertShipMovementInStringToShipsListOfMove(String shipMovementInString) {
+		
+		ThreeValuedObject obj = convertThreeValuedInputStringToThreeValuedObject(shipMovementInString);
+		StringBuilder moves = new StringBuilder(obj.getValue());
+		int index=0;
+		List<Move> movesList = new ArrayList<Move>();
+		while(index<moves.length()) {
+			movesList.add(Move.valueOf(moves.charAt(index)+""));
+			index++;
+		}
+		return movesList;
+	}
+
 	private TwoValuedObject convertTwoValuedInputStringToTwoValuedObject(String gridCoordinateInString) {
 		
 		StringBuilder strBuilder = new StringBuilder(gridCoordinateInString.trim());
@@ -47,6 +60,21 @@ public class Converter {
 		TwoValuedObject obj = new TwoValuedObject();
 		obj.setX(x);
 		obj.setY(y);
+		return obj;
+	}
+	
+	private ThreeValuedObject convertThreeValuedInputStringToThreeValuedObject(String shipMovementInString) {
+		StringBuilder strBuilder = new StringBuilder(shipMovementInString.trim());
+		int length = strBuilder.length();
+		int firstIndexOfComma = strBuilder.indexOf(COMMA);
+		int secondIndexOfComma = strBuilder.lastIndexOf(COMMA);
+		String x = strBuilder.substring(1, firstIndexOfComma);
+		String y = strBuilder.substring(firstIndexOfComma+1, secondIndexOfComma);
+		String orientationStr = strBuilder.substring(secondIndexOfComma+1, length-1);
+		ThreeValuedObject obj = new ThreeValuedObject();
+		obj.setValue(orientationStr);
+		obj.setX(Integer.parseInt(x));
+		obj.setY(Integer.parseInt(y));
 		return obj;
 	}
 	
@@ -67,24 +95,17 @@ public class Converter {
 			this.y = y;
 		}
 	}
+	
+	private static class ThreeValuedObject extends TwoValuedObject{
+		String value;
 
-	public List<Move> convertShipMovementInStringToShipsListOfMove(String shipMovementInString) {
-		
-		StringBuilder strBuilder = new StringBuilder(shipMovementInString.trim());
-		int length = strBuilder.length();
-		int firstIndexOfComma = strBuilder.indexOf(COMMA);
-		int secondIndexOfComma = strBuilder.lastIndexOf(COMMA);
-		String x = strBuilder.substring(1, firstIndexOfComma);
-		String y = strBuilder.substring(firstIndexOfComma+1, secondIndexOfComma);
-		String movesString = strBuilder.substring(secondIndexOfComma+1, length-1);
-		
-		StringBuilder moves = new StringBuilder(movesString);
-		int index=0;
-		List<Move> movesList = new ArrayList<Move>();
-		while(index<moves.length()) {
-			movesList.add(Move.valueOf(moves.charAt(index)+""));
-			index++;
+		public String getValue() {
+			return value;
 		}
-		return movesList;
+
+		public void setValue(String value) {
+			this.value = value;
+		}
 	}
+	
 }
