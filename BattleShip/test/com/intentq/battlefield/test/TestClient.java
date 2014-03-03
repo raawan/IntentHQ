@@ -53,19 +53,19 @@ public class TestClient {
 	@Test
 	public void GIVEN_ShipStartingPositionInStringFormat_THEN_convertIntoPositionObject() {
 		String shipCoordinatesAndOrientation = "(1,2,N)";
-		Position pos = new Converter().convertShipPositionStringInputToPositionObject(shipCoordinatesAndOrientation);
-		assertEquals(1, pos.getCurrentCoordinates().getX());
-		assertEquals(2, pos.getCurrentCoordinates().getY());
-		assertEquals(Orientation.N,pos.getOrientation());
+		List<Position> pos = new Converter().convertShipPositionStringInputToPositionObject(shipCoordinatesAndOrientation);
+		assertEquals(1, pos.get(0).getCurrentCoordinates().getX());
+		assertEquals(2, pos.get(0).getCurrentCoordinates().getY());
+		assertEquals(Orientation.N,pos.get(0).getOrientation());
 	}
 	
 	@Test
 	public void GIVEN_ShipStartingPositionInStringFormat_THEN_convertIntoPositionObject_2() {
 		String shipCoordinatesAndOrientation = "(12,2342,E)";
-		Position pos = new Converter().convertShipPositionStringInputToPositionObject(shipCoordinatesAndOrientation);
-		assertEquals(12, pos.getCurrentCoordinates().getX());
-		assertEquals(2342, pos.getCurrentCoordinates().getY());
-		assertEquals(Orientation.E,pos.getOrientation());
+		List<Position> pos = new Converter().convertShipPositionStringInputToPositionObject(shipCoordinatesAndOrientation);
+		assertEquals(12, pos.get(0).getCurrentCoordinates().getX());
+		assertEquals(2342, pos.get(0).getCurrentCoordinates().getY());
+		assertEquals(Orientation.E,pos.get(0).getOrientation());
 	}
 	
 	@Test

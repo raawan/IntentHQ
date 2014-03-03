@@ -29,19 +29,25 @@ public class Converter {
 	 * Ship position input format
 	 * (X1,Y1,O1)<SPACE>(X1,Y1,O1)<SPACE>.........<SPACE>(Xn,Yn,On)<SPACE>
 	 */
-	public Position convertShipPositionStringInputToPositionObject(String shipCoordinatesAndOrientation) {
+	public List<Position> convertShipPositionStringInputToPositionObject(String shipCoordinatesAndOrientation) {
 		
 		if(!Validator.validateInputForShipPosition(shipCoordinatesAndOrientation+" ")) {
 			throwInvalidInputException();
 		}
-		StringBuilder strBuilder = new StringBuilder(shipCoordinatesAndOrientation.trim());
-		int length = strBuilder.length();
-		int firstIndexOfComma = strBuilder.indexOf(",");
-		int secondIndexOfComma = strBuilder.lastIndexOf(",");
-		String xCo = strBuilder.substring(1, firstIndexOfComma);
-		String yCo = strBuilder.substring(firstIndexOfComma+1, secondIndexOfComma);
-		String orientationStr = strBuilder.substring(secondIndexOfComma+1, length-1);
-		return new Position(Integer.parseInt(xCo),Integer.parseInt(yCo),Orientation.valueOf(orientationStr));
+		
+		List<Position> positions = new ArrayList<Position>();
+		String[] shipPositionsArray = shipCoordinatesAndOrientation.split(" ");
+		for(String shipPosition: shipPositionsArray) { 
+			StringBuilder strBuilder = new StringBuilder(shipPosition.trim());
+			int length = strBuilder.length();
+			int firstIndexOfComma = strBuilder.indexOf(",");
+			int secondIndexOfComma = strBuilder.lastIndexOf(",");
+			String xCo = strBuilder.substring(1, firstIndexOfComma);
+			String yCo = strBuilder.substring(firstIndexOfComma+1, secondIndexOfComma);
+			String orientationStr = strBuilder.substring(secondIndexOfComma+1, length-1);
+			positions.add(new Position(Integer.parseInt(xCo),Integer.parseInt(yCo),Orientation.valueOf(orientationStr)));
+		}
+		return positions;
 	}
 	
 	/*
