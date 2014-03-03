@@ -31,25 +31,26 @@ public class Converter {
 	 */
 	public List<Position> convertShipPositionStringInputToPositionObject(String shipCoordinatesAndOrientation) {
 		
-		if(!Validator.validateInputForShipPosition(shipCoordinatesAndOrientation+" ")) {
+		if(validateshipCoordinatesAndOrientationForFormat(shipCoordinatesAndOrientation)) {
 			throwInvalidInputException();
-		}
-		
+		} 
+		return convertToPositionListObject(shipCoordinatesAndOrientation);
+	}
+	
+	private boolean validateshipCoordinatesAndOrientationForFormat(String shipCoordinatesAndOrientation) {
+		return !Validator.validateInputForShipPosition(shipCoordinatesAndOrientation+" ");
+	}
+
+	private List<Position> convertToPositionListObject(String shipCoordinatesAndOrientation) {
 		List<Position> positions = new ArrayList<Position>();
 		String[] shipPositionsArray = shipCoordinatesAndOrientation.split(" ");
 		for(String shipPosition: shipPositionsArray) { 
-			StringBuilder strBuilder = new StringBuilder(shipPosition.trim());
-			int length = strBuilder.length();
-			int firstIndexOfComma = strBuilder.indexOf(",");
-			int secondIndexOfComma = strBuilder.lastIndexOf(",");
-			String xCo = strBuilder.substring(1, firstIndexOfComma);
-			String yCo = strBuilder.substring(firstIndexOfComma+1, secondIndexOfComma);
-			String orientationStr = strBuilder.substring(secondIndexOfComma+1, length-1);
-			positions.add(new Position(Integer.parseInt(xCo),Integer.parseInt(yCo),Orientation.valueOf(orientationStr)));
+			ThreeValuedObject obj = convertThreeValuedInputStringToThreeValuedObject(shipPosition);
+			positions.add(new Position(obj.getX(),obj.getY(),Orientation.valueOf(obj.getValue())));
 		}
 		return positions;
 	}
-	
+
 	/*
 	 * Ship movements input format (x,y,LMMRRMMLL)
 	 */
