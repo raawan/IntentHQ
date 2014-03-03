@@ -1,4 +1,4 @@
-package com.intentq.battlefield.main;
+package com.intentq.battlefield.util;
 
 import com.intentq.battlefield.dto.Coordinate;
 import com.intentq.battlefield.dto.Grid;

@@ -8,7 +8,9 @@ import com.intentq.battlefield.constants.Orientation;
 import com.intentq.battlefield.dto.Coordinate;
 import com.intentq.battlefield.dto.Grid;
 import com.intentq.battlefield.dto.Position;
-import com.intentq.battlefield.exception.InvalidInputException;
+
+import static com.intentq.battlefield.util.ExceptionMessage.*;
+import static com.intentq.battlefield.util.Validator.*;
 
 public class Converter {
 	
@@ -63,13 +65,13 @@ public class Converter {
 
 
 	private boolean validateshipCoordinatesAndMovementsForFormat(String shipMovementInString) {
-		return Validator.validateInputForShipMovements(shipMovementInString);
+		return validateInputForShipMovements(shipMovementInString);
 	}
 
 	private List<Move> convertToMoveListObject(String shipMovementInString,Grid grid) {
 		ThreeValuedObject obj = convertThreeValuedInputStringToThreeValuedObject(shipMovementInString);
-		if (!Validator.validateShipStartingCoordinateMatchesWithTheShipsOnGrid(obj.getX(),obj.getY(),grid)) {
-			throw new InvalidInputException("Invalid Ship starting coordinate");
+		if (!validateShipStartingCoordinateMatchesWithTheShipsOnGrid(obj.getX(),obj.getY(),grid)) {
+			throwInvalidShipStartingCoordinateException();
 		}
 		StringBuilder moves = new StringBuilder(obj.getValue());
 		int index=0;
@@ -168,16 +170,16 @@ public class Converter {
 
 	private boolean validateGridCoordinateInStringForFormat(
 			String gridCoordinateInString) {
-		return Validator.validateInputForCoordinates(gridCoordinateInString);
+		return validateInputForCoordinates(gridCoordinateInString);
 	}
 	
 	private boolean validateShotCoordinateInStringForFormat(
 			String gridCoordinateInString) {
-		return Validator.validateInputForCoordinates(gridCoordinateInString);
+		return validateInputForCoordinates(gridCoordinateInString);
 	}
 	
 	private boolean validateshipCoordinatesAndOrientationForFormat(String shipCoordinatesAndOrientation) {
-		return Validator.validateInputForShipPosition(shipCoordinatesAndOrientation+" ");
+		return validateInputForShipPosition(shipCoordinatesAndOrientation+" ");
 	}
 
 	private List<Position> convertToPositionListObject(String shipCoordinatesAndOrientation, Grid grid) {
@@ -185,7 +187,7 @@ public class Converter {
 		String[] shipPositionsArray = shipCoordinatesAndOrientation.split(SPACE);
 		for(String shipPosition: shipPositionsArray) { 
 			ThreeValuedObject obj = convertThreeValuedInputStringToThreeValuedObject(shipPosition);
-			if(!Validator.validateCoordinatesWithinGridRange(obj.getX(),obj.getY(),grid)) {
+			if(!validateCoordinatesWithinGridRange(obj.getX(),obj.getY(),grid)) {
 				throwCoordinatesOutOfGridException();
 			}
 			positions.add(new Position(obj.getX(),obj.getY(),Orientation.valueOf(obj.getValue())));
@@ -195,34 +197,12 @@ public class Converter {
 	
 	private Coordinate convertToShotObject(String shotCoordinateInString, Grid grid) {
 		TwoValuedObject obj = convertTwoValuedInputStringToTwoValuedObject(shotCoordinateInString);
-		if(!Validator.validateCoordinatesWithinGridRange(obj.getX(), obj.getY(), grid)) {
+		if(!validateCoordinatesWithinGridRange(obj.getX(), obj.getY(), grid)) {
 			throwCoordinatesOutOfGridException();
 		}
 		return new Coordinate(obj.getX(), obj.getY());	
 	}
 	
 	
-	private void throwCoordinateInputOutOfMaxIntRange() {
-		throw new InvalidInputException("Coordinates input is out of integer range");
-	}
 	
-	private void throwCoordinatesOutOfGridException() {
-		throw new InvalidInputException("Coordinates input is out of Grid range");		
-	}
-
-	private void throwInvalidGridFormatInputException() {
-		throw new InvalidInputException("Grid input is in not proper format - Correct format: (X,Y)");		
-	}
-	
-	private void throwInvalidShipPositionFormatInputException() {
-		throw new InvalidInputException("Ship positions input is in not proper format - Correct format: (X1,Y1,O1)<SPACE>(X1,Y1,O1)<SPACE>.........<SPACE>(Xn,Yn,On)");		
-	}
-	
-	private void throwInvalidShotCoordinateFormatInputException() {
-		throw new InvalidInputException("Shot input is in not proper format - Correct format: (X,Y)");		
-	}
-	
-	private void throwInvalidShipMovementFormatInputException() {
-		throw new InvalidInputException("Ship movements input is in not proper format - Correct format: (X,Y,LMMRRMMLL)");		
-	}
 }
