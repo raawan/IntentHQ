@@ -258,4 +258,11 @@ public class TestClient {
 		String gridCoordinateInString = "(52134567898765435678987654356789,7)";
 		converter.convertGridStringInputToGridObject(gridCoordinateInString);
 	}
+	
+
+	@Test(expected=InvalidInputException.class)
+	public void GIVEN_GridInputYOutOfMaxIntRange_THEN_InavlidInputException() {
+		String gridCoordinateInString = "(5,52134567898765435678987654356789)";
+		converter.convertGridStringInputToGridObject(gridCoordinateInString);
+	}
 }
