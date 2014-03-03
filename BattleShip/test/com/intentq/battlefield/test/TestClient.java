@@ -180,4 +180,10 @@ public class TestClient {
 		assertEquals(new Position(234, 567, Orientation.E),pos.get(2));
 		assertEquals(new Position(12, 34, Orientation.S),pos.get(3));
 	}
+	
+	@Test(expected=InvalidInputException.class)
+	public void GIVEN_ShipMovementsInputInIncorrectStringFormat_THEN_InvalidInputException() {
+		String shipMovementInString = "(1,2)";
+		converter.convertShipMovementInStringToShipsListOfMove(shipMovementInString);
+	}
 }

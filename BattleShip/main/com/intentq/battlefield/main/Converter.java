@@ -37,22 +37,9 @@ public class Converter {
 		return convertToPositionListObject(shipCoordinatesAndOrientation);
 	}
 	
-	private boolean validateshipCoordinatesAndOrientationForFormat(String shipCoordinatesAndOrientation) {
-		return !Validator.validateInputForShipPosition(shipCoordinatesAndOrientation+" ");
-	}
-
-	private List<Position> convertToPositionListObject(String shipCoordinatesAndOrientation) {
-		List<Position> positions = new ArrayList<Position>();
-		String[] shipPositionsArray = shipCoordinatesAndOrientation.split(" ");
-		for(String shipPosition: shipPositionsArray) { 
-			ThreeValuedObject obj = convertThreeValuedInputStringToThreeValuedObject(shipPosition);
-			positions.add(new Position(obj.getX(),obj.getY(),Orientation.valueOf(obj.getValue())));
-		}
-		return positions;
-	}
-
+	
 	/*
-	 * Ship movements input format (x,y,LMMRRMMLL)
+	 * Shot coordinate input format = (x,y)
 	 */
 	public Coordinate convertShotInStringToShotObject(String shotCoordinateInString) {
 		
@@ -60,6 +47,9 @@ public class Converter {
 		return new Coordinate(obj.getX(), obj.getY());
 	}
 	
+	/*
+	 * Ship movements input format (x,y,LMMRRMMLL)
+	 */
 	public List<Move> convertShipMovementInStringToShipsListOfMove(String shipMovementInString) {
 		
 		ThreeValuedObject obj = convertThreeValuedInputStringToThreeValuedObject(shipMovementInString);
@@ -143,5 +133,19 @@ public class Converter {
 	private boolean validateGridCoordinateInStringForFormat(
 			String gridCoordinateInString) {
 		return Validator.validateInputForCoordinates(gridCoordinateInString);
+	}
+	
+	private boolean validateshipCoordinatesAndOrientationForFormat(String shipCoordinatesAndOrientation) {
+		return !Validator.validateInputForShipPosition(shipCoordinatesAndOrientation+" ");
+	}
+
+	private List<Position> convertToPositionListObject(String shipCoordinatesAndOrientation) {
+		List<Position> positions = new ArrayList<Position>();
+		String[] shipPositionsArray = shipCoordinatesAndOrientation.split(" ");
+		for(String shipPosition: shipPositionsArray) { 
+			ThreeValuedObject obj = convertThreeValuedInputStringToThreeValuedObject(shipPosition);
+			positions.add(new Position(obj.getX(),obj.getY(),Orientation.valueOf(obj.getValue())));
+		}
+		return positions;
 	}
 }
