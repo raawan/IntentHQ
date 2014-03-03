@@ -14,6 +14,9 @@ public class Converter {
 	
 	private static final String  COMMA=",";
 	
+	/*
+	 * Grid coordinate input format = (x,y)
+	 */
 	public Grid convertGridStringInputToGridObject(String gridCoordinateInString) {
 		
 		if(!validateGridCoordinateInStringForFormat(gridCoordinateInString)) {
@@ -22,9 +25,15 @@ public class Converter {
 		return convertToGridObject(gridCoordinateInString);
 	}
 
-
+	/*
+	 * Ship position input format
+	 * (X1,Y1,O1)<SPACE>(X1,Y1,O1)<SPACE>.........<SPACE>(Xn,Yn,On)<SPACE>
+	 */
 	public Position convertShipPositionStringInputToPositionObject(String shipCoordinatesAndOrientation) {
 		
+		if(!Validator.validateInputForShipPosition(shipCoordinatesAndOrientation+" ")) {
+			throwInvalidInputException();
+		}
 		StringBuilder strBuilder = new StringBuilder(shipCoordinatesAndOrientation.trim());
 		int length = strBuilder.length();
 		int firstIndexOfComma = strBuilder.indexOf(",");
@@ -34,7 +43,10 @@ public class Converter {
 		String orientationStr = strBuilder.substring(secondIndexOfComma+1, length-1);
 		return new Position(Integer.parseInt(xCo),Integer.parseInt(yCo),Orientation.valueOf(orientationStr));
 	}
-
+	
+	/*
+	 * Ship movements input format (x,y,LMMRRMMLL)
+	 */
 	public Coordinate convertShotInStringToShotObject(String shotCoordinateInString) {
 		
 		TwoValuedObject obj = convertTwoValuedInputStringToTwoValuedObject(shotCoordinateInString);
