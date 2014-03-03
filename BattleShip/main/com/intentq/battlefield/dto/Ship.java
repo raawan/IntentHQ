@@ -107,4 +107,12 @@ public class Ship {
 	public void setAction(Action action) {
 		this.action = action;
 	}
+	
+	@Override
+	public String toString() {
+		if(getLifeStatus().equals(LifeStatus.SUNK)) {
+			return this.getCurrentPosition().toString()+" " + getLifeStatus();
+		}
+		return this.getCurrentPosition().toString(); 
+	}
 }

@@ -57,4 +57,9 @@ public class Position {
 		result = prime * result + this.getOrientation().ordinal();
 		return result;
 	}
+	
+	@Override
+	public String toString() {
+		return "(" + this.getCurrentCoordinates().getX() + "," + this.getCurrentCoordinates().getY() + "," + this.getOrientation() + ")"; 
+	}
 }

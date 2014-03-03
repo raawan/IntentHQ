@@ -32,7 +32,7 @@ import com.intentq.battlefield.main.PlayGame;
 import com.intentq.battlefield.util.Validator;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TestCommandLineClientIntegrationTest {
+public class TestCommandLineClientIntegrationTest {/*
 	
 	@Mock
 	private BufferedReader readerMock;
@@ -197,4 +197,4 @@ public class TestCommandLineClientIntegrationTest {
 	private static List<Move> nextMoveSequence(Move...actions) {
 		return Arrays.asList(actions);
 	}
-}
+*/}
