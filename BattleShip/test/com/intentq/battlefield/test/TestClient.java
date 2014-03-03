@@ -265,4 +265,16 @@ public class TestClient {
 		String gridCoordinateInString = "(5,52134567898765435678987654356789)";
 		converter.convertGridStringInputToGridObject(gridCoordinateInString);
 	}
+	
+	@Test(expected=InvalidInputException.class)
+	public void GIVEN_shotInputXOutOfMaxIntRange_THEN_InavlidInputException() {
+		String shotCoordinateInString = "(52134567898765435678987654356789,7)";
+		converter.convertShotInStringToShotObject(shotCoordinateInString);
+	}
+	
+	@Test(expected=InvalidInputException.class)
+	public void GIVEN_shotInputYOutOfMaxIntRange_THEN_InavlidInputException() {
+		String shotCoordinateInString = "(7,52134567898765435678987654356789)";
+		converter.convertShotInStringToShotObject(shotCoordinateInString);
+	}
 }
