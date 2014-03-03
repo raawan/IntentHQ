@@ -122,4 +122,10 @@ public class TestClient {
 		assertEquals(Move.L, nextMoves.get(2));
 		assertEquals(Move.M, nextMoves.get(3));
 	}
+	
+	@Test(expected=InvalidInputException.class)
+	public void GIVEN_GridInputInIncorrectStringFormat_THEN_InvalidInputException() {
+		String gridCoordinateInString = "(5,7";
+		new Converter().convertGridStringInputToGridObject(gridCoordinateInString);
+	}
 }
