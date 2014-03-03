@@ -392,10 +392,8 @@ public class TestInputConversionAndValidation {
 	
 	@Test(expected=InvalidInputException.class)
 	public void GIVEN_BothZeroCoordinatesOfGrid_THEN_InvalidInputException() {
-		String gridCoordinateInString = "(5,7)";
-		Grid grid = converter.convertGridStringInputToGridObject(gridCoordinateInString);
-		assertEquals(5, grid.getMaxCoOrdinates().getX());
-		assertEquals(7, grid.getMaxCoOrdinates().getY()); 
+		String gridCoordinateInString = "(0,0)";
+		converter.convertGridStringInputToGridObject(gridCoordinateInString);
 	}
 	
 	private static List<Move> nextMoveSequence(Move...actions) {

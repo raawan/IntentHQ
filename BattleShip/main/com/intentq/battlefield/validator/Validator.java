@@ -7,6 +7,7 @@ import static com.intentq.battlefield.util.ExceptionMessage.throwInvalidShipMove
 import static com.intentq.battlefield.util.ExceptionMessage.throwInvalidShipPositionFormatInputException;
 import static com.intentq.battlefield.util.ExceptionMessage.throwInvalidShipStartingCoordinateException;
 import static com.intentq.battlefield.util.ExceptionMessage.throwInvalidShotCoordinateFormatInputException;
+import static com.intentq.battlefield.util.ExceptionMessage.throwInvalidGridCoordinateInputException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,7 @@ public class Validator implements IValidator {
 	private static final String  REGEX_FOR_SHIP_MOVEMENTS = "^\\([\\d]+\\,[\\d]+\\,[LRM]+\\)$";
 	private static final String  COMMA=",";
 	private static final String  SPACE=" ";
-	
+	private static final int  ZERO_VALUE_COORDINATE = 0;
 	
 	public static class ThreeValuedObject extends Coordinate{
 		public ThreeValuedObject(int x, int y) {
@@ -48,6 +49,9 @@ public class Validator implements IValidator {
 			throwInvalidGridFormatInputException();
 		} else {
 			obj = convertTwoValuedInputStringToTwoValuedObject(gridCoordinateInString);
+			if(isEqual(obj.getX(), ZERO_VALUE_COORDINATE) && isEqual(obj.getY(), ZERO_VALUE_COORDINATE)) {
+				throwInvalidGridCoordinateInputException();
+			}
 		} 
 		return obj;
 	}
@@ -96,6 +100,14 @@ public class Validator implements IValidator {
 			}
 		}
 		return obj;
+	}
+	
+	@Override
+	public boolean validateShipAlive(Ship s) {
+		if(s.getLifeStatus().equals(LifeStatus.SUNK))
+			return false;
+		else
+			return true;
 	}
 	
 	private boolean validateGridCoordinateInStringForFormat(
@@ -213,11 +225,10 @@ public class Validator implements IValidator {
 		return obj;
 	}
 	
-	@Override
-	public boolean validateShipAlive(Ship s) {
-		if(s.getLifeStatus().equals(LifeStatus.SUNK))
-			return false;
-		else
+	private boolean isEqual(int number, int valueToComapreForEquality) {
+		if(number==valueToComapreForEquality) {
 			return true;
+		}
+		return false;
 	}
 }
