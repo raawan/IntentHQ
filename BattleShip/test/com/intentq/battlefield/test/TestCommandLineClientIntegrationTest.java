@@ -19,6 +19,7 @@ import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.times;
 
+import com.intentq.battlefield.client.CommandLineClient;
 import com.intentq.battlefield.constants.LifeStatus;
 import com.intentq.battlefield.constants.Move;
 import com.intentq.battlefield.constants.Orientation;
@@ -26,7 +27,6 @@ import com.intentq.battlefield.dto.Coordinate;
 import com.intentq.battlefield.dto.Grid;
 import com.intentq.battlefield.dto.Position;
 import com.intentq.battlefield.dto.Ship;
-import com.intentq.battlefield.main.CommandLineClient;
 import com.intentq.battlefield.main.Converter;
 import com.intentq.battlefield.main.PlayGame;
 import com.intentq.battlefield.util.Validator;

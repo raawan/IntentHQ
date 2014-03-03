@@ -1,8 +1,11 @@
-package com.intentq.battlefield.main;
+package com.intentq.battlefield.client;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
+import com.intentq.battlefield.main.Converter;
+import com.intentq.battlefield.main.IPlayGame;
+import com.intentq.battlefield.main.PlayGame;
 import com.intentq.battlefield.util.Validator;
 
 public class Main {

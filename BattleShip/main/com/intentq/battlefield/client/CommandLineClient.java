@@ -1,4 +1,4 @@
-package com.intentq.battlefield.main;
+package com.intentq.battlefield.client;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,6 +10,8 @@ import com.intentq.battlefield.dto.Grid;
 import com.intentq.battlefield.dto.Position;
 import com.intentq.battlefield.dto.Ship;
 import com.intentq.battlefield.exception.InvalidInputException;
+import com.intentq.battlefield.main.IConverter;
+import com.intentq.battlefield.main.IPlayGame;
 
 public class CommandLineClient {
 	
