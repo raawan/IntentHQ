@@ -222,4 +222,16 @@ public class TestClient {
 		String gridCoordinateInString = "(5,-7)";
 		converter.convertGridStringInputToGridObject(gridCoordinateInString);
 	}
+	
+	@Test(expected=InvalidInputException.class)
+	public void GIVEN_negativeXshotCoordinate_THEN_InvalidInputException() {
+		String gridCoordinateInString = "(-5,7)";
+		converter.convertShotInStringToShotObject(gridCoordinateInString);
+	}
+	
+	@Test(expected=InvalidInputException.class)
+	public void GIVEN_negativeYshotCoordinate_THEN_InvalidInputException() {
+		String gridCoordinateInString = "(5,-7)";
+		converter.convertShotInStringToShotObject(gridCoordinateInString);
+	}
 }
