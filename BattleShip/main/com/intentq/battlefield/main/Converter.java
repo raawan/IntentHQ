@@ -52,10 +52,14 @@ public class Converter {
 	 */
 	public List<Move> convertShipMovementInStringToShipsListOfMove(String shipMovementInString) {
 		
-		if(!Validator.validateInputForShipMovements(shipMovementInString)) {
+		if(!validateshipCoordinatesAndMovementsForFormat(shipMovementInString)) {
 			throwInvalidInputException();
 		}
 		return convertToMoveListObject(shipMovementInString);
+	}
+
+	private boolean validateshipCoordinatesAndMovementsForFormat(String shipMovementInString) {
+		return Validator.validateInputForShipMovements(shipMovementInString);
 	}
 
 	private List<Move> convertToMoveListObject(String shipMovementInString) {
