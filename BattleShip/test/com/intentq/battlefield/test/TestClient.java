@@ -277,4 +277,10 @@ public class TestClient {
 		String shotCoordinateInString = "(7,52134567898765435678987654356789)";
 		converter.convertShotInStringToShotObject(shotCoordinateInString);
 	}
+	
+	@Test(expected=InvalidInputException.class)
+	public void GIVEN_ShipPositionInputXcoordinateOutOfManIntRange_THEN_InvalidInputException() {
+		String shipCoordinatesAndOrientation = "(52134567898765435678987654356789,2,N)";
+		converter.convertShipPositionStringInputToPositionObject(shipCoordinatesAndOrientation);
+	}
 }
