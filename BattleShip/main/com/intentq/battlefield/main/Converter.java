@@ -21,10 +21,8 @@ public class Converter {
 	 */
 	public Grid convertGridStringInputToGridObject(String gridCoordinateInString) {
 		
-		if(!validateGridCoordinateInStringForFormat(gridCoordinateInString)) {
-			throwInvalidGridFormatInputException();
-		} 
-		return convertToGridObject(gridCoordinateInString);
+		TwoValuedObject obj = validateGridCoordinate(gridCoordinateInString);
+		return new Grid(obj.getX(),obj.getY());	
 	}
 
 	/*
@@ -37,28 +35,6 @@ public class Converter {
 		return createPositionList(objs);
 	}
 	
-	private List<Position> createPositionList(List<ThreeValuedObject> objs) {
-		List<Position> positions = new ArrayList<Position>();
-		for(ThreeValuedObject obj : objs) {
-			positions.add(new Position(obj.getX(),obj.getY(),Orientation.valueOf(obj.getValue())));
-		}
-		return positions;
-	}
-
-	private List<ThreeValuedObject> validateShipPositions(
-			String shipCoordinatesAndOrientation, Grid grid) {
-		if(!validateshipCoordinatesAndOrientationForFormat(shipCoordinatesAndOrientation)) {
-			throwInvalidShipPositionFormatInputException();
-		} 
-		List<ThreeValuedObject> objs = convertToPositionListObject(shipCoordinatesAndOrientation,grid);
-		for(ThreeValuedObject obj : objs) {
-			if(!validateCoordinatesWithinGridRange(obj.getX(),obj.getY(),grid)) {
-				throwCoordinatesOutOfGridException();
-			}
-		}
-		return objs;
-	}
-
 	/*
 	 * Shot coordinate input format = (x,y)
 	 */
@@ -67,7 +43,6 @@ public class Converter {
 		TwoValuedObject obj = validateShotCoordinates(shotCoordinateInString,grid);
 		return new Coordinate(obj.getX(), obj.getY());	
 	}
-	
 
 	/*
 	 * Ship movements input format (x,y,LMMRRMMLL)
@@ -78,46 +53,6 @@ public class Converter {
 		return convertToMoveListObject(obj);
 	}
 
-	private TwoValuedObject validateShotCoordinates(String shotCoordinateInString, Grid grid) {
-		TwoValuedObject obj = null;
-		if(!validateInputForCoordinates(shotCoordinateInString)) {
-			throwInvalidShotCoordinateFormatInputException();
-		} else {
-			obj = convertTwoValuedInputStringToTwoValuedObject(shotCoordinateInString);
-			if(!validateCoordinatesWithinGridRange(obj.getX(), obj.getY(), grid)) {
-				throwCoordinatesOutOfGridException();
-			}
-		}
-		return obj;
-	}
-	
-	private ThreeValuedObject validateShipMovement(String shipMovementInString, Grid grid) {
-		ThreeValuedObject obj = null;
-		if(!validateInputForShipMovements(shipMovementInString)) {
-			throwInvalidShipMovementFormatInputException();
-		} else {
-			obj = convertThreeValuedInputStringToThreeValuedObject(shipMovementInString);
-			if (!validateShipStartingCoordinateMatchesWithTheShipsOnGrid(obj.getX(),obj.getY(),grid)) {
-				throwInvalidShipStartingCoordinateException();
-			}
-		}
-		return obj;
-	}
-
-	private List<Move> convertToMoveListObject(ThreeValuedObject obj) {
-		if(obj!=null) {
-			StringBuilder moves = new StringBuilder(obj.getValue());
-			int index=0;
-			List<Move> movesList = new ArrayList<Move>();
-			while(index<moves.length()) {
-				movesList.add(Move.valueOf(moves.charAt(index)+""));
-				index++;
-			}
-			return movesList;
-		}
-		return new ArrayList<Move>();
-	}
-	
 	/*
 	 * created to reuse
 	 */
@@ -198,11 +133,6 @@ public class Converter {
 		}
 	}
 	
-	private Grid convertToGridObject(String gridCoordinateInString) {
-		TwoValuedObject obj = convertTwoValuedInputStringToTwoValuedObject(gridCoordinateInString);
-		return new Grid(obj.getX(),obj.getY());		
-	}
-
 	private boolean validateGridCoordinateInStringForFormat(
 			String gridCoordinateInString) {
 		return validateInputForCoordinates(gridCoordinateInString);
@@ -214,18 +144,85 @@ public class Converter {
 	}
 
 	private List<ThreeValuedObject> convertToPositionListObject(String shipCoordinatesAndOrientation, Grid grid) {
-		//List<Position> positions = new ArrayList<Position>();
 		 List<ThreeValuedObject> objs = new ArrayList<ThreeValuedObject>();
 		String[] shipPositionsArray = shipCoordinatesAndOrientation.split(SPACE);
 		for(String shipPosition: shipPositionsArray) { 
 			ThreeValuedObject obj = convertThreeValuedInputStringToThreeValuedObject(shipPosition);
-			/*if(!validateCoordinatesWithinGridRange(obj.getX(),obj.getY(),grid)) {
-				throwCoordinatesOutOfGridException();
-			}*/
-			//positions.add(new Position(obj.getX(),obj.getY(),Orientation.valueOf(obj.getValue())));
 			objs.add(obj);
 		}
 		return objs;
 	}
 	
+	private TwoValuedObject validateGridCoordinate(String gridCoordinateInString) {
+		TwoValuedObject obj = null;
+		if(!validateGridCoordinateInStringForFormat(gridCoordinateInString)) {
+			throwInvalidGridFormatInputException();
+		} else {
+			obj = convertTwoValuedInputStringToTwoValuedObject(gridCoordinateInString);
+		} 
+		return obj;
+	}
+	
+	private List<Position> createPositionList(List<ThreeValuedObject> objs) {
+		List<Position> positions = new ArrayList<Position>();
+		for(ThreeValuedObject obj : objs) {
+			positions.add(new Position(obj.getX(),obj.getY(),Orientation.valueOf(obj.getValue())));
+		}
+		return positions;
+	}
+
+	private List<ThreeValuedObject> validateShipPositions(
+			String shipCoordinatesAndOrientation, Grid grid) {
+		if(!validateshipCoordinatesAndOrientationForFormat(shipCoordinatesAndOrientation)) {
+			throwInvalidShipPositionFormatInputException();
+		} 
+		List<ThreeValuedObject> objs = convertToPositionListObject(shipCoordinatesAndOrientation,grid);
+		for(ThreeValuedObject obj : objs) {
+			if(!validateCoordinatesWithinGridRange(obj.getX(),obj.getY(),grid)) {
+				throwCoordinatesOutOfGridException();
+			}
+		}
+		return objs;
+	}
+	
+	private TwoValuedObject validateShotCoordinates(String shotCoordinateInString, Grid grid) {
+		TwoValuedObject obj = null;
+		if(!validateInputForCoordinates(shotCoordinateInString)) {
+			throwInvalidShotCoordinateFormatInputException();
+		} else {
+			obj = convertTwoValuedInputStringToTwoValuedObject(shotCoordinateInString);
+			if(!validateCoordinatesWithinGridRange(obj.getX(), obj.getY(), grid)) {
+				throwCoordinatesOutOfGridException();
+			}
+		}
+		return obj;
+	}
+	
+	private ThreeValuedObject validateShipMovement(String shipMovementInString, Grid grid) {
+		ThreeValuedObject obj = null;
+		if(!validateInputForShipMovements(shipMovementInString)) {
+			throwInvalidShipMovementFormatInputException();
+		} else {
+			obj = convertThreeValuedInputStringToThreeValuedObject(shipMovementInString);
+			if (!validateShipStartingCoordinateMatchesWithTheShipsOnGrid(obj.getX(),obj.getY(),grid)) {
+				throwInvalidShipStartingCoordinateException();
+			}
+		}
+		return obj;
+	}
+
+	private List<Move> convertToMoveListObject(ThreeValuedObject obj) {
+		if(obj!=null) {
+			StringBuilder moves = new StringBuilder(obj.getValue());
+			int index=0;
+			List<Move> movesList = new ArrayList<Move>();
+			while(index<moves.length()) {
+				movesList.add(Move.valueOf(moves.charAt(index)+""));
+				index++;
+			}
+			return movesList;
+		}
+		return new ArrayList<Move>();
+	}
+
 }
