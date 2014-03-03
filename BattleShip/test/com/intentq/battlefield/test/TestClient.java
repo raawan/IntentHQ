@@ -112,4 +112,14 @@ public class TestClient {
 		assertEquals(Move.M, nextMoves.get(1));
 		assertEquals(Move.R, nextMoves.get(2));
 	}
+	
+	@Test
+	public void GIVEN_ShipMovementInStringFormat_THEN_ConvertItIntoShipsMovementObject_3() {
+		String shipMovementInString = "(1,2,MRLM)";
+		List<Move> nextMoves = new Converter().convertShipMovementInStringToShipsListOfMove(shipMovementInString);
+		assertEquals(Move.M, nextMoves.get(0));
+		assertEquals(Move.R, nextMoves.get(1));
+		assertEquals(Move.L, nextMoves.get(2));
+		assertEquals(Move.M, nextMoves.get(3));
+	}
 }
