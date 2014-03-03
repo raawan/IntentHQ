@@ -217,4 +217,9 @@ public class TestClient {
 		converter.convertGridStringInputToGridObject(gridCoordinateInString);
 	}
 	
+	@Test(expected=InvalidInputException.class)
+	public void GIVEN_negativeYgridCoordinate_THEN_InvalidInputException() {
+		String gridCoordinateInString = "(5,-7)";
+		converter.convertGridStringInputToGridObject(gridCoordinateInString);
+	}
 }
