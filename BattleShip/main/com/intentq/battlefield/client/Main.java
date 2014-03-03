@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import com.intentq.battlefield.main.Converter;
 import com.intentq.battlefield.main.IPlayGame;
 import com.intentq.battlefield.main.PlayGame;
-import com.intentq.battlefield.util.Validator;
+import com.intentq.battlefield.validator.Validator;
 
 public class Main {
 

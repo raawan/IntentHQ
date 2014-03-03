@@ -1,4 +1,4 @@
-package com.intentq.battlefield.util;
+package com.intentq.battlefield.validator;
 
 import static com.intentq.battlefield.util.ExceptionMessage.throwCoordinateInputOutOfMaxIntRange;
 import static com.intentq.battlefield.util.ExceptionMessage.throwCoordinatesOutOfGridException;

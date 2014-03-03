@@ -1,10 +1,10 @@
-package com.intentq.battlefield.util;
+package com.intentq.battlefield.validator;
 
 import java.util.List;
 
 import com.intentq.battlefield.dto.Coordinate;
 import com.intentq.battlefield.dto.Grid;
-import com.intentq.battlefield.util.Validator.ThreeValuedObject;
+import com.intentq.battlefield.validator.Validator.ThreeValuedObject;
 
 public interface IValidator {
 

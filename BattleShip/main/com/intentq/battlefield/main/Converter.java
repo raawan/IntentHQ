@@ -8,9 +8,8 @@ import com.intentq.battlefield.constants.Orientation;
 import com.intentq.battlefield.dto.Coordinate;
 import com.intentq.battlefield.dto.Grid;
 import com.intentq.battlefield.dto.Position;
-
-import com.intentq.battlefield.util.Validator;
-import com.intentq.battlefield.util.Validator.ThreeValuedObject;
+import com.intentq.battlefield.validator.Validator;
+import com.intentq.battlefield.validator.Validator.ThreeValuedObject;
 
 public class Converter implements IConverter {
 	

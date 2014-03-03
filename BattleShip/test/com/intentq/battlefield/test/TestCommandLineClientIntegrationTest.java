@@ -29,7 +29,7 @@ import com.intentq.battlefield.dto.Position;
 import com.intentq.battlefield.dto.Ship;
 import com.intentq.battlefield.main.Converter;
 import com.intentq.battlefield.main.PlayGame;
-import com.intentq.battlefield.util.Validator;
+import com.intentq.battlefield.validator.Validator;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TestCommandLineClientIntegrationTest {/*
