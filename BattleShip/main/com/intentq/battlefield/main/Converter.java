@@ -16,12 +16,12 @@ public class Converter {
 	
 	public Grid convertGridStringInputToGridObject(String gridCoordinateInString) {
 		
-		if(!Validator.validateInputForCoordinates(gridCoordinateInString)) {
-			throw new InvalidInputException("Input is in not proper format");
-		}
-		TwoValuedObject obj = convertTwoValuedInputStringToTwoValuedObject(gridCoordinateInString);
-		return new Grid(obj.getX(),obj.getY());
+		if(!validateGridCoordinateInStringForFormat(gridCoordinateInString)) {
+			throwInvalidInputException();
+		} 
+		return convertToGridObject(gridCoordinateInString);
 	}
+
 
 	public Position convertShipPositionStringInputToPositionObject(String shipCoordinatesAndOrientation) {
 		
@@ -112,4 +112,17 @@ public class Converter {
 		}
 	}
 	
+	private Grid convertToGridObject(String gridCoordinateInString) {
+		TwoValuedObject obj = convertTwoValuedInputStringToTwoValuedObject(gridCoordinateInString);
+		return new Grid(obj.getX(),obj.getY());		
+	}
+
+	private void throwInvalidInputException() {
+		throw new InvalidInputException("Input is in not proper format");		
+	}
+
+	private boolean validateGridCoordinateInStringForFormat(
+			String gridCoordinateInString) {
+		return Validator.validateInputForCoordinates(gridCoordinateInString);
+	}
 }
