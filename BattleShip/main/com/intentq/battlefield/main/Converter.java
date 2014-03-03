@@ -110,13 +110,22 @@ public class Converter {
 		int length = strBuilder.length();
 		int firstIndexOfComma = strBuilder.indexOf(COMMA);
 		int secondIndexOfComma = strBuilder.lastIndexOf(COMMA);
-		String x = strBuilder.substring(1, firstIndexOfComma);
-		String y = strBuilder.substring(firstIndexOfComma+1, secondIndexOfComma);
+		String xVal = strBuilder.substring(1, firstIndexOfComma);
+		String yVal = strBuilder.substring(firstIndexOfComma+1, secondIndexOfComma);
 		String orientationStr = strBuilder.substring(secondIndexOfComma+1, length-1);
 		ThreeValuedObject obj = new ThreeValuedObject();
 		obj.setValue(orientationStr);
-		obj.setX(Integer.parseInt(x));
-		obj.setY(Integer.parseInt(y));
+		int x =0;
+		int y = 0;
+		try {
+			x= Integer.parseInt(xVal);
+			y= Integer.parseInt(yVal);
+		}
+		catch(NumberFormatException nfe) {
+			throw new InvalidInputException("Coordinates input is out of integer range");
+		}
+		obj.setX(x);
+		obj.setY(y);
 		return obj;
 	}
 	
