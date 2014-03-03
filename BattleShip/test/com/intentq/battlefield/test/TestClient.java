@@ -141,4 +141,10 @@ public class TestClient {
 		String gridCoordinateInString = "(5x7)";
 		new Converter().convertGridStringInputToGridObject(gridCoordinateInString);
 	}
+	
+	@Test(expected=InvalidInputException.class)
+	public void GIVEN_ShipPositionInputInIncorrectStringFormat_THEN_InvalidInputException() {
+		String shipCoordinatesAndOrientation = "1,2,N)";
+		new Converter().convertShipPositionStringInputToPositionObject(shipCoordinatesAndOrientation);
+	}
 }
