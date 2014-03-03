@@ -246,4 +246,10 @@ public class TestClient {
 		String shipCoordinatesAndOrientation = "(1,-2,N)";
 		converter.convertShipPositionStringInputToPositionObject(shipCoordinatesAndOrientation);
 	}
+	
+	@Test(expected=InvalidInputException.class)
+	public void GIVEN_NegativeYcoordinateOfShipPosition_THEN_InvalidInputException_2() {
+		String shipCoordinatesAndOrientation = "(1,2,N) (-1,4,W)";
+		converter.convertShipPositionStringInputToPositionObject(shipCoordinatesAndOrientation);
+	}
 }
