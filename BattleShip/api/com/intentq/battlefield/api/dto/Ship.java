@@ -23,22 +23,31 @@ public class Ship {
 		this.setId(id);
 	}
 
-
 	public void move(Coordinate maxCoordinateLimit) {
 		
-		IOrientationOfShipState orientationOfShipState;
 		for(Move nextMove : getAction().getNextMoves()) {
-			orientationOfShipState = new OrientationOfShipStateContext(OrientationOfShipStateFactory.getState(this));
-			if(nextMove.equals(Move.L)) {
-				orientationOfShipState.moveLeft();
-			} else if (nextMove.equals(Move.R)) {
-				orientationOfShipState.moveRight();
-			} else {
-				orientationOfShipState.moveAhead(maxCoordinateLimit);
-			}
+			playMove(getCurrentState(),nextMove,maxCoordinateLimit);
 		}
 	}
 	
+	private IOrientationOfShipState getCurrentState() {
+		return new OrientationOfShipStateContext(OrientationOfShipStateFactory.getState(this));
+	}
+
+	private void playMove(IOrientationOfShipState orientationOfShipState,Move nextMove, Coordinate maxCoordinateLimit) {
+		switch(nextMove) {
+			case L:
+				orientationOfShipState.moveLeft();
+				break;
+			case M:
+				orientationOfShipState.moveAhead(maxCoordinateLimit);
+				break;
+			case R:
+				orientationOfShipState.moveRight();
+				break;
+		}		
+	}
+
 	public Position getCurrentPosition() {
 		return currentPosition;
 	}
