@@ -33,13 +33,32 @@ public class Converter {
 	 */
 	public List<Position> convertShipPositionStringInputToPositionObject(String shipCoordinatesAndOrientation, Grid grid) {
 		
+		List<ThreeValuedObject> objs = validateShipPositions(shipCoordinatesAndOrientation,grid);
+		return createPositionList(objs);
+	}
+	
+	private List<Position> createPositionList(List<ThreeValuedObject> objs) {
+		List<Position> positions = new ArrayList<Position>();
+		for(ThreeValuedObject obj : objs) {
+			positions.add(new Position(obj.getX(),obj.getY(),Orientation.valueOf(obj.getValue())));
+		}
+		return positions;
+	}
+
+	private List<ThreeValuedObject> validateShipPositions(
+			String shipCoordinatesAndOrientation, Grid grid) {
 		if(!validateshipCoordinatesAndOrientationForFormat(shipCoordinatesAndOrientation)) {
 			throwInvalidShipPositionFormatInputException();
 		} 
-		return convertToPositionListObject(shipCoordinatesAndOrientation,grid);
+		List<ThreeValuedObject> objs = convertToPositionListObject(shipCoordinatesAndOrientation,grid);
+		for(ThreeValuedObject obj : objs) {
+			if(!validateCoordinatesWithinGridRange(obj.getX(),obj.getY(),grid)) {
+				throwCoordinatesOutOfGridException();
+			}
+		}
+		return objs;
 	}
-	
-	
+
 	/*
 	 * Shot coordinate input format = (x,y)
 	 */
@@ -194,17 +213,19 @@ public class Converter {
 		return validateInputForShipPosition(shipCoordinatesAndOrientation+" ");
 	}
 
-	private List<Position> convertToPositionListObject(String shipCoordinatesAndOrientation, Grid grid) {
-		List<Position> positions = new ArrayList<Position>();
+	private List<ThreeValuedObject> convertToPositionListObject(String shipCoordinatesAndOrientation, Grid grid) {
+		//List<Position> positions = new ArrayList<Position>();
+		 List<ThreeValuedObject> objs = new ArrayList<ThreeValuedObject>();
 		String[] shipPositionsArray = shipCoordinatesAndOrientation.split(SPACE);
 		for(String shipPosition: shipPositionsArray) { 
 			ThreeValuedObject obj = convertThreeValuedInputStringToThreeValuedObject(shipPosition);
-			if(!validateCoordinatesWithinGridRange(obj.getX(),obj.getY(),grid)) {
+			/*if(!validateCoordinatesWithinGridRange(obj.getX(),obj.getY(),grid)) {
 				throwCoordinatesOutOfGridException();
-			}
-			positions.add(new Position(obj.getX(),obj.getY(),Orientation.valueOf(obj.getValue())));
+			}*/
+			//positions.add(new Position(obj.getX(),obj.getY(),Orientation.valueOf(obj.getValue())));
+			objs.add(obj);
 		}
-		return positions;
+		return objs;
 	}
 	
 }
