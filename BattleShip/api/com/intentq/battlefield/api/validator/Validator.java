@@ -19,6 +19,8 @@ import com.intentq.battlefield.api.dto.Ship;
 
 public class Validator implements IValidator {
 	
+	//ToDo: make regex more robust
+	//Allow spaces and lower case letters
 	private static final String  REGEX_FOR_COORDINATES = "^\\([\\d]+\\,[\\d]+\\)$";
 	private static final String  REGEX_FOR_SHIP_STARTING_POSITION = "\\s*^(\\([\\d]+\\,[\\d]+\\,[NSEW]\\)\\s)+";
 	private static final String  REGEX_FOR_SHIP_MOVEMENTS = "^\\([\\d]+\\,[\\d]+\\,[LRM]+\\)$";
