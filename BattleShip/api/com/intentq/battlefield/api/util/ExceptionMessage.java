@@ -36,7 +36,7 @@ public class ExceptionMessage {
 		throw new InvalidInputException("Invalid Ship starting coordinate");
 	}
 	
-	public static void throwInvalidGridCoordinateInputException() {
+	public static void throwZeroGridCoordinateInputException() {
 		throw new InvalidInputException("Grid input coordinate cant be zero");		
 	}
 	

@@ -2,7 +2,7 @@ package com.intentq.battlefield.api.validator;
 
 import static com.intentq.battlefield.api.util.ExceptionMessage.throwCoordinateInputOutOfMaxIntRange;
 import static com.intentq.battlefield.api.util.ExceptionMessage.throwCoordinatesOutOfGridException;
-import static com.intentq.battlefield.api.util.ExceptionMessage.throwInvalidGridCoordinateInputException;
+import static com.intentq.battlefield.api.util.ExceptionMessage.throwZeroGridCoordinateInputException;
 import static com.intentq.battlefield.api.util.ExceptionMessage.throwInvalidGridFormatInputException;
 import static com.intentq.battlefield.api.util.ExceptionMessage.throwInvalidShipMovementFormatInputException;
 import static com.intentq.battlefield.api.util.ExceptionMessage.throwInvalidShipPositionFormatInputException;
@@ -49,13 +49,14 @@ public class Validator implements IValidator {
 			throwInvalidGridFormatInputException();
 		} else {
 			obj = convertTwoValuedInputStringToTwoValuedObject(gridCoordinateInString);
-			if(isEqual(obj.getX(), ZERO_VALUE_COORDINATE) && isEqual(obj.getY(), ZERO_VALUE_COORDINATE)) {
-				throwInvalidGridCoordinateInputException();
+			if(isGridZero(obj)) {
+				throwZeroGridCoordinateInputException();
 			}
 		} 
 		return obj;
 	}
 	
+
 	@Override
 	public List<ThreeValuedObject> validateShipPositions(
 			String shipCoordinatesAndOrientation, Grid grid) {
@@ -231,4 +232,9 @@ public class Validator implements IValidator {
 		}
 		return false;
 	}
+	
+	private boolean isGridZero(Coordinate obj) {
+		return (isEqual(obj.getX(), ZERO_VALUE_COORDINATE) && isEqual(obj.getY(), ZERO_VALUE_COORDINATE));
+	}
+	
 }
