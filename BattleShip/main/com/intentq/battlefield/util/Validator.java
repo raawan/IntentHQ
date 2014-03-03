@@ -15,7 +15,7 @@ import com.intentq.battlefield.dto.Coordinate;
 import com.intentq.battlefield.dto.Grid;
 import com.intentq.battlefield.dto.Ship;
 
-public class Validator {
+public class Validator implements IValidator {
 	
 	private static final String  REGEX_FOR_COORDINATES = "^\\([\\d]+\\,[\\d]+\\)$";
 	private static final String  REGEX_FOR_SHIP_STARTING_POSITION = "\\s*^(\\([\\d]+\\,[\\d]+\\,[NSEW]\\)\\s)+";
@@ -23,28 +23,10 @@ public class Validator {
 	private static final String  COMMA=",";
 	private static final String  SPACE=" ";
 	
-	/*public static class TwoValuedObject {
-		
-		int x;
-		int y;
-		public int getX() {
-			return x;
-		}
-		public void setX(int x) {
-			this.x = x;
-		}
-		public int getY() {
-			return y;
-		}
-		public void setY(int y) {
-			this.y = y;
-		}
-	}*/
 	
 	public static class ThreeValuedObject extends Coordinate{
 		public ThreeValuedObject(int x, int y) {
 			super(x, y);
-			// TODO Auto-generated constructor stub
 		}
 
 		String value;
@@ -58,7 +40,7 @@ public class Validator {
 		}
 	}
 	
-	
+	@Override
 	public Coordinate validateGridCoordinate(String gridCoordinateInString) {
 		Coordinate obj = null;
 		if(!validateGridCoordinateInStringForFormat(gridCoordinateInString)) {
@@ -69,7 +51,7 @@ public class Validator {
 		return obj;
 	}
 	
-
+	@Override
 	public List<ThreeValuedObject> validateShipPositions(
 			String shipCoordinatesAndOrientation, Grid grid) {
 		if(!validateshipCoordinatesAndOrientationForFormat(shipCoordinatesAndOrientation)) {
@@ -84,7 +66,7 @@ public class Validator {
 		return objs;
 	}
 	
-	
+	@Override
 	public Coordinate validateShotCoordinates(String shotCoordinateInString, Grid grid) {
 		Coordinate obj = null;
 		if(!validateInputForCoordinates(shotCoordinateInString)) {
@@ -98,6 +80,7 @@ public class Validator {
 		return obj;
 	}
 	
+	@Override
 	public ThreeValuedObject validateShipMovement(String shipMovementInString, Grid grid) {
 		ThreeValuedObject obj = null;
 		if(!validateInputForShipMovements(shipMovementInString)) {

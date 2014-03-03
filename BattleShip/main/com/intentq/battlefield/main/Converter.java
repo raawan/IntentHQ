@@ -12,7 +12,7 @@ import com.intentq.battlefield.dto.Position;
 import com.intentq.battlefield.util.Validator;
 import com.intentq.battlefield.util.Validator.ThreeValuedObject;
 
-public class Converter {
+public class Converter implements IConverter {
 	
 	private Validator validator;
 	
@@ -23,6 +23,7 @@ public class Converter {
 	/*
 	 * Grid coordinate input format = (x,y)
 	 */
+	@Override
 	public Grid convertGridStringInputToGridObject(String gridCoordinateInString) {
 		
 		Coordinate obj = validator.validateGridCoordinate(gridCoordinateInString);
@@ -33,6 +34,7 @@ public class Converter {
 	 * Ship position input format
 	 * (X1,Y1,O1)<SPACE>(X1,Y1,O1)<SPACE>.........<SPACE>(Xn,Yn,On)<SPACE>
 	 */
+	@Override
 	public List<Position> convertShipPositionStringInputToPositionObject(String shipCoordinatesAndOrientation, Grid grid) {
 		
 		List<ThreeValuedObject> objs = validator.validateShipPositions(shipCoordinatesAndOrientation,grid);
@@ -50,6 +52,7 @@ public class Converter {
 	/*
 	 * Shot coordinate input format = (x,y)
 	 */
+	@Override
 	public Coordinate convertShotInStringToShotObject(String shotCoordinateInString, Grid grid) {
 		
 		return validator.validateShotCoordinates(shotCoordinateInString,grid);
@@ -58,6 +61,7 @@ public class Converter {
 	/*
 	 * Ship movements input format (x,y,LMMRRMMLL)
 	 */
+	@Override
 	public List<Move> convertShipMovementInStringToShipsListOfMove(String shipMovementInString, Grid grid) {
 		
 		ThreeValuedObject obj= validator.validateShipMovement(shipMovementInString,grid);

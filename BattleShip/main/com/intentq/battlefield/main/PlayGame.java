@@ -10,7 +10,7 @@ import com.intentq.battlefield.dto.Position;
 import com.intentq.battlefield.dto.Ship;
 import com.intentq.battlefield.exception.InvalidMoveSequenceException;
 
-public class PlayGame {
+public class PlayGame implements IPlayGame {
 	
 	private final Grid grid;
 	
@@ -28,6 +28,7 @@ public class PlayGame {
 	/*
 	 * Assumption: Every ship will move and shot in that order during that ship's iteration
 	 */
+	@Override
 	public void play() {
 		for(Ship thisShip : grid.getShipsOnGrid()) {
 			moveShip(thisShip);
