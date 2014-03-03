@@ -93,7 +93,7 @@ public class Converter {
 			y= Integer.parseInt(strBuilder.substring(indexOfComma+1,length-1));
 		}
 		catch(NumberFormatException nfe) {
-			throw new InvalidInputException("Coordinates input is out of integer range");
+			throwCoordinateInputOutOfMaxIntRange();
 		}
 		TwoValuedObject obj = new TwoValuedObject();
 		obj.setX(x);
@@ -121,7 +121,7 @@ public class Converter {
 			y= Integer.parseInt(yVal);
 		}
 		catch(NumberFormatException nfe) {
-			throw new InvalidInputException("Coordinates input is out of integer range");
+			throwCoordinateInputOutOfMaxIntRange();
 		}
 		obj.setX(x);
 		obj.setY(y);
@@ -196,6 +196,11 @@ public class Converter {
 			throwCoordinatesOutOfGridException();
 		}
 		return new Coordinate(obj.getX(), obj.getY());	
+	}
+	
+	
+	private void throwCoordinateInputOutOfMaxIntRange() {
+		throw new InvalidInputException("Coordinates input is out of integer range");
 	}
 	
 	private void throwCoordinatesOutOfGridException() {
