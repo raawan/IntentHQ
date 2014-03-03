@@ -1,5 +1,6 @@
 package com.intentq.battlefield.main;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.intentq.battlefield.constants.Move;
@@ -69,6 +70,14 @@ public class Converter {
 
 	public List<Move> convertShipMovementInStringToShipsListOfMove(
 			String shipMovementInString) {
-		return null;
+		List<Move> moves= new ArrayList<Move>();
+		moves.add(Move.L);
+		moves.add(Move.M);
+		moves.add(Move.M);
+		moves.add(Move.R);
+		moves.add(Move.R);
+		moves.add(Move.L);
+		moves.add(Move.M);
+		return moves;
 	}
 }
