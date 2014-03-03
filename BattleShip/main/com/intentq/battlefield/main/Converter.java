@@ -184,13 +184,17 @@ public class Converter {
 		for(String shipPosition: shipPositionsArray) { 
 			ThreeValuedObject obj = convertThreeValuedInputStringToThreeValuedObject(shipPosition);
 			if(!Validator.validateCoordinatesWithinGridRange(obj.getX(),obj.getY(),grid)) {
-				throw new InvalidInputException("Coordinates input is out of Grid range");
+				throwCoordinatesOutOfGridException();
 			}
 			positions.add(new Position(obj.getX(),obj.getY(),Orientation.valueOf(obj.getValue())));
 		}
 		return positions;
 	}
 	
+	private void throwCoordinatesOutOfGridException() {
+		throw new InvalidInputException("Coordinates input is out of Grid range");		
+	}
+
 	private void throwInvalidGridFormatInputException() {
 		throw new InvalidInputException("Grid input is in not proper format - Correct format: (X,Y)");		
 	}

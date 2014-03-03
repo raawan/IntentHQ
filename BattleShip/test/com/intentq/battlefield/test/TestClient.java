@@ -307,4 +307,12 @@ public class TestClient {
 		converter.convertShipPositionStringInputToPositionObject(shipCoordinatesAndOrientation,
 				converter.convertGridStringInputToGridObject(gridCoordinateInString));
 	}
+	
+	@Test(expected=InvalidInputException.class)
+	public void GIVEN_validGridInput_And_ShipPositionCoordinateGreaterThanGrid_THEN_InvalidInputException_2() {
+		String gridCoordinateInString = "(510,789)";
+		String shipCoordinatesAndOrientation = "(178,1112,E)";
+		converter.convertShipPositionStringInputToPositionObject(shipCoordinatesAndOrientation,
+				converter.convertGridStringInputToGridObject(gridCoordinateInString));
+	}
 }
