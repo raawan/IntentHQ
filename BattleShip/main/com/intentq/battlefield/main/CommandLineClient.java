@@ -3,8 +3,10 @@ package com.intentq.battlefield.main;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.List;
 
 import com.intentq.battlefield.dto.Grid;
+import com.intentq.battlefield.dto.Position;
 import com.intentq.battlefield.exception.InvalidInputException;
 
 public class CommandLineClient {
@@ -34,7 +36,25 @@ public class CommandLineClient {
 		}
 		return grid;
 	}
-
+	
+	public  List<Position> createShipsPositionOnGrid(Grid g) throws IOException {
+		boolean input =false;
+		String shipCoordinates;
+		List<Position> positions=null;
+		while(!input) {
+			try {
+				shipCoordinates = getNextInputFromCmdLine();
+				positions	 = inputConverter.convertShipPositionStringInputToPositionObject(shipCoordinates,g);
+				input = true;
+			} catch(InvalidInputException iie) {
+				System.out.println(iie.getMessage());
+				System.out.println("Please enter Ships position input again");
+				
+			}
+		}
+		return positions;
+	}
+	
 	public BufferedReader getCmdLineReader() {
 		return cmdLineReader;
 	}
