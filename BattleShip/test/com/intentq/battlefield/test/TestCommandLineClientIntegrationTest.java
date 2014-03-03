@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -27,10 +28,15 @@ public class TestCommandLineClientIntegrationTest {
 	@Mock
 	private BufferedReader readerMock;
 	
+	private CommandLineClient cmd;
+	@Before
+	public void setUp() {
+		cmd = new CommandLineClient(readerMock,new Converter(new Validator()));
+	}
+	
 	@Test
 	public void GIVEN_GridInputFromCommandLine_THEN_GetValidatedGridObjectFromConverter() throws IOException {
 		
-		CommandLineClient cmd = new CommandLineClient(readerMock,new Converter(new Validator()));
 		String gridCoOrdinateFromCmdLine = "(5,5)";
 		when(readerMock.readLine()).thenReturn(gridCoOrdinateFromCmdLine);
 		Grid grid = cmd.createGridObject();
@@ -43,7 +49,6 @@ public class TestCommandLineClientIntegrationTest {
 	@Test
 	public void GIVEN_GridInputFromCommandLine_OnceInValidAndOnceValidTHEN_GetValidatedGridObjectFromConverter() throws IOException {
 		
-		CommandLineClient cmd = new CommandLineClient(readerMock,new Converter(new Validator()));
 		String gridCoOrdinateInvalidFormatFromCmdLine = "5,5)";
 		String gridCoOrdinateValidFormatFromCmdLine = "(5,5)";
 		when(readerMock.readLine()).thenReturn(gridCoOrdinateInvalidFormatFromCmdLine,gridCoOrdinateValidFormatFromCmdLine);
@@ -56,7 +61,7 @@ public class TestCommandLineClientIntegrationTest {
 	
 	@Test
 	public void GIVEN_ShipPositionFromCmdLine_THEN_GetValidatedPositionListObject() throws IOException {
-		CommandLineClient cmd = new CommandLineClient(readerMock,new Converter(new Validator()));
+		
 		String shipPositionFrmCmdLine = "(1,2,N) (3,4,W)";
 		when(readerMock.readLine()).thenReturn(shipPositionFrmCmdLine);
 		List<Position> positions = cmd.createShipsPositionOnGrid(new Grid(5,5));
@@ -65,7 +70,7 @@ public class TestCommandLineClientIntegrationTest {
 	
 	@Test
 	public void GIVEN_ShipPositionFromCmdLine_THEN_GetValidatedPositionListObject_2() throws IOException {
-		CommandLineClient cmd = new CommandLineClient(readerMock,new Converter(new Validator()));
+		
 		String shipPositionFrmCmdLineInvalidInput = "(1,2,N) (3,4,W)";
 		String shipPositionFrmCmdLineValidInput = "(1,2,N) (2,4,W)";
 		when(readerMock.readLine()).thenReturn(shipPositionFrmCmdLineInvalidInput,shipPositionFrmCmdLineValidInput);
@@ -76,7 +81,7 @@ public class TestCommandLineClientIntegrationTest {
 	
 	@Test
 	public void GIVEN_ShipPositionFromCmdLine_THEN_GetValidatedPositionListObject_3() throws IOException {
-		CommandLineClient cmd = new CommandLineClient(readerMock,new Converter(new Validator()));
+		
 		String shipPositionFrmCmdLineInvalidInput = "(1,2,N) (-2,4,W)";
 		String shipPositionFrmCmdLineValidInput = "(1,2,N) (2,4,W)";
 		when(readerMock.readLine()).thenReturn(shipPositionFrmCmdLineInvalidInput,shipPositionFrmCmdLineValidInput);
@@ -87,7 +92,7 @@ public class TestCommandLineClientIntegrationTest {
 	
 	@Test
 	public void GIVEN_ShipPositionFromCmdLine_THEN_GetValidatedPositionListObject_4() throws IOException {
-		CommandLineClient cmd = new CommandLineClient(readerMock,new Converter(new Validator()));
+		
 		String shipPositionFrmCmdLineInvalidInput = "(1,2,X) (2,4,W)";
 		String shipPositionFrmCmdLineValidInput = "(1,2,N) (2,4,W)";
 		when(readerMock.readLine()).thenReturn(shipPositionFrmCmdLineInvalidInput,shipPositionFrmCmdLineValidInput);
@@ -98,7 +103,7 @@ public class TestCommandLineClientIntegrationTest {
 	
 	@Test
 	public void GIVEN_ShipPositionFromCmdLine_THEN_GetValidatedPositionListObject_5() throws IOException {
-		CommandLineClient cmd = new CommandLineClient(readerMock,new Converter(new Validator()));
+		
 		String shipPositionFrmCmdLineInvalidInput = "(1,2,X) (22345678987654345678976543245,4,W)";
 		String shipPositionFrmCmdLineValidInput = "(1,2,N) (2,4,W)";
 		when(readerMock.readLine()).thenReturn(shipPositionFrmCmdLineInvalidInput,shipPositionFrmCmdLineValidInput);
@@ -109,7 +114,7 @@ public class TestCommandLineClientIntegrationTest {
 	
 	@Test
 	public void GIVEN_ShipPositionFromCmdLine_THEN_GetValidatedPositionListObject_6() throws IOException {
-		CommandLineClient cmd = new CommandLineClient(readerMock,new Converter(new Validator()));
+		
 		String shipPositionFrmCmdLineInvalidInput = "((1,2,N) (2,4,W)";
 		String shipPositionFrmCmdLineValidInput = "(1,2,N) (2,4,W)";
 		when(readerMock.readLine()).thenReturn(shipPositionFrmCmdLineInvalidInput,shipPositionFrmCmdLineValidInput);
