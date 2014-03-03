@@ -234,4 +234,16 @@ public class TestClient {
 		String gridCoordinateInString = "(5,-7)";
 		converter.convertShotInStringToShotObject(gridCoordinateInString);
 	}
+	
+	@Test(expected=InvalidInputException.class)
+	public void GIVEN_NegativeXcoordinateOfShipPosition_THEN_InvalidInputException() {
+		String shipCoordinatesAndOrientation = "(-1,2,N)";
+		converter.convertShipPositionStringInputToPositionObject(shipCoordinatesAndOrientation);
+	}
+	
+	@Test(expected=InvalidInputException.class)
+	public void GIVEN_NegativeYcoordinateOfShipPosition_THEN_InvalidInputException() {
+		String shipCoordinatesAndOrientation = "(1,-2,N)";
+		converter.convertShipPositionStringInputToPositionObject(shipCoordinatesAndOrientation);
+	}
 }
