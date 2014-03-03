@@ -19,7 +19,7 @@ import com.intentq.battlefield.dto.Ship;
 import com.intentq.battlefield.exception.InvalidMoveSequenceException;
 import com.intentq.battlefield.main.PlayGame;
 
-public class TestBattleShipShots {
+public class TestPlayGame {
 
 	private List<Move> nextMoveSequence(Move...actions) {
 		return Arrays.asList(actions);

@@ -18,7 +18,7 @@ import com.intentq.battlefield.exception.InvalidInputException;
 import com.intentq.battlefield.main.Converter;
 import com.intentq.battlefield.util.Validator;
 
-public class TestClient {
+public class TestInputConversionAndValidation {
 	
 	private Converter converter;
 	
