@@ -147,4 +147,10 @@ public class TestClient {
 		String shipCoordinatesAndOrientation = "1,2,N)";
 		new Converter().convertShipPositionStringInputToPositionObject(shipCoordinatesAndOrientation);
 	}
+	
+	@Test(expected=InvalidInputException.class)
+	public void GIVEN_ShipPositionInputInIncorrectStringFormat_THEN_InvalidInputException_2() {
+		String shipCoordinatesAndOrientation = "(1,2,X)";
+		new Converter().convertShipPositionStringInputToPositionObject(shipCoordinatesAndOrientation);
+	}
 }
