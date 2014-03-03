@@ -204,4 +204,10 @@ public class TestClient {
 		String shotCoordinateInString = "(510,79";
 		converter.convertShotInStringToShotObject(shotCoordinateInString);
 	}
+	
+	@Test(expected=InvalidInputException.class)
+	public void GIVEN_ShipsShotCoordinateInInvalidStringFormat_THEN_InvalidInputException_2() {
+		String shotCoordinateInString = "510,79";
+		converter.convertShotInStringToShotObject(shotCoordinateInString);
+	}
 }
