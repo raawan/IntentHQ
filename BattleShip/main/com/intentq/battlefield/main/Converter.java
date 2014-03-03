@@ -53,12 +53,12 @@ public class Converter {
 	/*
 	 * Ship movements input format (x,y,LMMRRMMLL)
 	 */
-	public List<Move> convertShipMovementInStringToShipsListOfMove(String shipMovementInString) {
+	public List<Move> convertShipMovementInStringToShipsListOfMove(String shipMovementInString, Grid grid) {
 		
 		if(!validateshipCoordinatesAndMovementsForFormat(shipMovementInString)) {
 			throwInvalidShipMovementFormatInputException();
 		}
-		return convertToMoveListObject(shipMovementInString);
+		return convertToMoveListObject(shipMovementInString,grid);
 	}
 
 
@@ -66,8 +66,11 @@ public class Converter {
 		return Validator.validateInputForShipMovements(shipMovementInString);
 	}
 
-	private List<Move> convertToMoveListObject(String shipMovementInString) {
+	private List<Move> convertToMoveListObject(String shipMovementInString,Grid grid) {
 		ThreeValuedObject obj = convertThreeValuedInputStringToThreeValuedObject(shipMovementInString);
+		if (!Validator.validateShipStartingCoordinateMatchesWithTheShipsOnGrid(obj.getX(),obj.getY(),grid)) {
+			throw new InvalidInputException("Invalid Ship starting coordinate");
+		}
 		StringBuilder moves = new StringBuilder(obj.getValue());
 		int index=0;
 		List<Move> movesList = new ArrayList<Move>();

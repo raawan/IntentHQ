@@ -1,6 +1,8 @@
 package com.intentq.battlefield.main;
 
+import com.intentq.battlefield.dto.Coordinate;
 import com.intentq.battlefield.dto.Grid;
+import com.intentq.battlefield.dto.Ship;
 
 public class Validator {
 	
@@ -43,5 +45,16 @@ public class Validator {
 			return false;
 		}
 		return true;
+	}
+	
+	public static boolean validateShipStartingCoordinateMatchesWithTheShipsOnGrid(int x, int y, Grid grid) {
+		Coordinate coordinates = new Coordinate(x, y);
+		
+		for(Ship ship:grid.getShipsOnGrid()) {
+			if(ship.getCurrentCoordinate().equals(coordinates)) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

@@ -1,5 +1,6 @@
 package com.intentq.battlefield.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Grid {
@@ -12,6 +13,9 @@ public class Grid {
 	}
 
 	public List<Ship> getShipsOnGrid() {
+		if(shipsOnGrid==null) {
+			return new ArrayList<Ship>();
+		}
 		return shipsOnGrid;
 	}
 

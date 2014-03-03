@@ -2,6 +2,7 @@ package com.intentq.battlefield.test;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
@@ -12,6 +13,7 @@ import com.intentq.battlefield.constants.Orientation;
 import com.intentq.battlefield.dto.Coordinate;
 import com.intentq.battlefield.dto.Grid;
 import com.intentq.battlefield.dto.Position;
+import com.intentq.battlefield.dto.Ship;
 import com.intentq.battlefield.exception.InvalidInputException;
 import com.intentq.battlefield.main.Converter;
 
@@ -103,7 +105,8 @@ public class TestClient {
 	@Test
 	public void GIVEN_ShipMovementInStringFormat_THEN_ConvertItIntoShipsMovementObject() {
 		String shipMovementInString = "(1,2,LMMRRLM)";
-		List<Move> nextMoves = converter.convertShipMovementInStringToShipsListOfMove(shipMovementInString);
+		Grid g = createGridWithShipCoordinatesAndOrientation("(1,2,E) (1,45,W) (23,67,S)"); 
+		List<Move> nextMoves = converter.convertShipMovementInStringToShipsListOfMove(shipMovementInString,g);
 		assertEquals(Move.L, nextMoves.get(0));
 		assertEquals(Move.M, nextMoves.get(1));
 		assertEquals(Move.M, nextMoves.get(2));
@@ -116,7 +119,8 @@ public class TestClient {
 	@Test
 	public void GIVEN_ShipMovementInStringFormat_THEN_ConvertItIntoShipsMovementObject_2() {
 		String shipMovementInString = "(1,2,LMR)";
-		List<Move> nextMoves = converter.convertShipMovementInStringToShipsListOfMove(shipMovementInString);
+		Grid g = createGridWithShipCoordinatesAndOrientation("(1,2,E) (1,45,W) (23,67,S)"); 
+		List<Move> nextMoves = converter.convertShipMovementInStringToShipsListOfMove(shipMovementInString,g);
 		assertEquals(Move.L, nextMoves.get(0));
 		assertEquals(Move.M, nextMoves.get(1));
 		assertEquals(Move.R, nextMoves.get(2));
@@ -125,7 +129,8 @@ public class TestClient {
 	@Test
 	public void GIVEN_ShipMovementInStringFormat_THEN_ConvertItIntoShipsMovementObject_3() {
 		String shipMovementInString = "(1,2,MRLM)";
-		List<Move> nextMoves = converter.convertShipMovementInStringToShipsListOfMove(shipMovementInString);
+		Grid g = createGridWithShipCoordinatesAndOrientation("(78,2,E) (1,2,W) (23,67,S)"); 
+		List<Move> nextMoves = converter.convertShipMovementInStringToShipsListOfMove(shipMovementInString,g);
 		assertEquals(Move.M, nextMoves.get(0));
 		assertEquals(Move.R, nextMoves.get(1));
 		assertEquals(Move.L, nextMoves.get(2));
@@ -184,19 +189,19 @@ public class TestClient {
 	@Test(expected=InvalidInputException.class)
 	public void GIVEN_ShipMovementsInputInIncorrectStringFormat_THEN_InvalidInputException() {
 		String shipMovementInString = "(1,2)";
-		converter.convertShipMovementInStringToShipsListOfMove(shipMovementInString);
+		converter.convertShipMovementInStringToShipsListOfMove(shipMovementInString,getStubbedGridObject());
 	}
 	
 	@Test(expected=InvalidInputException.class)
 	public void GIVEN_ShipMovementsInputInIncorrectStringFormat_THEN_InvalidInputException_2() {
 		String shipMovementInString = "(1,2,LLMM";
-		converter.convertShipMovementInStringToShipsListOfMove(shipMovementInString);
+		converter.convertShipMovementInStringToShipsListOfMove(shipMovementInString,getStubbedGridObject());
 	}
 	
 	@Test(expected=InvalidInputException.class)
 	public void GIVEN_ShipMovementsInputInIncorrectStringFormat_THEN_InvalidInputException_3() {
 		String shipMovementInString = "1,2,LLMM";
-		converter.convertShipMovementInStringToShipsListOfMove(shipMovementInString);
+		converter.convertShipMovementInStringToShipsListOfMove(shipMovementInString,getStubbedGridObject());
 	}
 	
 	@Test(expected=InvalidInputException.class)
@@ -297,7 +302,7 @@ public class TestClient {
 	@Test(expected=InvalidInputException.class)
 	public void GIVEN_ShipMovementInputYcoordinateOutOfMaxIntRange_THEN_InvalidInputException() {
 		String shipMovementInString = "(1,2,52134567898765435678987654356789,LLMM)";
-		converter.convertShipMovementInStringToShipsListOfMove(shipMovementInString);
+		converter.convertShipMovementInStringToShipsListOfMove(shipMovementInString,getStubbedGridObject());
 	}
 	
 	@Test(expected=InvalidInputException.class)
@@ -337,5 +342,17 @@ public class TestClient {
 		Grid g = createGridWithShipCoordinatesAndOrientation("(78,2,E) (1,45,W) (23,67,S)"); 
 		String shipMovementInString = "(1,2,LMMRRLM)";
 		converter.convertShipMovementInStringToShipsListOfMove(shipMovementInString,g);
+	}
+	
+	private Grid createGridWithShipCoordinatesAndOrientation(String shipCoordinatesAndOrientation) {
+		Grid g = new Grid(125,128);
+		List<Position> posList = converter.convertShipPositionStringInputToPositionObject(shipCoordinatesAndOrientation,g);
+		List<Ship> ships = new ArrayList<Ship>();
+		int id =0;
+		for (Position pos : posList) {
+			ships.add(new Ship(pos,null,null,id++));
+		}
+		g.setShipsOnGrid(ships);
+		return g;
 	}
 }
