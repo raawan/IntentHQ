@@ -68,16 +68,23 @@ public class Converter {
 		}
 	}
 
-	public List<Move> convertShipMovementInStringToShipsListOfMove(
-			String shipMovementInString) {
-		List<Move> moves= new ArrayList<Move>();
-		moves.add(Move.L);
-		moves.add(Move.M);
-		moves.add(Move.M);
-		moves.add(Move.R);
-		moves.add(Move.R);
-		moves.add(Move.L);
-		moves.add(Move.M);
-		return moves;
+	public List<Move> convertShipMovementInStringToShipsListOfMove(String shipMovementInString) {
+		
+		StringBuilder strBuilder = new StringBuilder(shipMovementInString.trim());
+		int length = strBuilder.length();
+		int firstIndexOfComma = strBuilder.indexOf(COMMA);
+		int secondIndexOfComma = strBuilder.lastIndexOf(COMMA);
+		String x = strBuilder.substring(1, firstIndexOfComma);
+		String y = strBuilder.substring(firstIndexOfComma+1, secondIndexOfComma);
+		String movesString = strBuilder.substring(secondIndexOfComma+1, length-1);
+		
+		StringBuilder moves = new StringBuilder(movesString);
+		int index=0;
+		List<Move> movesList = new ArrayList<Move>();
+		while(index<moves.length()) {
+			movesList.add(Move.valueOf(moves.charAt(index)+""));
+			index++;
+		}
+		return movesList;
 	}
 }
