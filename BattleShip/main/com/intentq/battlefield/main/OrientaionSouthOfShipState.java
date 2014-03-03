@@ -4,6 +4,7 @@ import com.intentq.battlefield.constants.Orientation;
 import com.intentq.battlefield.dto.Coordinate;
 import com.intentq.battlefield.dto.Ship;
 import com.intentq.battlefield.exception.InvalidMoveSequenceException;
+import com.intentq.battlefield.util.ExceptionMessage;
 
 public class OrientaionSouthOfShipState implements IOrientationOfShipState {
 	
@@ -38,7 +39,7 @@ public class OrientaionSouthOfShipState implements IOrientationOfShipState {
 		if(nextLocation >= 0) {
 			ship.getCurrentPosition().getCurrentCoordinates().setY(nextLocation);
 		} else {
-			throw new InvalidMoveSequenceException("A move from a moveSequence is going out of grid");
+			ExceptionMessage.throwMoveGoingOutOfGridException();
 		}
 	}
 	

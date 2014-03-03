@@ -1,6 +1,7 @@
 package com.intentq.battlefield.util;
 
 import com.intentq.battlefield.exception.InvalidInputException;
+import com.intentq.battlefield.exception.InvalidMoveSequenceException;
 
 public class ExceptionMessage {
 
@@ -36,5 +37,9 @@ public class ExceptionMessage {
 	
 	public static void throwInvalidGridCoordinateInputException() {
 		throw new InvalidInputException("Grid input coordinate cant be zero");		
+	}
+	
+	public static void throwMoveGoingOutOfGridException() {
+		throw new InvalidMoveSequenceException("A move from a moveSequence is going out of grid");
 	}
 }
