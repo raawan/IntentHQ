@@ -11,7 +11,6 @@ import com.intentq.battlefield.dto.Position;
 
 import com.intentq.battlefield.util.Validator;
 import com.intentq.battlefield.util.Validator.ThreeValuedObject;
-import com.intentq.battlefield.util.Validator.TwoValuedObject;
 
 public class Converter {
 	
@@ -26,7 +25,7 @@ public class Converter {
 	 */
 	public Grid convertGridStringInputToGridObject(String gridCoordinateInString) {
 		
-		TwoValuedObject obj = validator.validateGridCoordinate(gridCoordinateInString);
+		Coordinate obj = validator.validateGridCoordinate(gridCoordinateInString);
 		return new Grid(obj.getX(),obj.getY());	
 	}
 
@@ -53,8 +52,7 @@ public class Converter {
 	 */
 	public Coordinate convertShotInStringToShotObject(String shotCoordinateInString, Grid grid) {
 		
-		TwoValuedObject obj = validator.validateShotCoordinates(shotCoordinateInString,grid);
-		return new Coordinate(obj.getX(), obj.getY());	
+		return validator.validateShotCoordinates(shotCoordinateInString,grid);
 	}
 
 	/*

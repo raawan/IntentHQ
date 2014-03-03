@@ -23,7 +23,7 @@ public class Validator {
 	private static final String  COMMA=",";
 	private static final String  SPACE=" ";
 	
-	public static class TwoValuedObject {
+	/*public static class TwoValuedObject {
 		
 		int x;
 		int y;
@@ -39,9 +39,14 @@ public class Validator {
 		public void setY(int y) {
 			this.y = y;
 		}
-	}
+	}*/
 	
-	public static class ThreeValuedObject extends TwoValuedObject{
+	public static class ThreeValuedObject extends Coordinate{
+		public ThreeValuedObject(int x, int y) {
+			super(x, y);
+			// TODO Auto-generated constructor stub
+		}
+
 		String value;
 
 		public String getValue() {
@@ -54,8 +59,8 @@ public class Validator {
 	}
 	
 	
-	public TwoValuedObject validateGridCoordinate(String gridCoordinateInString) {
-		TwoValuedObject obj = null;
+	public Coordinate validateGridCoordinate(String gridCoordinateInString) {
+		Coordinate obj = null;
 		if(!validateGridCoordinateInStringForFormat(gridCoordinateInString)) {
 			throwInvalidGridFormatInputException();
 		} else {
@@ -80,8 +85,8 @@ public class Validator {
 	}
 	
 	
-	public TwoValuedObject validateShotCoordinates(String shotCoordinateInString, Grid grid) {
-		TwoValuedObject obj = null;
+	public Coordinate validateShotCoordinates(String shotCoordinateInString, Grid grid) {
+		Coordinate obj = null;
 		if(!validateInputForCoordinates(shotCoordinateInString)) {
 			throwInvalidShotCoordinateFormatInputException();
 		} else {
@@ -174,7 +179,7 @@ public class Validator {
 	/*
 	 * created to reuse
 	 */
-	private TwoValuedObject convertTwoValuedInputStringToTwoValuedObject(String gridCoordinateInString) {
+	private Coordinate convertTwoValuedInputStringToTwoValuedObject(String gridCoordinateInString) {
 		
 		StringBuilder strBuilder = new StringBuilder(gridCoordinateInString.trim());
 		int indexOfComma = strBuilder.indexOf(COMMA);
@@ -188,7 +193,7 @@ public class Validator {
 		catch(NumberFormatException nfe) {
 			throwCoordinateInputOutOfMaxIntRange();
 		}
-		TwoValuedObject obj = new TwoValuedObject();
+		Coordinate obj = new Coordinate(x,y);
 		obj.setX(x);
 		obj.setY(y);
 		return obj;
@@ -205,8 +210,6 @@ public class Validator {
 		String xVal = strBuilder.substring(1, firstIndexOfComma);
 		String yVal = strBuilder.substring(firstIndexOfComma+1, secondIndexOfComma);
 		String orientationStr = strBuilder.substring(secondIndexOfComma+1, length-1);
-		ThreeValuedObject obj = new ThreeValuedObject();
-		obj.setValue(orientationStr);
 		int x =0;
 		int y = 0;
 		try {
@@ -216,6 +219,8 @@ public class Validator {
 		catch(NumberFormatException nfe) {
 			throwCoordinateInputOutOfMaxIntRange();
 		}
+		ThreeValuedObject obj = new ThreeValuedObject(x,y);
+		obj.setValue(orientationStr);
 		obj.setX(x);
 		obj.setY(y);
 		return obj;
