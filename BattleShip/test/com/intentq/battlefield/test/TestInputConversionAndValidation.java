@@ -363,6 +363,26 @@ public class TestInputConversionAndValidation {
 		ship.move(g.getMaxCoOrdinates());
 	}
 	
+	@Test(expected=InvalidMoveSequenceException.class)
+	public void GIVEN_ShipOrientationSouth_And_MoveAheadIsOutOfGrid_THEN_InvalidMovesException() {
+		Grid g = new Grid(5,5);
+		Ship ship = new Ship(new Position(5,0,Orientation.S),nextMoveSequence(M,M,R),null,1);
+		ship.move(g.getMaxCoOrdinates());
+	}
+	
+	@Test(expected=InvalidMoveSequenceException.class)
+	public void GIVEN_ShipOrientationWest_And_MoveAheadIsOutOfGrid_THEN_InvalidMovesException() {
+		Grid g = new Grid(5,5);
+		Ship ship = new Ship(new Position(0,2,Orientation.W),nextMoveSequence(M,M,R),null,1);
+		ship.move(g.getMaxCoOrdinates());
+	}
+	
+	@Test(expected=InvalidMoveSequenceException.class)
+	public void GIVEN_ShipOrientationEast_And_MoveAheadIsOutOfGrid_THEN_InvalidMovesException() {
+		Grid g = new Grid(5,5);
+		Ship ship = new Ship(new Position(5,2,Orientation.E),nextMoveSequence(M,M,R),null,1);
+		ship.move(g.getMaxCoOrdinates());
+	}
 	
 	private static List<Move> nextMoveSequence(Move...actions) {
 		return Arrays.asList(actions);
