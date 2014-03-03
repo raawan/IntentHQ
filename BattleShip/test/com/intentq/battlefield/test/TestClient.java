@@ -186,4 +186,10 @@ public class TestClient {
 		String shipMovementInString = "(1,2)";
 		converter.convertShipMovementInStringToShipsListOfMove(shipMovementInString);
 	}
+	
+	@Test(expected=InvalidInputException.class)
+	public void GIVEN_ShipMovementsInputInIncorrectStringFormat_THEN_InvalidInputException_2() {
+		String shipMovementInString = "(1,2,LLMM";
+		converter.convertShipMovementInStringToShipsListOfMove(shipMovementInString);
+	}
 }
