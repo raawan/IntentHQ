@@ -25,10 +25,6 @@ public class Converter {
 		return convertToGridObject(gridCoordinateInString);
 	}
 
-	private void throwInvalidGridFormatInputException() {
-		throw new InvalidInputException("Grid input is in not proper format - Correct format: (X,Y)");		
-	}
-
 	/*
 	 * Ship position input format
 	 * (X1,Y1,O1)<SPACE>(X1,Y1,O1)<SPACE>.........<SPACE>(Xn,Yn,On)<SPACE>
@@ -42,10 +38,6 @@ public class Converter {
 	}
 	
 	
-	private void throwInvalidShipPositionFormatInputException() {
-		throw new InvalidInputException("Ship positions input is in not proper format - Correct format: (X1,Y1,O1)<SPACE>(X1,Y1,O1)<SPACE>.........<SPACE>(Xn,Yn,On)");		
-	}
-
 	/*
 	 * Shot coordinate input format = (x,y)
 	 */
@@ -58,9 +50,6 @@ public class Converter {
 		return new Coordinate(obj.getX(), obj.getY());
 	}
 	
-	private void throwInvalidShotCoordinateFormatInputException() {
-		throw new InvalidInputException("Shot input is in not proper format - Correct format: (X,Y)");		
-	}
 
 	/*
 	 * Ship movements input format (x,y,LMMRRMMLL)
@@ -73,9 +62,6 @@ public class Converter {
 		return convertToMoveListObject(shipMovementInString);
 	}
 
-	private void throwInvalidShipMovementFormatInputException() {
-		throw new InvalidInputException("Ship movements input is in not proper format - Correct format: (X,Y,LMMRRMMLL)");		
-	}
 
 	private boolean validateshipCoordinatesAndMovementsForFormat(String shipMovementInString) {
 		return Validator.validateInputForShipMovements(shipMovementInString);
@@ -92,7 +78,10 @@ public class Converter {
 		}
 		return movesList;
 	}
-
+	
+	/*
+	 * created to reuse
+	 */
 	private TwoValuedObject convertTwoValuedInputStringToTwoValuedObject(String gridCoordinateInString) {
 		
 		StringBuilder strBuilder = new StringBuilder(gridCoordinateInString.trim());
@@ -106,6 +95,9 @@ public class Converter {
 		return obj;
 	}
 	
+	/*
+	 * created to reuse
+	 */
 	private ThreeValuedObject convertThreeValuedInputStringToThreeValuedObject(String shipMovementInString) {
 		StringBuilder strBuilder = new StringBuilder(shipMovementInString.trim());
 		int length = strBuilder.length();
@@ -178,5 +170,21 @@ public class Converter {
 			positions.add(new Position(obj.getX(),obj.getY(),Orientation.valueOf(obj.getValue())));
 		}
 		return positions;
+	}
+	
+	private void throwInvalidGridFormatInputException() {
+		throw new InvalidInputException("Grid input is in not proper format - Correct format: (X,Y)");		
+	}
+	
+	private void throwInvalidShipPositionFormatInputException() {
+		throw new InvalidInputException("Ship positions input is in not proper format - Correct format: (X1,Y1,O1)<SPACE>(X1,Y1,O1)<SPACE>.........<SPACE>(Xn,Yn,On)");		
+	}
+	
+	private void throwInvalidShotCoordinateFormatInputException() {
+		throw new InvalidInputException("Shot input is in not proper format - Correct format: (X,Y)");		
+	}
+	
+	private void throwInvalidShipMovementFormatInputException() {
+		throw new InvalidInputException("Ship movements input is in not proper format - Correct format: (X,Y,LMMRRMMLL)");		
 	}
 }

@@ -210,4 +210,11 @@ public class TestClient {
 		String shotCoordinateInString = "510,79";
 		converter.convertShotInStringToShotObject(shotCoordinateInString);
 	}
+	
+	@Test(expected=InvalidInputException.class)
+	public void GIVEN_negativeXgridCoordinate_THEN_InvalidInputException() {
+		String gridCoordinateInString = "(-5,7)";
+		converter.convertGridStringInputToGridObject(gridCoordinateInString);
+	}
+	
 }
