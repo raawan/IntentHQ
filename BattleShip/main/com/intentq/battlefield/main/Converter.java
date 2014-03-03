@@ -46,11 +46,7 @@ public class Converter {
 		if(!validateShotCoordinateInStringForFormat(shotCoordinateInString)) {
 			throwInvalidShotCoordinateFormatInputException();
 		} 
-		TwoValuedObject obj = convertTwoValuedInputStringToTwoValuedObject(shotCoordinateInString);
-		if(!Validator.validateCoordinatesWithinGridRange(obj.getX(), obj.getY(), grid)) {
-			throw new InvalidInputException("Coordinates input is out of Grid range");
-		}
-		return new Coordinate(obj.getX(), obj.getY());
+		return convertToShotObject(shotCoordinateInString,grid);
 	}
 	
 
@@ -192,6 +188,14 @@ public class Converter {
 			positions.add(new Position(obj.getX(),obj.getY(),Orientation.valueOf(obj.getValue())));
 		}
 		return positions;
+	}
+	
+	private Coordinate convertToShotObject(String shotCoordinateInString, Grid grid) {
+		TwoValuedObject obj = convertTwoValuedInputStringToTwoValuedObject(shotCoordinateInString);
+		if(!Validator.validateCoordinatesWithinGridRange(obj.getX(), obj.getY(), grid)) {
+			throwCoordinatesOutOfGridException();
+		}
+		return new Coordinate(obj.getX(), obj.getY());	
 	}
 	
 	private void throwCoordinatesOutOfGridException() {
