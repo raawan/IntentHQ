@@ -3,6 +3,7 @@ package com.intentq.battlefield.test;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Before;
@@ -15,8 +16,11 @@ import com.intentq.battlefield.dto.Grid;
 import com.intentq.battlefield.dto.Position;
 import com.intentq.battlefield.dto.Ship;
 import com.intentq.battlefield.exception.InvalidInputException;
+import com.intentq.battlefield.exception.InvalidMoveSequenceException;
 import com.intentq.battlefield.main.Converter;
 import com.intentq.battlefield.validator.Validator;
+
+import static com.intentq.battlefield.constants.Move.*;
 
 public class TestInputConversionAndValidation {
 	
@@ -351,6 +355,19 @@ public class TestInputConversionAndValidation {
 		String shipMovementInString = "(14,23,LMMRRLM)";
 		converter.convertShipMovementInStringToShipsListOfMove(shipMovementInString,g);
 	}
+	
+	@Test(expected=InvalidMoveSequenceException.class)
+	public void GIVEN_ShipOrientationNorth_And_MoveAheadIsOutOfGrid_THEN_InvalidMovesException() {
+		Grid g = new Grid(5,5);
+		Ship ship = new Ship(new Position(5,3,Orientation.E),nextMoveSequence(M,M,R),null,1);
+		ship.move(g.getMaxCoOrdinates());
+	}
+	
+	
+	private static List<Move> nextMoveSequence(Move...actions) {
+		return Arrays.asList(actions);
+	}
+	
 	
 	private Grid createGridWithShipCoordinatesAndOrientation(String shipCoordinatesAndOrientation) {
 		Grid g = new Grid(125,128);
