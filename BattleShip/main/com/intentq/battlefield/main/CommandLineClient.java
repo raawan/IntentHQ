@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.intentq.battlefield.dto.Grid;
 import com.intentq.battlefield.dto.Position;
+import com.intentq.battlefield.dto.Ship;
 import com.intentq.battlefield.exception.InvalidInputException;
 
 public class CommandLineClient {
@@ -54,6 +55,22 @@ public class CommandLineClient {
 		}
 		return positions;
 	}
+	
+	public  void updateShipWithItsNextSetOfMovements(Ship s,Grid g) throws IOException {
+		boolean input =false;
+		String shipMovements;
+		while(!input) {
+			try {
+				shipMovements = getNextInputFromCmdLine();
+				s.getAction().setNextMoves(inputConverter.convertShipMovementInStringToShipsListOfMove(shipMovements,g));
+				input = true;
+			} catch(InvalidInputException iie) {
+				System.out.println(iie.getMessage());
+				System.out.println("Please enter Ships movement input again");
+			}
+		}		
+	}
+
 	
 	public BufferedReader getCmdLineReader() {
 		return cmdLineReader;

@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
@@ -16,8 +17,11 @@ import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.times;
 
+import com.intentq.battlefield.constants.Move;
+import com.intentq.battlefield.constants.Orientation;
 import com.intentq.battlefield.dto.Grid;
 import com.intentq.battlefield.dto.Position;
+import com.intentq.battlefield.dto.Ship;
 import com.intentq.battlefield.main.CommandLineClient;
 import com.intentq.battlefield.main.Converter;
 import com.intentq.battlefield.util.Validator;
@@ -121,5 +125,46 @@ public class TestCommandLineClientIntegrationTest {
 		List<Position> positions = cmd.createShipsPositionOnGrid(new Grid(2,5));
 		verify(readerMock,times(2)).readLine();
 		assertNotNull(positions);
+	}
+	
+	@Test
+	public void GIVEN_shipMovesFromCommandLine_THEN_GetValidatedM0veListObject() throws IOException {
+		
+		List<Ship> ships = new ArrayList<Ship>();
+		Ship ship=new Ship(new Position(3, 5, Orientation.N), null, null, 1);
+		ships.add(ship);
+		Grid grid = new Grid(10,10);
+		grid.setShipsOnGrid(ships);
+		
+		String shipMovesFrmCmdLine = "(3,5,LRM)";
+		when(readerMock.readLine()).thenReturn(shipMovesFrmCmdLine);
+		cmd.updateShipWithItsNextSetOfMovements(ship, grid);
+		verify(readerMock,times(1)).readLine();
+		assertEquals(Move.L,ship.getAction().getNextMoves().get(0));
+		assertEquals(Move.R,ship.getAction().getNextMoves().get(1));
+		assertEquals(Move.M,ship.getAction().getNextMoves().get(2));
+	}
+	
+	@Test
+	public void GIVEN_shipMovesFromCommandLine_THEN_GetValidatedM0veListObject_2() throws IOException {
+		
+		List<Ship> ships = new ArrayList<Ship>();
+		Ship ship=new Ship(new Position(3, 5, Orientation.N), null, null, 1);
+		ships.add(ship);
+		Grid grid = new Grid(10,10);
+		grid.setShipsOnGrid(ships);
+		
+		String shipMovesFrmCmdLineInvalid1 = "(-3,5,LRLRMMLR)";
+		String shipMovesFrmCmdLineInvalid2 = "(3,599999999999999999999999,LRLRMMLR)";
+		String shipMovesFrmCmdLineInvalid3 = "(3,5,ZRLRMMLR)";
+		String shipMovesFrmCmdLineInvalid4 = "3,5,LRLRMMLR)))";
+		String shipMovesFrmCmdLineInvalid5 = "(3,2,LRLRMMLR)";
+		String shipMovesFrmCmdLine = "(3,5,LRLRMMLR)";
+		
+		when(readerMock.readLine()).thenReturn(shipMovesFrmCmdLineInvalid1,shipMovesFrmCmdLineInvalid2,shipMovesFrmCmdLineInvalid3,shipMovesFrmCmdLineInvalid4,
+				shipMovesFrmCmdLineInvalid5,shipMovesFrmCmdLine);
+		cmd.updateShipWithItsNextSetOfMovements(ship, grid);
+		verify(readerMock,times(6)).readLine();
+		assertEquals(Move.L,ship.getAction().getNextMoves().get(0));
 	}
 }
