@@ -8,13 +8,18 @@ import com.intentq.battlefield.constants.Orientation;
 import com.intentq.battlefield.dto.Coordinate;
 import com.intentq.battlefield.dto.Grid;
 import com.intentq.battlefield.dto.Position;
+import com.intentq.battlefield.exception.InvalidInputException;
 
 public class Converter {
 	
 	private static final String  COMMA=",";
+	private static final String  REGEX_FOR_COORDINATES = "^\\([\\d]+\\,[\\d]+\\)$";
 	
 	public Grid convertGridStringInputToGridObject(String gridCoordinateInString) {
 		
+		if(!gridCoordinateInString.matches(REGEX_FOR_COORDINATES)) {
+			throw new InvalidInputException("Input is in not proper format");
+		} 
 		TwoValuedObject obj = convertTwoValuedInputStringToTwoValuedObject(gridCoordinateInString);
 		return new Grid(obj.getX(),obj.getY());
 	}
