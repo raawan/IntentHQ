@@ -252,4 +252,10 @@ public class TestClient {
 		String shipCoordinatesAndOrientation = "(1,2,N) (-1,4,W)";
 		converter.convertShipPositionStringInputToPositionObject(shipCoordinatesAndOrientation);
 	}
+	
+	@Test(expected=InvalidInputException.class)
+	public void GIVEN_GridInputXOutOfMaxIntRange_THEN_InavlidInputException() {
+		String gridCoordinateInString = "(52134567898765435678987654356789,7)";
+		converter.convertGridStringInputToGridObject(gridCoordinateInString);
+	}
 }
