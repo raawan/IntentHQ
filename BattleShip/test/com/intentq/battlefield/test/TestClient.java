@@ -344,6 +344,13 @@ public class TestClient {
 		converter.convertShipMovementInStringToShipsListOfMove(shipMovementInString,g);
 	}
 	
+	@Test(expected=InvalidInputException.class)
+	public void GIVEN_validShipPositionsOnGridAndInvalidShipMovementCoordinates_THEN_InavlidInputException_2() {
+		Grid g = createGridWithShipCoordinatesAndOrientation("(78,2,E) (1,45,W) (23,67,S)"); 
+		String shipMovementInString = "(14,23,LMMRRLM)";
+		converter.convertShipMovementInStringToShipsListOfMove(shipMovementInString,g);
+	}
+	
 	private Grid createGridWithShipCoordinatesAndOrientation(String shipCoordinatesAndOrientation) {
 		Grid g = new Grid(125,128);
 		List<Position> posList = converter.convertShipPositionStringInputToPositionObject(shipCoordinatesAndOrientation,g);
