@@ -1,5 +1,7 @@
 package com.intentq.battlefield.main;
 
+import com.intentq.battlefield.dto.Grid;
+
 public class Validator {
 	
 	private static final String  REGEX_FOR_COORDINATES = "^\\([\\d]+\\,[\\d]+\\)$";
@@ -34,5 +36,12 @@ public class Validator {
 			return true;
 		}
 		return false;
+	}
+	
+	public static boolean validateCoordinatesWithinGridRange(int x, int y, Grid grid) {
+		if(x>grid.getMaxCoOrdinates().getX() || y>grid.getMaxCoOrdinates().getY()) {
+			return false;
+		}
+		return true;
 	}
 }

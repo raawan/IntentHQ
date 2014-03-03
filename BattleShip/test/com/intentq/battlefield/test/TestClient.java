@@ -61,7 +61,7 @@ public class TestClient {
 	@Test
 	public void GIVEN_ShipStartingPositionInStringFormat_THEN_convertIntoPositionObject() {
 		String shipCoordinatesAndOrientation = "(1,2,N)";
-		List<Position> pos = converter.convertShipPositionStringInputToPositionObject(shipCoordinatesAndOrientation);
+		List<Position> pos = converter.convertShipPositionStringInputToPositionObject(shipCoordinatesAndOrientation,getStubbedGridObject());
 		assertEquals(1, pos.get(0).getCurrentCoordinates().getX());
 		assertEquals(2, pos.get(0).getCurrentCoordinates().getY());
 		assertEquals(Orientation.N,pos.get(0).getOrientation());
@@ -70,7 +70,7 @@ public class TestClient {
 	@Test
 	public void GIVEN_ShipStartingPositionInStringFormat_THEN_convertIntoPositionObject_2() {
 		String shipCoordinatesAndOrientation = "(12,2342,E)";
-		List<Position> pos = converter.convertShipPositionStringInputToPositionObject(shipCoordinatesAndOrientation);
+		List<Position> pos = converter.convertShipPositionStringInputToPositionObject(shipCoordinatesAndOrientation,getStubbedGridObject());
 		assertEquals(12, pos.get(0).getCurrentCoordinates().getX());
 		assertEquals(2342, pos.get(0).getCurrentCoordinates().getY());
 		assertEquals(Orientation.E,pos.get(0).getOrientation());
@@ -153,19 +153,19 @@ public class TestClient {
 	@Test(expected=InvalidInputException.class)
 	public void GIVEN_ShipPositionInputInIncorrectStringFormat_THEN_InvalidInputException() {
 		String shipCoordinatesAndOrientation = "1,2,N)";
-		converter.convertShipPositionStringInputToPositionObject(shipCoordinatesAndOrientation);
+		converter.convertShipPositionStringInputToPositionObject(shipCoordinatesAndOrientation,getStubbedGridObject());
 	}
 	
 	@Test(expected=InvalidInputException.class)
 	public void GIVEN_ShipPositionInputInIncorrectStringFormat_THEN_InvalidInputException_2() {
 		String shipCoordinatesAndOrientation = "(1,2,X)";
-		converter.convertShipPositionStringInputToPositionObject(shipCoordinatesAndOrientation);
+		converter.convertShipPositionStringInputToPositionObject(shipCoordinatesAndOrientation,getStubbedGridObject());
 	}
 	
 	@Test
 	public void GIVEN_MultipleShipPositionInputInStringFormat_THEN_NoInvalidInputException() {
 		String shipCoordinatesAndOrientation = "(1,2,N) (12,34,W) (234,567,E)";
-		List<Position> pos = converter.convertShipPositionStringInputToPositionObject(shipCoordinatesAndOrientation);
+		List<Position> pos = converter.convertShipPositionStringInputToPositionObject(shipCoordinatesAndOrientation,getStubbedGridObject());
 		assertEquals(new Position(1, 2, Orientation.N),pos.get(0));
 		assertEquals(new Position(12, 34, Orientation.W),pos.get(1));
 		assertEquals(new Position(234, 567, Orientation.E),pos.get(2));
@@ -174,7 +174,7 @@ public class TestClient {
 	@Test
 	public void GIVEN_MultipleShipPositionInputInStringFormat_THEN_NoInvalidInputException_2() {
 		String shipCoordinatesAndOrientation = "(1,2,N) (12,34,W) (234,567,E) (12,34,S)";
-		List<Position> pos =   converter.convertShipPositionStringInputToPositionObject(shipCoordinatesAndOrientation);
+		List<Position> pos =   converter.convertShipPositionStringInputToPositionObject(shipCoordinatesAndOrientation,getStubbedGridObject());
 		assertEquals(new Position(1, 2, Orientation.N),pos.get(0));
 		assertEquals(new Position(12, 34, Orientation.W),pos.get(1));
 		assertEquals(new Position(234, 567, Orientation.E),pos.get(2));
@@ -238,19 +238,19 @@ public class TestClient {
 	@Test(expected=InvalidInputException.class)
 	public void GIVEN_NegativeXcoordinateOfShipPosition_THEN_InvalidInputException() {
 		String shipCoordinatesAndOrientation = "(-1,2,N)";
-		converter.convertShipPositionStringInputToPositionObject(shipCoordinatesAndOrientation);
+		converter.convertShipPositionStringInputToPositionObject(shipCoordinatesAndOrientation,getStubbedGridObject());
 	}
 	
 	@Test(expected=InvalidInputException.class)
 	public void GIVEN_NegativeYcoordinateOfShipPosition_THEN_InvalidInputException() {
 		String shipCoordinatesAndOrientation = "(1,-2,N)";
-		converter.convertShipPositionStringInputToPositionObject(shipCoordinatesAndOrientation);
+		converter.convertShipPositionStringInputToPositionObject(shipCoordinatesAndOrientation,getStubbedGridObject());
 	}
 	
 	@Test(expected=InvalidInputException.class)
 	public void GIVEN_NegativeYcoordinateOfShipPosition_THEN_InvalidInputException_2() {
 		String shipCoordinatesAndOrientation = "(1,2,N) (-1,4,W)";
-		converter.convertShipPositionStringInputToPositionObject(shipCoordinatesAndOrientation);
+		converter.convertShipPositionStringInputToPositionObject(shipCoordinatesAndOrientation,getStubbedGridObject());
 	}
 	
 	@Test(expected=InvalidInputException.class)
@@ -281,13 +281,17 @@ public class TestClient {
 	@Test(expected=InvalidInputException.class)
 	public void GIVEN_ShipPositionInputXcoordinateOutOfMaxIntRange_THEN_InvalidInputException() {
 		String shipCoordinatesAndOrientation = "(52134567898765435678987654356789,2,N)";
-		converter.convertShipPositionStringInputToPositionObject(shipCoordinatesAndOrientation);
+		converter.convertShipPositionStringInputToPositionObject(shipCoordinatesAndOrientation,getStubbedGridObject());
 	}
 	
+	private Grid getStubbedGridObject() {
+		return new Grid(10000,10000);
+	}
+
 	@Test(expected=InvalidInputException.class)
 	public void GIVEN_ShipPositionInputYcoordinateOutOfMaxIntRange_THEN_InvalidInputException() {
 		String shipCoordinatesAndOrientation = "(2,52134567898765435678987654356789,N)";
-		converter.convertShipPositionStringInputToPositionObject(shipCoordinatesAndOrientation);
+		converter.convertShipPositionStringInputToPositionObject(shipCoordinatesAndOrientation,getStubbedGridObject());
 	}
 
 	@Test(expected=InvalidInputException.class)

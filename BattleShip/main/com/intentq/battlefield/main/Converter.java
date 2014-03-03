@@ -29,12 +29,12 @@ public class Converter {
 	 * Ship position input format
 	 * (X1,Y1,O1)<SPACE>(X1,Y1,O1)<SPACE>.........<SPACE>(Xn,Yn,On)<SPACE>
 	 */
-	public List<Position> convertShipPositionStringInputToPositionObject(String shipCoordinatesAndOrientation) {
+	public List<Position> convertShipPositionStringInputToPositionObject(String shipCoordinatesAndOrientation, Grid grid) {
 		
 		if(!validateshipCoordinatesAndOrientationForFormat(shipCoordinatesAndOrientation)) {
 			throwInvalidShipPositionFormatInputException();
 		} 
-		return convertToPositionListObject(shipCoordinatesAndOrientation);
+		return convertToPositionListObject(shipCoordinatesAndOrientation,grid);
 	}
 	
 	
@@ -178,11 +178,14 @@ public class Converter {
 		return Validator.validateInputForShipPosition(shipCoordinatesAndOrientation+" ");
 	}
 
-	private List<Position> convertToPositionListObject(String shipCoordinatesAndOrientation) {
+	private List<Position> convertToPositionListObject(String shipCoordinatesAndOrientation, Grid grid) {
 		List<Position> positions = new ArrayList<Position>();
 		String[] shipPositionsArray = shipCoordinatesAndOrientation.split(SPACE);
 		for(String shipPosition: shipPositionsArray) { 
 			ThreeValuedObject obj = convertThreeValuedInputStringToThreeValuedObject(shipPosition);
+			if(!Validator.validateCoordinatesWithinGridRange(obj.getX(),obj.getY(),grid)) {
+				throw new InvalidInputException("Coordinates input is out of Grid range");
+			}
 			positions.add(new Position(obj.getX(),obj.getY(),Orientation.valueOf(obj.getValue())));
 		}
 		return positions;
