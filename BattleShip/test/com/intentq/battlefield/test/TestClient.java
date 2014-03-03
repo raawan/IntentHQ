@@ -283,4 +283,10 @@ public class TestClient {
 		String shipCoordinatesAndOrientation = "(52134567898765435678987654356789,2,N)";
 		converter.convertShipPositionStringInputToPositionObject(shipCoordinatesAndOrientation);
 	}
+	
+	@Test(expected=InvalidInputException.class)
+	public void GIVEN_ShipPositionInputYcoordinateOutOfManIntRange_THEN_InvalidInputException() {
+		String shipCoordinatesAndOrientation = "(2,52134567898765435678987654356789,N)";
+		converter.convertShipPositionStringInputToPositionObject(shipCoordinatesAndOrientation);
+	}
 }
