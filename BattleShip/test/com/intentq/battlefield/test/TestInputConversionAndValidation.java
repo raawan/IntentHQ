@@ -9,27 +9,27 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.intentq.battlefield.constants.LifeStatus;
-import com.intentq.battlefield.constants.Move;
-import com.intentq.battlefield.constants.Orientation;
-import com.intentq.battlefield.dto.Coordinate;
-import com.intentq.battlefield.dto.Grid;
-import com.intentq.battlefield.dto.Position;
-import com.intentq.battlefield.dto.Ship;
-import com.intentq.battlefield.exception.InvalidInputException;
-import com.intentq.battlefield.exception.InvalidMoveSequenceException;
-import com.intentq.battlefield.main.Converter;
-import com.intentq.battlefield.validator.Validator;
+import com.intentq.battlefield.api.ConverterApi;
+import com.intentq.battlefield.api.constants.LifeStatus;
+import com.intentq.battlefield.api.constants.Move;
+import com.intentq.battlefield.api.constants.Orientation;
+import com.intentq.battlefield.api.dto.Coordinate;
+import com.intentq.battlefield.api.dto.Grid;
+import com.intentq.battlefield.api.dto.Position;
+import com.intentq.battlefield.api.dto.Ship;
+import com.intentq.battlefield.api.exception.InvalidInputException;
+import com.intentq.battlefield.api.exception.InvalidMoveSequenceException;
+import com.intentq.battlefield.api.validator.Validator;
 
-import static com.intentq.battlefield.constants.Move.*;
+import static com.intentq.battlefield.api.constants.Move.*;
 
 public class TestInputConversionAndValidation {
 	
-	private Converter converter;
+	private ConverterApi converter;
 	
 	@Before
 	public void setUp() {
-		converter = new Converter(new Validator());
+		converter = new ConverterApi(new Validator());
 	}
 	
 	@Test

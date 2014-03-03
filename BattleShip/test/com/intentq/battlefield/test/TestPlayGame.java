@@ -1,7 +1,7 @@
 package com.intentq.battlefield.test;
 
 import static org.junit.Assert.*;
-import static com.intentq.battlefield.constants.Move.*;
+import static com.intentq.battlefield.api.constants.Move.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,14 +9,14 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.intentq.battlefield.constants.LifeStatus;
-import com.intentq.battlefield.constants.Move;
-import com.intentq.battlefield.constants.Orientation;
-import com.intentq.battlefield.dto.Coordinate;
-import com.intentq.battlefield.dto.Grid;
-import com.intentq.battlefield.dto.Position;
-import com.intentq.battlefield.dto.Ship;
-import com.intentq.battlefield.main.PlayGame;
+import com.intentq.battlefield.api.PlayGameApi;
+import com.intentq.battlefield.api.constants.LifeStatus;
+import com.intentq.battlefield.api.constants.Move;
+import com.intentq.battlefield.api.constants.Orientation;
+import com.intentq.battlefield.api.dto.Coordinate;
+import com.intentq.battlefield.api.dto.Grid;
+import com.intentq.battlefield.api.dto.Position;
+import com.intentq.battlefield.api.dto.Ship;
 
 public class TestPlayGame {
 
@@ -30,7 +30,7 @@ public class TestPlayGame {
 		List<Ship> ships = new ArrayList<Ship>();
 		ships.add(new Ship(new Position(1,2,Orientation.N),nextMoveSequence(L,M,L,M,L,M,L,M,M),new Coordinate(2,3),1));
 		ships.add(new Ship(new Position(3,3,Orientation.E),nextMoveSequence(M,M,R,M,M,R,M,R,R,M),new Coordinate(1,3),2));
-		PlayGame game = new PlayGame(new Grid(5,5),ships);
+		PlayGameApi game = new PlayGameApi(new Grid(5,5),ships);
 		game.play();
 		Grid g = game.getGrid();
 		List<Ship> newShips = new ArrayList<Ship>(g.getShipsOnGrid()); 
@@ -49,7 +49,7 @@ public class TestPlayGame {
 		
 		ships.add(new Ship(new Position(1,2,Orientation.N),nextMoveSequence(L,M,L,M,L,M,L,M,M),new Coordinate(2,3),1));
 		ships.add(new Ship(new Position(3,3,Orientation.E),nextMoveSequence(M,M,R,M,M,R,M,R,R,M),new Coordinate(2,3),2));
-		PlayGame game = new PlayGame(new Grid(5,5),ships);
+		PlayGameApi game = new PlayGameApi(new Grid(5,5),ships);
 		game.play();
 		assertEquals(LifeStatus.ALIVE,ships.get(0).getLifeStatus());
 		assertEquals(LifeStatus.ALIVE,ships.get(1).getLifeStatus());
@@ -64,7 +64,7 @@ public class TestPlayGame {
 		
 		ships.add(new Ship(new Position(1,2,Orientation.N),nextMoveSequence(L,M,L,M,L,M,L,M,M),new Coordinate(2,3),1));
 		ships.add(new Ship(new Position(3,3,Orientation.E),nextMoveSequence(M,M,R,M,M,R,M,R,R,M),new Coordinate(2,3),2));
-		PlayGame game = new PlayGame(new Grid(5,5),ships);
+		PlayGameApi game = new PlayGameApi(new Grid(5,5),ships);
 		game.play();
 		assertEquals(LifeStatus.ALIVE,ships.get(0).getLifeStatus());
 		assertEquals(LifeStatus.ALIVE,ships.get(1).getLifeStatus());
@@ -87,7 +87,7 @@ public class TestPlayGame {
         ships.add(new Ship(new Position(1,2,Orientation.N),nextMoveSequence(L,M,R,M,M,R,M,M),new Coordinate(2,4),1));
         ships.add(new Ship(new Position(3,3,Orientation.E),nextMoveSequence(M,M,R,R,M,M,R,R),new Coordinate(2,5),2));
         ships.add(new Ship(new Position(2,3,Orientation.S),nextMoveSequence(R,R,M,M,R,L),new Coordinate(3,3),3));
-        PlayGame game = new PlayGame(new Grid(10,10),ships);
+        PlayGameApi game = new PlayGameApi(new Grid(10,10),ships);
         game.play();
         assertEquals(LifeStatus.ALIVE,ships.get(0).getLifeStatus());
         assertEquals(LifeStatus.SUNK,ships.get(1).getLifeStatus());
@@ -104,7 +104,7 @@ public class TestPlayGame {
 		ships.add(new Ship(new Position(1,2,Orientation.N),nextMoveSequence(L,M,R,M,M,R,M,M),new Coordinate(3,3),1));
 		ships.add(new Ship(new Position(3,3,Orientation.E),nextMoveSequence(M,M,R,R,M,M,R,R),new Coordinate(2,5),2));
 		ships.add(new Ship(new Position(2,3,Orientation.S),nextMoveSequence(M,M,M),new Coordinate(4,3),3));
-		PlayGame game = new PlayGame(new Grid(10,10),ships);
+		PlayGameApi game = new PlayGameApi(new Grid(10,10),ships);
 		game.play();
 		assertEquals(LifeStatus.ALIVE,ships.get(0).getLifeStatus());
 		assertEquals(LifeStatus.SUNK,ships.get(1).getLifeStatus());
@@ -125,7 +125,7 @@ public class TestPlayGame {
 		List<Ship> ships = new ArrayList<Ship>();
         ships.add(new Ship(new Position(1,2,Orientation.N),nextMoveSequence(L,M,R,M,M,R,M,M),new Coordinate(1,4),1));
         ships.add(new Ship(new Position(2,3,Orientation.N),nextMoveSequence(M),new Coordinate(2,5),2));
-        PlayGame game = new PlayGame(new Grid(10,10),ships);
+        PlayGameApi game = new PlayGameApi(new Grid(10,10),ships);
         game.play();
         assertEquals(new Position(2, 3, Orientation.N),ships.get(1).getCurrentPosition());
 	}
@@ -136,7 +136,7 @@ public class TestPlayGame {
         ships.add(new Ship(new Position(1,2,Orientation.N),nextMoveSequence(L,M,R,M,M,R,M,M),new Coordinate(1,4),1));
         ships.add(new Ship(new Position(2,3,Orientation.N),nextMoveSequence(M),new Coordinate(2,5),2));
         ships.get(0).setLifeStatus(LifeStatus.SUNK);
-        PlayGame game = new PlayGame(new Grid(10,10),ships);
+        PlayGameApi game = new PlayGameApi(new Grid(10,10),ships);
         game.play();
 	}
 }

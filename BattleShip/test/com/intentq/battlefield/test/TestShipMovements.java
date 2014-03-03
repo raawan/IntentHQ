@@ -7,13 +7,13 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.intentq.battlefield.constants.Move;
-import com.intentq.battlefield.constants.Orientation;
-import com.intentq.battlefield.dto.Coordinate;
-import com.intentq.battlefield.dto.Position;
-import com.intentq.battlefield.dto.Ship;
+import com.intentq.battlefield.api.constants.Move;
+import com.intentq.battlefield.api.constants.Orientation;
+import com.intentq.battlefield.api.dto.Coordinate;
+import com.intentq.battlefield.api.dto.Position;
+import com.intentq.battlefield.api.dto.Ship;
 
-import static com.intentq.battlefield.constants.Move.*;
+import static com.intentq.battlefield.api.constants.Move.*;
 
 public class TestShipMovements {
 
