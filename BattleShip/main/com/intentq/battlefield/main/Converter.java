@@ -6,18 +6,17 @@ import com.intentq.battlefield.dto.Grid;
 import com.intentq.battlefield.dto.Position;
 
 public class Converter {
-
+	
+	private static final String  COMMA=",";
+	
 	public Grid convertGridStringInputToGridObject(String gridCoordinateInString) {
 		
-		StringBuilder strBuilder = new StringBuilder(gridCoordinateInString.trim());
-		int indexOfComma = strBuilder.indexOf(",");
-		int length = strBuilder.length();
-		int x= Integer.parseInt(strBuilder.substring(1, indexOfComma));
-		int y= Integer.parseInt(strBuilder.substring(indexOfComma+1,length-1));
-		return new Grid(x,y);
+		TwoValuedObject obj = convertTwoValuedInputStringToTwoValuedObject(gridCoordinateInString);
+		return new Grid(obj.getX(),obj.getY());
 	}
 
 	public Position convertShipPositionStringInputToPositionObject(String shipCoordinatesAndOrientation) {
+		
 		StringBuilder strBuilder = new StringBuilder(shipCoordinatesAndOrientation.trim());
 		int length = strBuilder.length();
 		int firstIndexOfComma = strBuilder.indexOf(",");
@@ -29,12 +28,39 @@ public class Converter {
 	}
 
 	public Coordinate convertShotInStringToShotObject(String shotCoordinateInString) {
-		StringBuilder strBuilder = new StringBuilder(shotCoordinateInString.trim());
-		int indexOfComma = strBuilder.indexOf(",");
+		
+		TwoValuedObject obj = convertTwoValuedInputStringToTwoValuedObject(shotCoordinateInString);
+		return new Coordinate(obj.getX(), obj.getY());
+	}
+	
+	private TwoValuedObject convertTwoValuedInputStringToTwoValuedObject(String gridCoordinateInString) {
+		
+		StringBuilder strBuilder = new StringBuilder(gridCoordinateInString.trim());
+		int indexOfComma = strBuilder.indexOf(COMMA);
 		int length = strBuilder.length();
 		int x= Integer.parseInt(strBuilder.substring(1, indexOfComma));
 		int y= Integer.parseInt(strBuilder.substring(indexOfComma+1,length-1));
-		return new Coordinate(x, y);
+		TwoValuedObject obj = new TwoValuedObject();
+		obj.setX(x);
+		obj.setY(y);
+		return obj;
 	}
-
+	
+	private static class TwoValuedObject {
+		
+		int x;
+		int y;
+		public int getX() {
+			return x;
+		}
+		public void setX(int x) {
+			this.x = x;
+		}
+		public int getY() {
+			return y;
+		}
+		public void setY(int y) {
+			this.y = y;
+		}
+	}
 }
