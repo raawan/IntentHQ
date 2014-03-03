@@ -11,6 +11,7 @@ import com.intentq.battlefield.constants.Orientation;
 import com.intentq.battlefield.dto.Coordinate;
 import com.intentq.battlefield.dto.Grid;
 import com.intentq.battlefield.dto.Position;
+import com.intentq.battlefield.exception.InvalidInputException;
 import com.intentq.battlefield.main.Converter;
 
 public class TestClient {
