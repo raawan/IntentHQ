@@ -16,6 +16,7 @@ import com.intentq.battlefield.dto.Position;
 import com.intentq.battlefield.dto.Ship;
 import com.intentq.battlefield.exception.InvalidInputException;
 import com.intentq.battlefield.main.Converter;
+import com.intentq.battlefield.util.Validator;
 
 public class TestClient {
 	
@@ -23,7 +24,7 @@ public class TestClient {
 	
 	@Before
 	public void setUp() {
-		converter = new Converter();
+		converter = new Converter(new Validator());
 	}
 	
 	@Test
