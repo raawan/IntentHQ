@@ -295,4 +295,12 @@ public class TestClient {
 		String shipMovementInString = "(1,2,52134567898765435678987654356789,LLMM)";
 		converter.convertShipMovementInStringToShipsListOfMove(shipMovementInString);
 	}
+	
+	@Test(expected=InvalidInputException.class)
+	public void GIVEN_validGridInput_And_ShipPositionCoordinateGreaterThanGrid_THEN_InvalidInputException() {
+		String gridCoordinateInString = "(51,789)";
+		String shipCoordinatesAndOrientation = "(78,2,E)";
+		converter.convertShipPositionStringInputToPositionObject(shipCoordinatesAndOrientation,
+				converter.convertGridStringInputToGridObject(gridCoordinateInString));
+	}
 }
