@@ -94,7 +94,7 @@ public class TestClient {
 	@Test
 	public void GIVEN_ShipMovementInStringFormat_THEN_ConvertItIntoShipsMovementObject() {
 		String shipMovementInString = "(1,2,LMMRRLM)";
-		List<Move> nextMoves = new Converter().convertShipMovementInSTringToShipsListOFAction(shipMovementInString);
+		List<Move> nextMoves = new Converter().convertShipMovementInStringToShipsListOfMove(shipMovementInString);
 		assertEquals(Move.L, nextMoves.get(0));
 		assertEquals(Move.M, nextMoves.get(1));
 		assertEquals(Move.M, nextMoves.get(2));

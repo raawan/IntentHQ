@@ -1,5 +1,8 @@
 package com.intentq.battlefield.main;
 
+import java.util.List;
+
+import com.intentq.battlefield.constants.Move;
 import com.intentq.battlefield.constants.Orientation;
 import com.intentq.battlefield.dto.Coordinate;
 import com.intentq.battlefield.dto.Grid;
@@ -62,5 +65,10 @@ public class Converter {
 		public void setY(int y) {
 			this.y = y;
 		}
+	}
+
+	public List<Move> convertShipMovementInStringToShipsListOfMove(
+			String shipMovementInString) {
+		return null;
 	}
 }
