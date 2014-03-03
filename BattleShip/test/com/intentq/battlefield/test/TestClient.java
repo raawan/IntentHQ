@@ -2,8 +2,11 @@ package com.intentq.battlefield.test;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.Test;
 
+import com.intentq.battlefield.constants.Move;
 import com.intentq.battlefield.constants.Orientation;
 import com.intentq.battlefield.dto.Coordinate;
 import com.intentq.battlefield.dto.Grid;
@@ -86,5 +89,18 @@ public class TestClient {
 		Coordinate shot = new Converter().convertShotInStringToShotObject(shotCoordinateInString);
 		assertEquals(5, shot.getX());
 		assertEquals(0, shot.getY());
+	}
+	
+	@Test
+	public void GIVEN_ShipMovementInStringFormat_THEN_ConvertItIntoShipsMovementObject() {
+		String shipMovementInString = "(1,2,LMMRRLM)";
+		List<Move> nextMoves = new Converter().convertShipMovementInSTringToShipsListOFAction(shipMovementInString);
+		assertEquals(Move.L, nextMoves.get(0));
+		assertEquals(Move.M, nextMoves.get(1));
+		assertEquals(Move.M, nextMoves.get(2));
+		assertEquals(Move.R, nextMoves.get(3));
+		assertEquals(Move.R, nextMoves.get(4));
+		assertEquals(Move.L, nextMoves.get(5));
+		assertEquals(Move.M, nextMoves.get(6));
 	}
 }
