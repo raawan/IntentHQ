@@ -317,10 +317,10 @@ public class TestClient {
 	}
 	
 	@Test(expected=InvalidInputException.class)
-	public void GIVEN_validGridInput_And_ShipMovementCoordinateGreaterThanGrid_THEN_InvalidInputException() {
-		String gridCoordinateInString = "(510,789)";
+	public void GIVEN_validGridInput_And_ShipShotCoordinateGreaterThanGrid_THEN_InvalidInputException() {
+		String shotCoordinateInString = "(510,789)";
 		String shipMovementInString = "(11112,2,LLMM)";
-		converter.convertShipMovementInStringToShipsListOfMove(shipMovementInString,converter.convertGridStringInputToGridObject(gridCoordinateInString));
+		converter.convertShotInStringToShotObject(shotCoordinateInString,converter.convertGridStringInputToGridObject(gridCoordinateInString));
 		
 	}
 }
