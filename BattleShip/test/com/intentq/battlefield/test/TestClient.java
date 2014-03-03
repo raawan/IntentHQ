@@ -331,4 +331,11 @@ public class TestClient {
 		converter.convertShotInStringToShotObject(shotCoordinateInString,converter.convertGridStringInputToGridObject(gridCoordinateInString));
 		
 	}
+	
+	@Test(expected=InvalidInputException.class)
+	public void GIVEN_validShipPositionsOnGridAndInvalidShipMovementCoordinates_THEN_InavlidInputException() {
+		Grid g = createGridWithShipCoordinatesAndOrientation("(78,2,E) (1,45,W) (23,67,S)"); 
+		String shipMovementInString = "(1,2,LMMRRLM)";
+		converter.convertShipMovementInStringToShipsListOfMove(shipMovementInString,g);
+	}
 }
