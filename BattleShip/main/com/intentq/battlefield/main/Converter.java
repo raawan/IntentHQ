@@ -31,7 +31,7 @@ public class Converter {
 	 */
 	public List<Position> convertShipPositionStringInputToPositionObject(String shipCoordinatesAndOrientation) {
 		
-		if(validateshipCoordinatesAndOrientationForFormat(shipCoordinatesAndOrientation)) {
+		if(!validateshipCoordinatesAndOrientationForFormat(shipCoordinatesAndOrientation)) {
 			throwInvalidInputException();
 		} 
 		return convertToPositionListObject(shipCoordinatesAndOrientation);
@@ -55,6 +55,10 @@ public class Converter {
 		if(!Validator.validateInputForShipMovements(shipMovementInString)) {
 			throwInvalidInputException();
 		}
+		return convertToMoveListObject(shipMovementInString);
+	}
+
+	private List<Move> convertToMoveListObject(String shipMovementInString) {
 		ThreeValuedObject obj = convertThreeValuedInputStringToThreeValuedObject(shipMovementInString);
 		StringBuilder moves = new StringBuilder(obj.getValue());
 		int index=0;
@@ -139,7 +143,7 @@ public class Converter {
 	}
 	
 	private boolean validateshipCoordinatesAndOrientationForFormat(String shipCoordinatesAndOrientation) {
-		return !Validator.validateInputForShipPosition(shipCoordinatesAndOrientation+" ");
+		return Validator.validateInputForShipPosition(shipCoordinatesAndOrientation+" ");
 	}
 
 	private List<Position> convertToPositionListObject(String shipCoordinatesAndOrientation) {
