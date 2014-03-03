@@ -67,7 +67,7 @@ public class PlayGame implements IPlayGame {
 		Coordinate start = new Coordinate(thisShip.getCurrentCoordinate().getX(), 
 				thisShip.getCurrentCoordinate().getY());
 		Orientation startOrientation = thisShip.getCurrentOrientation();
-		thisShip.move();
+		thisShip.move(this.getGrid().getMaxCoOrdinates());
 		Coordinate end = thisShip.getCurrentCoordinate();
 		if(checkIfThisShipCouldCollideToAnyExistingShipOnGrid(thisShip,start,startOrientation,end)) {
 			resetShipPosition(thisShip,start,startOrientation);

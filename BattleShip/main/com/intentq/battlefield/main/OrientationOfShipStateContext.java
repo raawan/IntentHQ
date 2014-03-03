@@ -1,5 +1,7 @@
 package com.intentq.battlefield.main;
 
+import com.intentq.battlefield.dto.Coordinate;
+
 public class OrientationOfShipStateContext implements IOrientationOfShipState {
 	
 	public OrientationOfShipStateContext(
@@ -24,7 +26,7 @@ public class OrientationOfShipStateContext implements IOrientationOfShipState {
 	}
 
 	@Override
-	public void moveAhead() {
-		orientationOfShipState.moveAhead();
+	public void moveAhead(Coordinate moveLimit) {
+		orientationOfShipState.moveAhead(moveLimit);
 	}
 }

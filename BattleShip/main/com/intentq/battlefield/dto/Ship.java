@@ -24,7 +24,7 @@ public class Ship {
 	}
 
 
-	public void move() {
+	public void move(Coordinate maxCoordinateLimit) {
 		
 		IOrientationOfShipState orientationOfShipState;
 		for(Move nextMove : getAction().getNextMoves()) {
@@ -34,7 +34,7 @@ public class Ship {
 			} else if (nextMove.equals(Move.R)) {
 				orientationOfShipState.moveRight();
 			} else {
-				orientationOfShipState.moveAhead();
+				orientationOfShipState.moveAhead(maxCoordinateLimit);
 			}
 		}
 	}
