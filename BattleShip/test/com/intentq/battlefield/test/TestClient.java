@@ -323,4 +323,12 @@ public class TestClient {
 		converter.convertShotInStringToShotObject(shotCoordinateInString,converter.convertGridStringInputToGridObject(gridCoordinateInString));
 		
 	}
+	
+	@Test(expected=InvalidInputException.class)
+	public void GIVEN_validGridInput_And_ShipShotCoordinateGreaterThanGrid_THEN_InvalidInputException_2() {
+		String gridCoordinateInString = "(510,789)";
+		String shotCoordinateInString = "(51,7890)";
+		converter.convertShotInStringToShotObject(shotCoordinateInString,converter.convertGridStringInputToGridObject(gridCoordinateInString));
+		
+	}
 }
