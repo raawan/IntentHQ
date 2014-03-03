@@ -79,7 +79,7 @@ public class TestClient {
 	@Test
 	public void GIVEN_shipShotInStringFormat_THEN_convertIntoShotObject() {
 		String shotCoordinateInString = "(510,79)";
-		Coordinate shot = converter.convertShotInStringToShotObject(shotCoordinateInString);
+		Coordinate shot = converter.convertShotInStringToShotObject(shotCoordinateInString,getStubbedGridObject());
 		assertEquals(510, shot.getX());
 		assertEquals(79, shot.getY());
 	}
@@ -87,7 +87,7 @@ public class TestClient {
 	@Test
 	public void GIVEN_shipShotInStringFormat_THEN_convertIntoShotObject_2() {
 		String shotCoordinateInString = "(50,9)";
-		Coordinate shot = converter.convertShotInStringToShotObject(shotCoordinateInString);
+		Coordinate shot = converter.convertShotInStringToShotObject(shotCoordinateInString,getStubbedGridObject());
 		assertEquals(50, shot.getX());
 		assertEquals(9, shot.getY());
 	}
@@ -95,7 +95,7 @@ public class TestClient {
 	@Test
 	public void GIVEN_shipShotInStringFormat_THEN_convertIntoShotObject_3() {
 		String shotCoordinateInString = "(5,0)";
-		Coordinate shot = converter.convertShotInStringToShotObject(shotCoordinateInString);
+		Coordinate shot = converter.convertShotInStringToShotObject(shotCoordinateInString,getStubbedGridObject());
 		assertEquals(5, shot.getX());
 		assertEquals(0, shot.getY());
 	}
@@ -202,13 +202,13 @@ public class TestClient {
 	@Test(expected=InvalidInputException.class)
 	public void GIVEN_ShipsShotCoordinateInInvalidStringFormat_THEN_InvalidInputException() {
 		String shotCoordinateInString = "(510,79";
-		converter.convertShotInStringToShotObject(shotCoordinateInString);
+		converter.convertShotInStringToShotObject(shotCoordinateInString,getStubbedGridObject());
 	}
 	
 	@Test(expected=InvalidInputException.class)
 	public void GIVEN_ShipsShotCoordinateInInvalidStringFormat_THEN_InvalidInputException_2() {
 		String shotCoordinateInString = "510,79";
-		converter.convertShotInStringToShotObject(shotCoordinateInString);
+		converter.convertShotInStringToShotObject(shotCoordinateInString,getStubbedGridObject());
 	}
 	
 	@Test(expected=InvalidInputException.class)
@@ -226,13 +226,13 @@ public class TestClient {
 	@Test(expected=InvalidInputException.class)
 	public void GIVEN_negativeXshotCoordinate_THEN_InvalidInputException() {
 		String gridCoordinateInString = "(-5,7)";
-		converter.convertShotInStringToShotObject(gridCoordinateInString);
+		converter.convertShotInStringToShotObject(gridCoordinateInString,getStubbedGridObject());
 	}
 	
 	@Test(expected=InvalidInputException.class)
 	public void GIVEN_negativeYshotCoordinate_THEN_InvalidInputException() {
 		String gridCoordinateInString = "(5,-7)";
-		converter.convertShotInStringToShotObject(gridCoordinateInString);
+		converter.convertShotInStringToShotObject(gridCoordinateInString,getStubbedGridObject());
 	}
 	
 	@Test(expected=InvalidInputException.class)
@@ -269,13 +269,13 @@ public class TestClient {
 	@Test(expected=InvalidInputException.class)
 	public void GIVEN_shotInputXOutOfMaxIntRange_THEN_InavlidInputException() {
 		String shotCoordinateInString = "(52134567898765435678987654356789,7)";
-		converter.convertShotInStringToShotObject(shotCoordinateInString);
+		converter.convertShotInStringToShotObject(shotCoordinateInString,getStubbedGridObject());
 	}
 	
 	@Test(expected=InvalidInputException.class)
 	public void GIVEN_shotInputYOutOfMaxIntRange_THEN_InavlidInputException() {
 		String shotCoordinateInString = "(7,52134567898765435678987654356789)";
-		converter.convertShotInStringToShotObject(shotCoordinateInString);
+		converter.convertShotInStringToShotObject(shotCoordinateInString,getStubbedGridObject());
 	}
 	
 	@Test(expected=InvalidInputException.class)
@@ -318,8 +318,8 @@ public class TestClient {
 	
 	@Test(expected=InvalidInputException.class)
 	public void GIVEN_validGridInput_And_ShipShotCoordinateGreaterThanGrid_THEN_InvalidInputException() {
-		String shotCoordinateInString = "(510,789)";
-		String shipMovementInString = "(11112,2,LLMM)";
+		String gridCoordinateInString = "(510,789)";
+		String shotCoordinateInString = "(511,789)";
 		converter.convertShotInStringToShotObject(shotCoordinateInString,converter.convertGridStringInputToGridObject(gridCoordinateInString));
 		
 	}

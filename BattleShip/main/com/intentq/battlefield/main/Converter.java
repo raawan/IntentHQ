@@ -41,12 +41,15 @@ public class Converter {
 	/*
 	 * Shot coordinate input format = (x,y)
 	 */
-	public Coordinate convertShotInStringToShotObject(String shotCoordinateInString) {
+	public Coordinate convertShotInStringToShotObject(String shotCoordinateInString, Grid grid) {
 		
 		if(!validateShotCoordinateInStringForFormat(shotCoordinateInString)) {
 			throwInvalidShotCoordinateFormatInputException();
 		} 
 		TwoValuedObject obj = convertTwoValuedInputStringToTwoValuedObject(shotCoordinateInString);
+		if(!Validator.validateCoordinatesWithinGridRange(obj.getX(), obj.getY(), grid)) {
+			throw new InvalidInputException("Coordinates input is out of Grid range");
+		}
 		return new Coordinate(obj.getX(), obj.getY());
 	}
 	
