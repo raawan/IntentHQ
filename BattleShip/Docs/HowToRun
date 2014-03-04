@@ -1,0 +1,14 @@
+A) Runnable JAR file from command prompt
+   1) change the permission to executable if not already executable
+   2) run java -jar battleship.jar 
+   
+B) Inside Eclipse
+    1) File -> Import -> General -> Existing Project into workspace -> select archive file -> select BattleShip.zip
+    2) Right click on imported project -> properties -> java build path -> soure -> add folder -> add folders api;client;test;docs -> ok
+    3) Right click on imported project -> properties -> java build path -> libraries -> add libraries -> add Junit -> ok
+    4) Open console view
+    5) run Main.java as Java application
+    6) Play the game in console
+    
+C) The code is written in core Java programming language. Although any version greater than Java 5 should make this code run, 
+	Java 7 is recommended.  

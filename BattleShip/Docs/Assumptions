@@ -1,0 +1,19 @@
+1) The input for ship positions is in format (1,2,N) (3,3,E) (4,5,W) etc
+    It is assumed that the order while updating these ships with their move sequence and shot coordinates will be entered in that order.
+    for example for above example input, first the move and shotcoordinate entries will be entered for ship (1,2,N) and then (3,3,E) 
+    and then (4,5,W) 
+   
+2) The position of the ship will remain same if
+	i) it is trying to move to another ships location
+	ii)it has next move sequence , which will make that ship fall off the grid
+	
+3) With every ship, the ship will move first and then take shot.
+
+4) It is assumed that the initial entries for ship position can contain same coordinates i.e., 
+	ship can be placed in the same location may be facing in a different direction.
+	 for ex: (1,2,N) (1,2,W) is considered valid input
+	 
+5) Security is not considered in this implementation
+
+6) Pure core programming language is used to create the code with no dependencies on any other libraries (except Junit)
+   A DI framework and a validator framework would make it easier to develope and test.

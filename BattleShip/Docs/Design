@@ -1,0 +1,8 @@
+1) An api kind of design is created where an api for playing battleship game is provided thru two interfaces namely 
+   IPlayGameApi.java and IConverterApi.java
+   
+   Variety of clients can be created which can access these apis to develop the game. For example, This code created a command line 
+   client using these apis.
+   
+2) State along with factory design pattern is used to implement each moves of a Ship
+

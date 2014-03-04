@@ -14,6 +14,7 @@ import com.intentq.battlefield.api.validator.Validator.ThreeValuedObject;
 
 public class ConverterApi implements IConverterApi {
 	
+	//toDo: validator should not be visible to clients
 	private Validator validator;
 	
 	public ConverterApi(Validator validator) {
