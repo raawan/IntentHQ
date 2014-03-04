@@ -7,6 +7,7 @@ import com.intentq.battlefield.api.ConverterApi;
 import com.intentq.battlefield.api.IPlayGameApi;
 import com.intentq.battlefield.api.PlayGameApi;
 import com.intentq.battlefield.api.validator.Validator;
+import static com.intentq.battlefield.client.Print.*;
 
 public class Main {
 
@@ -16,7 +17,7 @@ public class Main {
 			printInputFormatHelp();
 			commandLineClient.run();
 		} catch (Exception e) {
-			System.out.println("system is unavailable!");
+			print("system is unavailable!");
 		}
 	}
 	
@@ -28,10 +29,4 @@ public class Main {
 		return new BufferedReader(new InputStreamReader(System.in));
 	}
 	
-	private static void printInputFormatHelp() {
-		System.out.println("GRID input format==> (X,Y)");
-		System.out.println("Ship position==> (X1,Y1,O1)<SPACE>(X1,Y1,O1)<SPACE>.........<SPACE>(Xn,Yn,On)");
-		System.out.println("Ship Movement==> (X,Y,LLRRMMR)");
-		System.out.println("SHot coordinates==>(X,Y)");
-	}
 }

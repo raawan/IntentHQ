@@ -12,6 +12,7 @@ import com.intentq.battlefield.api.dto.Grid;
 import com.intentq.battlefield.api.dto.Position;
 import com.intentq.battlefield.api.dto.Ship;
 import com.intentq.battlefield.api.exception.InvalidInputException;
+import static com.intentq.battlefield.client.Print.print;
 
 public class CommandLineClient {
 	
@@ -36,8 +37,8 @@ public class CommandLineClient {
 				grid	 = inputConverter.convertGridStringInputToGridObject(gridCoordinate);
 				input = true;
 			} catch(InvalidInputException iie) {
-				System.out.println(iie.getMessage());
-				System.out.println("Please enter GRID input again");
+				print(iie.getMessage());
+				print("Please enter GRID input again");
 			}
 		}
 		return grid;
@@ -53,8 +54,8 @@ public class CommandLineClient {
 				positions	 = inputConverter.convertShipPositionStringInputToPositionObject(shipCoordinates,g);
 				input = true;
 			} catch(InvalidInputException iie) {
-				System.out.println(iie.getMessage());
-				System.out.println("Please enter Ships position input again");
+				print(iie.getMessage());
+				print("Please enter Ships position input again");
 				
 			}
 		}
@@ -70,8 +71,8 @@ public class CommandLineClient {
 				s.getAction().setNextMoves(inputConverter.convertShipMovementInStringToShipsListOfMove(shipMovements,g,s.getLifeStatus()));
 				input = true;
 			} catch(InvalidInputException iie) {
-				System.out.println(iie.getMessage());
-				System.out.println("Please enter Ships movement input again");
+				print(iie.getMessage());
+				print("Please enter Ships movement input again");
 			}
 		}		
 	}
@@ -85,8 +86,8 @@ public class CommandLineClient {
 				s.getAction().setShot(inputConverter.convertShotInStringToShotObject(shot,g));
 				input = true;
 			} catch(InvalidInputException iie) {
-				System.out.println(iie.getMessage());
-				System.out.println("Please enter Ships shot input again");
+				print(iie.getMessage());
+				print("Please enter Ships shot input again");
 			}
 		}		
 	}
@@ -102,7 +103,7 @@ public class CommandLineClient {
 			Grid grid= initialiseGrid();
 			playGame(grid,playGame);
 	      } catch (IOException ioe) {
-	         System.out.println("IO error trying to read your input!");
+	         print("IO error trying to read your input!");
 	         System.exit(1);
 	      } finally {
 	    	  if(cmdLineReader!=null) {
@@ -152,14 +153,14 @@ public class CommandLineClient {
 	
 	private boolean continueGame(Grid grid) throws IOException {
 		//ToDO: If one ship - messgae game won
-		System.out.println("press 1 to Continue game, any other key to exit");
+		print("press 1 to Continue game, any other key to exit");
 		String input = getNextInputFromCmdLine();
 		if(input.trim().equals("1")) {
-			System.out.println("Press next set of movement");
-			System.out.println("Ship NOT SANK are as follows:");
+			print("Press next set of movement");
+			print("Ship NOT SANK are as follows:");
 			for(Ship ship : grid.getShipsOnGrid()) {
 				if(ship.getLifeStatus().equals(LifeStatus.ALIVE))
-					System.out.println(ship.getCurrentPosition()+ " " + ship.getLifeStatus() );
+					print(ship.getCurrentPosition()+ " " + ship.getLifeStatus() );
 			}
 			return true;
 		}
@@ -168,7 +169,7 @@ public class CommandLineClient {
 	
 	private  void printOutput(List<Ship> finalShipStatusList) {
 		for(Ship sh : finalShipStatusList) {
-			System.out.println(sh);
+			print(sh);
 		}		
 	}
 	
